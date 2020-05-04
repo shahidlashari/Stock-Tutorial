@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Navbar from '../Navbar';
+import Navbar1 from '../Navbar';
 import Home from '../../containers/Home';
 import Dashboard from '../../containers/Dashboard';
 import Trending from '../../containers/Trending';
@@ -9,7 +9,7 @@ import SignUp from '../../containers/SignUp';
 
 const App = () => (
     <Router>
-      <Navbar/>
+      <Navbar1/>
       <Route exact path='/' component={Home}/>
       <Route exact path='/home' component={Home}/>
       <Route exact path='/dashboard' component={Dashboard}/>
