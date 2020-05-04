@@ -16,9 +16,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
+    "bootstrap": "^4.4.1",
     "express": "^4.17.1",
     "if-env": "^1.0.4",
-    "mysql2": "^2.1.0"
+    "mysql2": "^2.1.0",
+    "react-bootstrap": "^1.0.1"
   },
   "devDependencies": {
     "concurrently": "^5.2.0",

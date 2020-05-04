@@ -1,10 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import './style.css';
+
 const Navbar = () => (
   <div>
-    <Link to='/counter'>Counter</Link>
-    <Link to='/todos'>Todos</Link>
+    <Link to='/home'>Home</Link>
+    <Link to='/trending'>Trending</Link>
+    <Link to='/dashboard'>Dashboard</Link>
+    <Link to='/signup'>Signup/Login</Link>
   </div>
 );
 
