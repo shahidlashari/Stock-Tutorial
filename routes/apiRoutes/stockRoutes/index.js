@@ -4,6 +4,7 @@ const stocksController = require('../../../controllers/stocksController');
 
 // /api/stocks
 router.route('/')
+.get(stocksController.getAllStock);
 
 // /api/stocks/:id
 router.route('/:id')

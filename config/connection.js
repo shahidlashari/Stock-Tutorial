@@ -9,7 +9,7 @@ if (process.env.JAWSDB_URL) {
     host: 'localhost',
     user: 'root',
     password: 'password',
-    database: '',
+    database: 'stocksDB',
   }).promise();
 }
 
