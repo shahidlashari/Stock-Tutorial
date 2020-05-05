@@ -4,10 +4,12 @@ const stocksController = require('../../../controllers/stocksController');
 
 // /api/stocks
 router.route('/')
-.get(stocksController.getAllStock);
+.post(stocksController.postStock);
+// .get(stocksController.getStock);
+
 
 // /api/stocks/:id
-router.route('/:id')
+// router.route('/:id')
 
 module.exports = router;
 
