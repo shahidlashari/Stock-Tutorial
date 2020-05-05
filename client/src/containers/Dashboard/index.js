@@ -4,7 +4,7 @@ import './style.css';
 
 class Dashboard extends Component {
   state = {
-    dash: []
+    
   }
 
   render() {
