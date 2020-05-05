@@ -2,7 +2,7 @@
 
 // Add stocks
 const postStock = 'INSERT INTO stocks SET ?;';
-// const getStock = 'SELECT * FROM stocks;';
+const getStock = 'SELECT * FROM stocks;';
 
 // Deleting todos
 
@@ -10,5 +10,5 @@ const postStock = 'INSERT INTO stocks SET ?;';
 
 module.exports = {
   postStock,
-  
+  getStock,
 };
