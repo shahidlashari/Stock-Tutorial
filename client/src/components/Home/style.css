@@ -1,0 +1,68 @@
+.background {
+  height: 60vh;
+  background-image: url("../../images/jumbotron-background.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.jumbotron-text {
+  color: white;
+  text-align: center;
+  text-shadow: 2px 2px black;
+}
+
+.title {
+  font-size: 96px;
+  margin-bottom: 40px;
+}
+
+.subtitle-2 {
+  margin-top: 25px;
+}
+
+.card-title {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 769px) {
+  .title {
+    font-size: 72px;
+    margin-top: -20px;
+    margin-bottom: 20px;
+  }
+  
+  .subtitle-1 {
+    font-size: 30px;
+  }
+
+  .subtitle-2 {
+    font-size: 24px;
+    margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 578px) {
+  .title {
+    margin-top: 15px;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 490px) {
+  .title {
+    font-size: 48px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+  }
+  
+  .subtitle-1 {
+    font-size: 24px;
+  }
+
+  .subtitle-2 {
+    font-size: 16px;
+    margin-top: 20px;
+  }
+}

@@ -3,6 +3,10 @@ import './style.css';
 import { Container, Form, Button } from 'react-bootstrap';
 
 class SignUp extends Component {
+  state = {
+
+  }
+  
   render() {
     return (
       <Container>
