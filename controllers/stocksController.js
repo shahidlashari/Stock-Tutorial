@@ -25,7 +25,6 @@ const sellStock = async (symbol, price) => {
     if (e) throw e;
   }
 };
-
 module.exports = {
   getStock: async (req, res) => {
     try {
@@ -35,7 +34,6 @@ module.exports = {
       return res.status(403).json({ e });
     }
   },
-
   postStock: async (req, res) => {
     try {
       const { stockSymbol } = req.body;
@@ -55,7 +53,6 @@ module.exports = {
       res.status(403).json({ e });
     }
   },
-
   getApiStock: async (req, res) => {
     // let allArrays = [];
     try {
@@ -105,27 +102,26 @@ module.exports = {
       const price = data["Time Series (Daily)"][date]["1. open"];
       await buyStock(symbol, price);
       const [updatedStock] = await connection.query(stockQueries.getStock);
-      res.status(200).json(updatedStock);
-    } catch (e) {
-      res.status(403).json({ e });
-    }
-  },
-  
-  sellStocks: async (req, res) => {
-    const { stockSymbol } = req.body;
-    try {
-      const { data } = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&apikey=4EOUWW7RMTJ1A28A`);
-      const symbol = data["Meta Data"]["2. Symbol"];
-      const dateRaw = data["Meta Data"]["3. Last Refreshed"];
-      const dateArray = dateRaw.split(/(\s+)/);
-      const date = dateArray[0];
-      const price = data["Time Series (Daily)"][date]["4. close"];
-      sellStock(symbol, price);
-      const [updatedStock] = await connection.query(stockQueries.getStock);
-      res.status(200).json(updatedStock);
-    } catch (e) {
-      res.status(403).json({ e });
-    }
-  },
-};
+        res.status(200).json(updatedStock);
+      } catch (e) {
+        res.status(403).json({ e });
+      }
+    },
 
+      sellStocks: async (req, res) => {
+        const { stockSymbol } = req.body;
+        try {
+          const { data } = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&apikey=4EOUWW7RMTJ1A28A`);
+          const symbol = data["Meta Data"]["2. Symbol"];
+          const dateRaw = data["Meta Data"]["3. Last Refreshed"];
+          const dateArray = dateRaw.split(/(\s+)/);
+          const date = dateArray[0];
+          const price = data["Time Series (Daily)"][date]["4. close"];
+          sellStock(symbol, price);
+          const [updatedStock] = await connection.query(stockQueries.getStock);
+          res.status(200).json(updatedStock);
+        } catch (e) {
+          res.status(403).json({ e });
+        }
+      },
+ };

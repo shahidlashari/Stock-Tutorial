@@ -8,6 +8,7 @@ import './style.css';
 class Dashboard extends Component {
   state = {
     stocks: [],
+    stocks: [],
     dash: [],
     username: '',
     budget: '',
@@ -134,4 +135,5 @@ class Dashboard extends Component {
     </Row>
   </Container>
 </div>
+   
 

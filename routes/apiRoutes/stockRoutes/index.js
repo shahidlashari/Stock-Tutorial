@@ -9,15 +9,10 @@ router.route('/')
 .get(stocksController.getStock)
 .delete(stocksController.deleteStock)
 .get(stocksController.getApiStock);
-
 router.route('/buy')
 .patch(stocksController.buyStocks);
-
 router.route('/sell')
 .patch(stocksController.sellStocks);
-
 // /api/stocks/:id
 // router.route('/:id')
-
 module.exports = router;
-

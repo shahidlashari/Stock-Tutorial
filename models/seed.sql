@@ -14,8 +14,4 @@ CREATE TABLE stocksE(
     current decimal (10,2) NOT NULL,
     date_api varchar(20)  NOT NULL,
     PRIMARY KEY(symbol)
-);
-
-        
-         
-          
+);          
