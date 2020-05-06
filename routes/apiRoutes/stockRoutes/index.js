@@ -5,8 +5,9 @@ const stocksController = require('../../../controllers/stocksController');
 // /api/stocks
 router.route('/')
 .post(stocksController.postStock)
-.get(stocksController.getStock);
+// .get(stocksController.getStock)
 
+.get(stocksController.getApiStock);
 
 // /api/stocks/:id
 // router.route('/:id')
