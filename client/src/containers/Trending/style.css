@@ -1,0 +1,12 @@
+.card-deck,
+.card-display {
+  margin-top: 50px;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .stock-card,
+  .forex-card {
+    margin-bottom: 20px;
+  }
+}
