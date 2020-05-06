@@ -5,18 +5,14 @@ const stocksController = require('../../../controllers/stocksController');
 // /api/stocks
 router.route('/')
 .post(stocksController.postStock)
+// .get(stocksController.getStock)
 .get(stocksController.getStock)
-.delete(stocksController.deleteStock);
-
-
+.delete(stocksController.deleteStock)
+.get(stocksController.getApiStock);
 router.route('/buy')
 .patch(stocksController.buyStocks);
-
 router.route('/sell')
 .patch(stocksController.sellStocks);
-
 // /api/stocks/:id
 // router.route('/:id')
-
 module.exports = router;
-
