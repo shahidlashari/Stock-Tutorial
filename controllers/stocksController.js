@@ -3,9 +3,9 @@ const stockQueries = require('../models/stocks/stockQueries');
 const axios = require('axios');
 
 
-const saveDatabase = async (symbol, price, date_api,user_id) => {
+const saveDatabase = async (symbol, price, date_api) => {
   try{
-    await connection.query(stockQueries.postStock, {symbol, price, date_api, user_id});
+    await connection.query(stockQueries.postStock, {symbol, price, date_api});
   } catch (e){
     if (e) throw e;
   }
