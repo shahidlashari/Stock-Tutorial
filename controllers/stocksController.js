@@ -1,8 +1,6 @@
 const connection = require('../config/connection');
 const stockQueries = require('../models/stocks/stockQueries');
 const axios = require('axios');
-
-
 const saveDatabase = async (symbol, price, date_api) => {
   try{
     await connection.query(stockQueries.postStock, {symbol, price, date_api});
@@ -26,7 +24,6 @@ const sellStock = async(symbol, price) => {
     if(e) throw e;
   }
 };
-
 module.exports = {
   getStock: async (req, res) => {
     try {
@@ -40,6 +37,8 @@ module.exports = {
     try {
       const { stockSymbol } = req.body;
       const {data}  = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&apikey=4EOUWW7RMTJ1A28A`);
+      console.log(data);
+      console.log(Object.keys(data["Time Series (Daily)"]));
       const symbol = data["Meta Data"]["2. Symbol"];
       const dateRaw = data["Meta Data"][ "3. Last Refreshed"];
       const dateArray = dateRaw.split(/(\s+)/);
@@ -53,6 +52,33 @@ module.exports = {
         res.status(403).json({ e });
       }
     },
+  getApiStock: async (req, res) => {
+    // let allArrays = [];
+    try {
+      const { data } = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=BA&apikey=4EOUWW7RMTJ1A28A`);
+      console.log(data);
+      
+      // // data.bestMatches.forEach(item => {
+      //   let dataToSave = [
+      //     item['1. symbol'],
+      //     item['2. name'],
+      //     item['4. region'],
+      //     item['5. marketOpen'],
+      //     item['6. marketClose'],
+      //     item['7. timezone'],
+      //     item['8. currency']
+         
+      //   ]
+        // allArrays.push(dataToSave)
+        // allArrays.push(data)        
+        // console.log(allArrays);
+      // })
+        res.status(200).json(data);
+    } catch (e) {
+        res.status(403).json({ e });
+    }
+  }
+},
   deleteStock: async (req, res) => {
     const {stockSymbol} = req.body;
     try{
@@ -95,4 +121,4 @@ module.exports = {
       res.status(403).json({ e });
     }
   },
-  };
+ };
