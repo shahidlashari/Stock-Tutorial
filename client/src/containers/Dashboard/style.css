@@ -1,0 +1,8 @@
+.portfolio {
+  height: 60vh;
+  background-image: url("../../images/jumbotron-portfolio.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
