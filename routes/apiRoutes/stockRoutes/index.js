@@ -4,8 +4,8 @@ const stocksController = require('../../../controllers/stocksController');
 
 // /api/stocks
 router.route ('/show')
-.get(stocksController.getApiStock);
-// .get(stocksController.getStock);
+// .get(stocksController.getApiStock);
+.get(stocksController.getStock);
 // /api/stocks
 router.route('/')
 
