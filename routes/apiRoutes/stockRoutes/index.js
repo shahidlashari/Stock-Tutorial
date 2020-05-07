@@ -3,12 +3,16 @@ const router = require('express').Router();
 const stocksController = require('../../../controllers/stocksController');
 
 // /api/stocks
+router.route ('/show')
+.get(stocksController.getApiStock);
+// .get(stocksController.getStock);
+// /api/stocks
 router.route('/')
 .post(stocksController.postStock)
 // .get(stocksController.getStock)
-.get(stocksController.getStock)
-.delete(stocksController.deleteStock)
-.get(stocksController.getApiStock);
+// .get(stocksController.getStock)
+// .get(stocksController.getApiStock);
+
 router.route('/buy')
 .patch(stocksController.buyStocks);
 router.route('/sell')
