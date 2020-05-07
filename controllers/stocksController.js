@@ -27,6 +27,7 @@ const sellStock = async(symbol, sell_price, date_api, user_id) => {
   }
 };
 module.exports = {
+
   userInfo: async(req, res ) => {
     const {name} = req.body;
     const {email} = req.body;
@@ -71,8 +72,8 @@ module.exports = {
       res.status(200).json({ date, priceOpen, priceHigh, priceLow, priceClose});
     } catch (e) {
       res.status(403).json({ e });
-    }
-  },
+    },
+  
   postStock: async (req, res) => {
     try {
       const { stockSymbol } = req.body;
@@ -89,9 +90,20 @@ module.exports = {
       res.status(200).json({ symbol, price, date, user_id});
     } catch (e) {
 
-        res.status(403).json({ e });
-      }
-    },
+      res.status(403).json({ e });
+    }
+  },
+  // getApiStock: async (req, res) => {
+  //   const { q: inputSymbol } = req.query;
+  //   try {
+  //     const { data } = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${inputSymbol}&apikey=4EOUWW7RMTJ1A28A`);
+     
+  //       res.status(200).json(data);
+  //     } catch (e) {
+  //       res.status(403).json({ e });
+  //     }
+  //   },
+
   // deleteStock: async (req, res) => {
   //   const {stockSymbol} = req.body;
   //   try{

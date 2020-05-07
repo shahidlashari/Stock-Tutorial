@@ -3,6 +3,10 @@ const router = require('express').Router();
 const stocksController = require('../../../controllers/stocksController');
 
 // /api/stocks
+router.route ('/show')
+.get(stocksController.getApiStock);
+// .get(stocksController.getStock);
+// /api/stocks
 router.route('/')
 
 .post(stocksController.userInfo)
@@ -15,6 +19,7 @@ router.route('/search')
 router.route('/save')
 .post(stocksController.postStock)
 .get(stocksController.getSavedStock);
+
 
 router.route('/buy')
 .post(stocksController.buyStocks)
