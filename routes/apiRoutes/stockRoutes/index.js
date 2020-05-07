@@ -4,6 +4,7 @@ const stocksController = require('../../../controllers/stocksController');
 
 // /api/stocks
 router.route('/')
+
 .post(stocksController.userInfo)
 .get(stocksController.getUser);
 
@@ -44,6 +45,4 @@ router.route('/tradingBySymbol')
 
 // /api/stocks/:id
 // router.route('/:id')
-
 module.exports = router;
-

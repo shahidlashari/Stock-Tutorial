@@ -2,11 +2,11 @@ const connection = require('../config/connection');
 const stockQueries = require('../models/stocks/stockQueries');
 const axios = require('axios');
 
-
 const saveDatabase = async (symbol, price, date_api, user_id) => {
   try{
     await connection.query(stockQueries.saveStock, {symbol, price, date_api, user_id});
   } catch (e){
+
     if (e) throw e;
   }
 };
@@ -26,7 +26,6 @@ const sellStock = async(symbol, sell_price, date_api, user_id) => {
     if(e) throw e;
   }
 };
-
 module.exports = {
   userInfo: async(req, res ) => {
     const {name} = req.body;
@@ -80,7 +79,7 @@ module.exports = {
       const { user_id} = req.body;
       const {data}  = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&apikey=4EOUWW7RMTJ1A28A`);
       const symbol = data["Meta Data"]["2. Symbol"];
-      const dateRaw = data["Meta Data"][ "3. Last Refreshed"];
+      const dateRaw = data["Meta Data"]["3. Last Refreshed"];
       const dateArray = dateRaw.split(/(\s+)/);
       const date = dateArray[0];
       const price = data["Time Series (Daily)"][date]["1. open"];
@@ -89,6 +88,7 @@ module.exports = {
       saveDatabase(symbol, price, date, user_id);
       res.status(200).json({ symbol, price, date, user_id});
     } catch (e) {
+
         res.status(403).json({ e });
       }
     },
@@ -102,13 +102,14 @@ module.exports = {
   //     if (e) throw e;
   //   }
   // },
+
   buyStocks: async (req, res) => {
     const { stockSymbol } = req.body;
     const { user_id} = req.body;
     try {
-      const {data}  = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&apikey=4EOUWW7RMTJ1A28A`);
+      const { data } = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&apikey=4EOUWW7RMTJ1A28A`);
       const symbol = data["Meta Data"]["2. Symbol"];
-      const dateRaw = data["Meta Data"][ "3. Last Refreshed"];
+      const dateRaw = data["Meta Data"]["3. Last Refreshed"];
       const dateArray = dateRaw.split(/(\s+)/);
       const date = dateArray[0];
       const price = data["Time Series (Daily)"][date]["1. open"];
