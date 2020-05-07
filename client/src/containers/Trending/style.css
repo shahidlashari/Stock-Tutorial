@@ -4,6 +4,18 @@
   text-align: center;
 }
 
+.card-chart-display {
+  margin: 0 auto;
+  margin-top: 50px;
+  /* width: 730px; */
+  height: 500px;
+}
+
+.card-text-display {
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
 @media screen and (max-width: 768px) {
   .stock-card,
   .forex-card {
