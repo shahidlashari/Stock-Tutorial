@@ -4,6 +4,9 @@ import { Container, Form, Button } from 'react-bootstrap';
 
 class SignUp extends Component {
   state = {
+    name: '',
+    email: '',
+    password: ''
 
   }
   
@@ -21,6 +24,13 @@ class SignUp extends Component {
             <Form.Control type="email" placeholder="Enter email" />
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.
+          </Form.Text>
+          </Form.Group>
+          <Form.Group controlId="formPassord">
+          <Form.Label>Passord</Form.Label>
+            <Form.Control type="password" placeholder="Type your secret password" />
+            <Form.Text className="text-muted">
+              Your password should be at least 6 characters and not more than 15.
           </Form.Text>
           </Form.Group>
           <Form.Group controlId="formBasicCheckbox">

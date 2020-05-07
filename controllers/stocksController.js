@@ -3,84 +3,134 @@ const stockQueries = require('../models/stocks/stockQueries');
 const axios = require('axios');
 
 
-const saveDatabase = async (symbol, price, date_api) => {
+const saveDatabase = async (symbol, price, date_api, user_id) => {
   try{
-    await connection.query(stockQueries.postStock, {symbol, price, date_api});
+    await connection.query(stockQueries.saveStock, {symbol, price, date_api, user_id});
   } catch (e){
     if (e) throw e;
   }
 };
 
-const buyStock = async (symbol, price) => {
+const buyStock = async (symbol, purchase_price, date_api, user_id) => {
   try{
-    await connection.query(stockQueries.buyStock, [price, symbol]);
+    await connection.query(stockQueries.buyStocks, {symbol, purchase_price, date_api, user_id});
   }catch(e){
-    if(e) throw e;
+    console.log(error);
   }
 };
 
-const sellStock = async(symbol, price) => {
+const sellStock = async(symbol, sell_price, date_api, user_id) => {
   try{
-    await connection.query(stockQueries.sellStock, [price, symbol]);
+    await connection.query(stockQueries.sellStocks, {symbol, sell_price, date_api, user_id});
   }catch(e){
     if(e) throw e;
   }
 };
 
 module.exports = {
-  getStock: async (req, res) => {
+  userInfo: async(req, res ) => {
+    const {name} = req.body;
+    const {email} = req.body;
+    const {password} = req.body;
+    try{
+      await connection.query(stockQueries.userInfo, {name, email, password});
+      return res.status(200).json({name, email, password});
+    } catch (e){
+      if (e) throw e;
+    }
+  },
+  getUser: async (req, res) => {
+    const {name} = req.body;
     try {
-      const [stocks] = await connection.query(stockQueries.getStock);
+      const [user] = await connection.query(stockQueries.getUserInfo, name);
+      return res.status(200).json(user);
+    } catch (e) {
+      return res.status(403).json({ e });
+    }
+  },
+  getSavedStock: async (req, res) => {
+    const { user_id } = req.body;
+    try {
+      const [stocks] = await connection.query(stockQueries.getSavedStock, user_id);
       return res.status(200).json(stocks);
     } catch (e) {
       return res.status(403).json({ e });
     }
   },
-  postStock: async (req, res) => {
+  getStock: async (req, res) => {
+    console.log(req.query);
+    const { q: stockSymbol } = req.query;
     try {
-      const { stockSymbol } = req.body;
       const {data}  = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&apikey=4EOUWW7RMTJ1A28A`);
-      const symbol = data["Meta Data"]["2. Symbol"];
       const dateRaw = data["Meta Data"][ "3. Last Refreshed"];
       const dateArray = dateRaw.split(/(\s+)/);
       const date = dateArray[0];
-      const price = data["Time Series (Daily)"][date]["1. open"];
-      console.log(date);
-      // console.log(object.keys(data["Time Series (Daily)"]));
-      saveDatabase(symbol, price, date);
-      res.status(200).json({ symbol, price, date });
-    } catch (e) {
-        res.status(403).json({ e });
-      }
-    },
-  deleteStock: async (req, res) => {
-    const {stockSymbol} = req.body;
-    try{
-      await connection.query(stockQueries.deleteStock, stockSymbol);
-      const [stock] = await connection.query(stockQueries.getStock);
-      res.status(200).json(stock);
-    } catch (e){
-      if (e) throw e;
-    }
-  },
-  buyStocks: async (req, res) => {
-    const { stockSymbol } = req.body;
-    try {
-      const {data}  = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&apikey=4EOUWW7RMTJ1A28A`);
-      const symbol = data["Meta Data"]["2. Symbol"];
-      const dateRaw = data["Meta Data"][ "3. Last Refreshed"];
-      const dateArray = dateRaw.split(/(\s+)/);
-      const date = dateArray[0];
-      const price = data["Time Series (Daily)"][date]["1. open"];
-      await buyStock(symbol, price);
-      const [updatedStock] = await connection.query(stockQueries.getStock);
-      res.status(200).json(updatedStock);
+      const priceOpen = data["Time Series (Daily)"][date]["1. open"];
+      const priceHigh = data["Time Series (Daily)"][date]["2. high"];
+      const priceLow = data["Time Series (Daily)"][date]["3. low"];
+      const priceClose= data["Time Series (Daily)"][date]["4. close"];
+      res.status(200).json({ date, priceOpen, priceHigh, priceLow, priceClose});
     } catch (e) {
       res.status(403).json({ e });
     }
   },
+  postStock: async (req, res) => {
+    try {
+      const { stockSymbol } = req.body;
+      const { user_id} = req.body;
+      const {data}  = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&apikey=4EOUWW7RMTJ1A28A`);
+      const symbol = data["Meta Data"]["2. Symbol"];
+      const dateRaw = data["Meta Data"][ "3. Last Refreshed"];
+      const dateArray = dateRaw.split(/(\s+)/);
+      const date = dateArray[0];
+      const price = data["Time Series (Daily)"][date]["1. open"];
+      // console.log(date);
+      // console.log(object.keys(data["Time Series (Daily)"]));
+      saveDatabase(symbol, price, date, user_id);
+      res.status(200).json({ symbol, price, date, user_id});
+    } catch (e) {
+        res.status(403).json({ e });
+      }
+    },
+  // deleteStock: async (req, res) => {
+  //   const {stockSymbol} = req.body;
+  //   try{
+  //     await connection.query(stockQueries.deleteStock, stockSymbol);
+  //     const [stock] = await connection.query(stockQueries.getStock);
+  //     res.status(200).json(stock);
+  //   } catch (e){
+  //     if (e) throw e;
+  //   }
+  // },
+  buyStocks: async (req, res) => {
+    const { stockSymbol } = req.body;
+    const { user_id} = req.body;
+    try {
+      const {data}  = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&apikey=4EOUWW7RMTJ1A28A`);
+      const symbol = data["Meta Data"]["2. Symbol"];
+      const dateRaw = data["Meta Data"][ "3. Last Refreshed"];
+      const dateArray = dateRaw.split(/(\s+)/);
+      const date = dateArray[0];
+      const price = data["Time Series (Daily)"][date]["1. open"];
+      buyStock(symbol, price, date, user_id);
+      // const [updatedStock] = await connection.query(stockQueries.getOwnedStocks);
+      res.status(200).json({ symbol, price, date, user_id});
+    } catch (e) {
+      res.status(403).json({ e });
+    }
+  },
+  getOwnedStock: async (req, res) => {
+    const { user_id } = req.body;
+    try {
+      const [stocks] = await connection.query(stockQueries.getOwnedStocks, user_id);
+      return res.status(200).json(stocks);
+    } catch (e) {
+      return res.status(403).json({ e });
+    }
+  },
   sellStocks: async (req, res) => {
     const { stockSymbol } = req.body;
+    const { user_id } = req.body;
     try {
       const {data}  = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&apikey=4EOUWW7RMTJ1A28A`);
       const symbol = data["Meta Data"]["2. Symbol"];
@@ -88,11 +138,39 @@ module.exports = {
       const dateArray = dateRaw.split(/(\s+)/);
       const date = dateArray[0];
       const price = data["Time Series (Daily)"][date]["4. close"];
-      sellStock(symbol, price);
-      const [updatedStock] = await connection.query(stockQueries.getStock);
-      res.status(200).json(updatedStock);
+      sellStock(symbol, price, date, user_id);
+      // const [updatedStock] = await connection.query(stockQueries.getStock);
+      res.status(200).json({ symbol, price, date, user_id});
     } catch (e) {
       res.status(403).json({ e });
+    }
+  },
+  getSoldStock: async (req, res) => {
+    const { user_id } = req.body;
+    try {
+      const [stocks] = await connection.query(stockQueries.getSoldStocks, user_id);
+      return res.status(200).json(stocks);
+    } catch (e) {
+      return res.status(403).json({ e });
+    }
+  },
+  getTrading: async (req, res) => {
+    const { user_id } = req.body;
+    try {
+      const [stocks] = await connection.query(stockQueries.tradingHistoryByUser, user_id);
+      return res.status(200).json(stocks);
+    } catch (e) {
+      return res.status(403).json({ e });
+    }
+  },
+  getTradingBySymbol: async (req, res) => {
+    const { stockSymbol } = req.body;
+    const { user_id } = req.body;
+    try {
+      const [stocks] = await connection.query(stockQueries.tradingHistoryBySymbol, [stockSymbol, user_id]);
+      return res.status(200).json(stocks);
+    } catch (e) {
+      return res.status(403).json({ e });
     }
   },
   };

@@ -4,16 +4,43 @@ const stocksController = require('../../../controllers/stocksController');
 
 // /api/stocks
 router.route('/')
-.post(stocksController.postStock)
-.get(stocksController.getStock)
-.delete(stocksController.deleteStock);
+.post(stocksController.userInfo)
+.get(stocksController.getUser);
 
+//http://localhost:3001/api/stocks/search?q=TSLA is the query route
+router.route('/search')
+.get(stocksController.getStock);
+
+router.route('/save')
+.post(stocksController.postStock)
+.get(stocksController.getSavedStock);
 
 router.route('/buy')
-.patch(stocksController.buyStocks);
+.post(stocksController.buyStocks)
+.get(stocksController.getOwnedStock);
 
 router.route('/sell')
-.patch(stocksController.sellStocks);
+.post(stocksController.sellStocks)
+.get(stocksController.getSoldStock);
+
+router.route('/trading')
+.get(stocksController.getTrading);
+
+router.route('/tradingBySymbol')
+.get(stocksController.getTradingBySymbol);
+
+
+// router.route('/save')
+// .post(stocksController.postStock)
+// .get(stocksController.getStock)
+// .delete(stocksController.deleteStock);
+
+
+// router.route('/buy')
+// .patch(stocksController.buyStocks);
+
+// router.route('/sell')
+// .patch(stocksController.sellStocks);
 
 // /api/stocks/:id
 // router.route('/:id')
