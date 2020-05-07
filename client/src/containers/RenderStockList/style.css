@@ -1,7 +1,7 @@
-.card {
+.dashboard-stock-display {
   background: rgb(5, 133, 165);
   border-radius: 2px;
-  height: 200px;
+  height: 330px;
   margin: .5rem;
   position: relative;
   width: 325px;
@@ -9,27 +9,27 @@
   text-align: left;
 }
 
-.card > .img-container {
+/* .img-container {
   height: 60%;
   overflow: hidden;
   text-align: center;
   background:#6CADDC;
 }
-.card > .img-container > img {
+.img-container > img {
   width: 60%
-}
+} */
 
-.card > .content {
+.dashboard-stock-content {
   padding-left: .5rem;
   padding-right: .5rem;
   font-size: 15px;
 }
 
-.card > .content > ul {
+.dashboard-stock-content > ul {
   list-style-type: none;
 }
 
-.card > .content > ul > li {
+.dashboard-stock-content > ul > li {
   margin-top: 10px;
 }
 

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Container, Row, Col, Form, Card, FormControl } from 'react-bootstrap';
+import RenderStockList from '../RenderStockList';
+import Wrapper from '../../components/Wrapper';
 import axios from 'axios';
 import './style.css';
 
@@ -7,7 +9,7 @@ class Dashboard extends Component {
   state = {
     stocks: [],
     priceStock: [],
-    stockInput:''
+    stockInput: ''
     // dash: [],
     // username: '',
     // budget: '',
@@ -27,38 +29,7 @@ class Dashboard extends Component {
   //     console.log(e);
   //   }
   // }
-  handleStockInputChange = event => {
-    this.setState({ stockInput: event.target.value });
-  }
-  handleStockSearchSubmit = async event => {
-    event.preventDefault();
-    try {
-      const inputSymbol = this.state.stockInput
-      console.log(inputSymbol);
-      // const { data } = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${inputSymbol}&apikey=4EOUWW7RMTJ1A28A`);
-      const { data } = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${inputSymbol}&apikey=MN608K5DXF6IBFAL`)
-      console.log(data);
-      // let stocks = [...this.state.stocks, ...bestMatches];
-      // console.log(bestMatches);
-      // this.setState({ stocks });
-    } catch (err) {
-      console.log(err)
-    }
-  }
-  // handleSubmit = async symbol => {
-  //   // console.log(symbol);
-  //   try {
-  //     const { data } = await axios.get(`/api/stocks/show?q=${symbol}`);
-  //     // const { data } = await axios.get(`/api/stocks/show${symbol}`);
-  //     // console.log(data);
-  //     const priceStock = [...this.state.priceStock, data];
-  //     // this.setState({ priceStock});
-  //     this.setState({ priceStock: [] });
-  //     console.log(priceStock);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
+
   renderStockListItems = () => {
     if (this.state.stocks.length === 0) {
       return <h1>No Stock yet</h1>;
@@ -68,7 +39,7 @@ class Dashboard extends Component {
       
         return <RenderStockList
 
-          key={stock["1. symbol"]}
+          // key={stock["1. symbol"]}
           symbol={stock["1. symbol"]}
           name={stock["2. name"]}
           region={stock["4. region"]}
@@ -82,6 +53,28 @@ class Dashboard extends Component {
 
     }
   }
+
+  handleStockInputChange = event => {
+    this.setState({ stockInput: event.target.value });
+  }
+
+  handleStockSearchSubmit = async event => {
+    event.preventDefault();
+    try {
+      const inputSymbol = this.state.stockInput
+      console.log(inputSymbol);
+      const { data: {bestMatches} } = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${inputSymbol}&apikey=4EOUWW7RMTJ1A28A`);
+      // console.log(data);
+      let stocks = [...this.state.stocks, ...bestMatches];
+      console.log(bestMatches);
+
+      this.setState({ stocks });
+      // renderStockListItems()
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   render() {
 
     // console.log(this.state.stocks)
@@ -130,7 +123,8 @@ class Dashboard extends Component {
                         type="text"
                         placeholder="Search"
                         className="mr-sm-2"
-                        onChange={this.handleInputChange}
+                        value={this.state.stockInput}
+                        onChange={this.handleStockInputChange}
                       />
                       <Button variant="outline-info" onClick={ (e) => this.handleStockSearchSubmit(e) }>Search</Button>
                     </Form>
