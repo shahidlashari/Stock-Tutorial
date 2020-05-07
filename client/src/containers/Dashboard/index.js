@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import RenderStockList from '../RenderStockList/index';
-import Wrapper from '../../components/Wrapper';
-import { Button, Container, Row, Col, Form, Card, FormControl, Jumbotron } from 'react-bootstrap';
+import { Button, Container, Row, Col, Form, Card, FormControl } from 'react-bootstrap';
 import axios from 'axios';
 import './style.css';
 

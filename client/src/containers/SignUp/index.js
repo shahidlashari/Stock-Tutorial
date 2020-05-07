@@ -6,6 +6,7 @@ import { Container, Form, Button } from 'react-bootstrap';
 
 class SignUp extends Component {
   state = {
+
    
         username: '',
         password: '',
@@ -59,6 +60,7 @@ class SignUp extends Component {
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" placeholder="Enter your password" onChange={(event, newValue) => this.setState({ password: newValue })} />
             <Form.Text className="text-muted">
+
               Password length must be at laest 6 characters.
             </Form.Text>
             </Form.Group>
@@ -74,6 +76,7 @@ class SignUp extends Component {
             </Form.Group>
             <Button variant="primary" type="submit" onClick={(event) => this.handleClick(event)}>
               Submit
+
           </Button>
         </Form>
       </Container>
