@@ -12,6 +12,7 @@ class Dashboard extends Component {
     priceStock: [],
     stockInput: '',
     currentUser: {},
+    savedStock: {}
     // dash: [],
     // username: '',
     // budget: '',
@@ -48,7 +49,7 @@ class Dashboard extends Component {
 
   renderStockListItems = () => {
     if (this.state.stocks.length === 0) {
-      return <h1>No Stock yet</h1>;
+      return <h4>No Stock yet</h4>;
     } else {
       return this.state.stocks.map((stock) => {
         // console.log(stock);
@@ -81,8 +82,8 @@ class Dashboard extends Component {
       // console.log(data);
       const stocks = [...this.state.stocks, ...bestMatches];
       // console.log(bestMatches);
-
       this.setState({ stocks });
+      this.setState({ stocks, stockInput: '' })
       // renderStockListItems()
     } catch (err) {
       console.log(err);
@@ -93,9 +94,6 @@ class Dashboard extends Component {
     // console.log(this.state.stocks)
     return (
       <Wrapper>
-        <h1 className="title">Stock List</h1>
-        {this.renderStockListItems()}
-
         <Container fluid>
           <Row>
             <Col md={4}>
@@ -118,7 +116,7 @@ class Dashboard extends Component {
               <Card bg="light" border="primary">
                 <Card.Body>
                   <Card.Title>Stock Watchlist</Card.Title>
-                  <Card.Text>
+                  <Card.Text key="savedStocks">
                     This shows your saved stocks!
                   </Card.Text>
                 </Card.Body>
@@ -140,13 +138,8 @@ class Dashboard extends Component {
                     <Button variant="outline-info" onClick={(e) => this.handleStockSearchSubmit(e)}>Search</Button>
                   </Form>
                   <br />
-                </Card.Body>
-              </Card>
-              <Card border="dark">
-                <Card.Body>
-                  <Card.Title>Stock Buy/Sell</Card.Title>
-                  <Button variant="outline-success">Buy</Button>
-                  <Button variant="outline-danger">Sell</Button>
+                  <h3>Stock List</h3>
+                  {this.renderStockListItems()}
                 </Card.Body>
               </Card>
             </Col>

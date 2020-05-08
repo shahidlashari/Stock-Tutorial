@@ -105,18 +105,18 @@ module.exports = {
       res.status(403).json({ e });
     }
   },
-  // getApiStock: async (req, res) => {
-  //   const { q: inputSymbol } = req.query;
-  //   try {
-  //     const { data } = await axios.get(
-  //       `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${inputSymbol}&apikey=4EOUWW7RMTJ1A28A`
-  //     );
+  getApiStock: async (req, res) => {
+    const { q: inputSymbol } = req.query;
+    try {
+      const { data } = await axios.get(
+        `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${inputSymbol}&apikey=4EOUWW7RMTJ1A28A`
+      );
 
-  //     res.status(200).json(data);
-  //   } catch (e) {
-  //     res.status(403).json({ e });
-  //   }
-  // },
+      res.status(200).json(data);
+    } catch (e) {
+      res.status(403).json({ e });
+    }
+  },
 
   buyStocks: async (req, res) => {
     const { stockSymbol } = req.body;
