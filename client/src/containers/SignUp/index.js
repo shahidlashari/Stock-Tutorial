@@ -1,6 +1,6 @@
 import React, { Component } from "react";
+import {withRouter} from 'react-router-dom';
 import axios from "axios";
-// import UploadScreen from 'UploadScreen';
 import "./style.css";
 import { Container, Form, Button } from "react-bootstrap";
 
@@ -10,37 +10,20 @@ class SignUp extends Component {
     password: "",
     email: "",
   };
-  handleClick(event) {
-    var apiBaseUrl = "http://localhost:3001/api/user";
-    var self = this;
-    var payload = {
-      email: this.state.email,
-      username: this.state.username,
-      password: this.state.password,
+  async handleClick(event) {
+    event.preventDefault();
+    const {data}= await axios.post('/api/users/signup', {username: this.state.username, password: this.state.password, email: this.state.email});
+    console.log(data);
+    this.props.history.push({
+      pathname: '/dashboard',
+      state: {newUser:data}
+
+    })
     };
-    axios
-      .post(apiBaseUrl + "login", payload)
-      .then(function (response) {
-        console.log(response);
-        if (response.data.code === 200) {
-          console.log("Login successfull");
-          // var uploadScreen = [];
-          // uploadScreen.push(<UploadScreen appContext={self.props.appContext} />)
-          self.props.appContext.setState({ loginPage: [] });
-        } else if (response.data.code === 204) {
-          console.log("Username does not match");
-          alert("Username does not match");
-        } else if (response.data.code === 204) {
-          console.log("Password do not match");
-          alert("Password do not match");
-        } else {
-          console.log("Email does not exists");
-          alert("Email does not exists");
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+   
+  handleInputChange = event => {
+    const { value, name } = event.target;
+    this.setState({ [name]: value });
   }
   render() {
     return (
@@ -50,32 +33,35 @@ class SignUp extends Component {
           <Form.Group controlId="formBasicUsername">
             <Form.Label>Username</Form.Label>
             <Form.Control
-              type="username"
+              name= 'username'
+              type="text"
               placeholder="Create your username"
-              onChange={(event, newValue) =>
-                this.setState({ username: newValue })
-              }
+              value={this.state.username}
+              onChange={this.handleInputChange} 
             />
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
+              name= 'password'
               type="password"
               placeholder="Enter your password"
-              onChange={(event, newValue) =>
-                this.setState({ password: newValue })
-              }
+              value={this.state.password}
+              onChange={this.handleInputChange} 
+              
             />
             <Form.Text className="text-muted">
-              Password length must be at laest 6 characters.
+              Password length does not matter.
             </Form.Text>
           </Form.Group>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
+               name= 'email'
               type="email"
               placeholder="Enter email"
-              onChange={(event, newValue) => this.setState({ email: newValue })}
+              value={this.state.email}
+              onChange={this.handleInputChange} 
             />
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.
@@ -94,4 +80,4 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+export default withRouter(SignUp);

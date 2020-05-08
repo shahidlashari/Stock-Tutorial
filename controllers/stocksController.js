@@ -27,26 +27,32 @@ const sellStock = async(symbol, sell_price, date_api, user_id) => {
   }
 };
 module.exports = {
+
   userInfo: async (req, res) => {
-    const { name } = req.body;
+    const { username } = req.body;
     const { email } = req.body;
     const { password } = req.body;
+    
     try {
-      await connection.query(stockQueries.userInfo, { name, email, password });
-      return res.status(200).json({ name, email, password });
+     const insertedUser= await connection.query(stockQueries.userInfo, {username, email, password});
+     console.log(insertedUser);
+    //  const {newUser} = await connection.query(stockQueries.getUserInfo, insertedUser.id);
+    //   console.log(newUser);
+     //get newUser by insertedUser id from DB and res.json with newUser
+      return res.status(200).json(insertedUser);
     } catch (e) {
       if (e) throw e;
     }
   },
-  getUser: async (req, res) => {
-    const { name } = req.body;
-    try {
-      const [user] = await connection.query(stockQueries.getUserInfo, name);
-      return res.status(200).json(user);
-    } catch (e) {
-      return res.status(403).json({ e });
-    }
-  },
+  // getUser: async (req, res) => {
+  //   const { id } = req.params;
+  //   try {
+  //     const [newUser] = await connection.query(stockQueries.getUserInfo, id);
+  //     return res.status(200).json(newUser);
+  //   } catch (e) {
+  //     return res.status(403).json({ e });
+  //   }
+  // },
   getSavedStock: async (req, res) => {
     const { user_id } = req.body;
     try {
@@ -93,8 +99,6 @@ module.exports = {
       const dateArray = dateRaw.split(/(\s+)/);
       const date = dateArray[0];
       const price = data["Time Series (Daily)"][date]["1. open"];
-      // console.log(date);
-      // console.log(object.keys(data["Time Series (Daily)"]));
       saveDatabase(symbol, price, date, user_id);
       res.status(200).json({ symbol, price, date, user_id });
     } catch (e) {
@@ -111,17 +115,6 @@ module.exports = {
   //     res.status(200).json(data);
   //   } catch (e) {
   //     res.status(403).json({ e });
-  //   }
-  // },
-
-  // deleteStock: async (req, res) => {
-  //   const {stockSymbol} = req.body;
-  //   try{
-  //     await connection.query(stockQueries.deleteStock, stockSymbol);
-  //     const [stock] = await connection.query(stockQueries.getStock);
-  //     res.status(200).json(stock);
-  //   } catch (e){
-  //     if (e) throw e;
   //   }
   // },
 
