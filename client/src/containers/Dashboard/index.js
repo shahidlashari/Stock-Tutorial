@@ -1,139 +1,167 @@
 import React, { Component } from 'react';
-import RenderStockList from '../RenderStockList/index';
+import { withRouter } from 'react-router-dom';
+import { Button, Container, Row, Col, Form, Card, FormControl } from 'react-bootstrap';
+import RenderStockList from '../RenderStockList';
 import Wrapper from '../../components/Wrapper';
-import { Button, Container, Row, Col, Form, Card, FormControl, Jumbotron } from 'react-bootstrap';
 import axios from 'axios';
 import './style.css';
 
 class Dashboard extends Component {
   state = {
     stocks: [],
-    stocks: [],
-    dash: [],
-    username: '',
-    budget: '',
-    stocksearch: ''
+    priceStock: [],
+    stockInput: '',
+    currentUser: {}
+    // dash: [],
+    // username: '',
+    // budget: '',
+    // stocksearch: ''
   }
-  async componentDidMount() {
-    // console.log("Inside componentDidMount");
-    try {
-      const { data } = await axios.get('/api/stocks');
-      let stocks = [...this.state.stocks, data];
-      this.setState({ stocks });
-      // console.log(stocks);
-    } catch (e) {
-      console.log(e);
-    }
+  componentDidMount() {
+    console.log(this.props.history);
+
+    const newUser = this.props.history.location.state && this.props.history.location.state.newUser
+      ? this.props.history.location.state.newUser
+      : undefined
+
+    this.setState({
+      currentUser: newUser
+    })
+    // console.log(newUser);
   }
 
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-  };
+  // async componentDidMount() {
+  //   console.log(inputSymbol);
 
-  handleSubmit = async event => {
-    event.preventDefault();
-    try {
-      const { data } = await axios.post('/api/stocks');
-      const stocks = [...this.state.stocks, data];
-      this.setState({ stocks });
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  //   try {
+  //     const inputSymbol = this.state.stockInput
+  //     const { data: { bestMatches } } = await axios.get('/api/stocks');
+  //     let stocks = [...this.state.stocks, ...bestMatches];
+  //     // console.log(bestMatches);
+  //     this.setState({ stocks });
+  //     // console.log(stocks);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }
+
   renderStockListItems = () => {
     if (this.state.stocks.length === 0) {
       return <h1>No Stock yet</h1>;
     } else {
       return this.state.stocks.map(stock => {
         // console.log(stock);
-        // console.log(stock.bestMatches[0]["1. symbol"]);
-        // // console.log(stock.bestMatches["1. symbol"]);
-        return (<RenderStockList
-          key={stock.bestMatches[0]["1. symbol"]}
 
-          symbol={stock.bestMatches[0]["1. symbol"]}
-          name={stock.bestMatches[0]["2. name"]}
-          region={stock.bestMatches[0]["4. region"]}
-          marketopen={stock.bestMatches[0]["5. marketOpen"]}
-          marketclose={stock.bestMatches[0]["6. marketClose"]}
-          timezone={stock.bestMatches[0]["7. timezone"]}
-          currency={stock.bestMatches[0]["8. currency"]} />
-        )
-      });
+        return <RenderStockList
+
+          // key={stock["1. symbol"]}
+          symbol={stock["1. symbol"]}
+          name={stock["2. name"]}
+          region={stock["4. region"]}
+          matchscore={stock["9. matchScore"]}
+          currency={stock["8. currency"]}
+          handleSubmit={this.handleSubmit}
+        // openprice={this.state.priceStock[5]}
+        />
+
+      })
+
     }
   }
+
+  handleStockInputChange = event => {
+    this.setState({ stockInput: event.target.value });
+  }
+
+  handleStockSearchSubmit = async event => {
+    event.preventDefault();
+    try {
+      const inputSymbol = this.state.stockInput
+      // console.log(inputSymbol);
+      const { data: { bestMatches } } = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${inputSymbol}&apikey=4EOUWW7RMTJ1A28A`);
+      // console.log(data);
+      let stocks = [...this.state.stocks, ...bestMatches];
+      // console.log(bestMatches);
+
+      this.setState({ stocks });
+      // renderStockListItems()
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   render() {
 
+    // console.log(this.state.stocks)
     return (
+
+
       <Wrapper>
         <h1 className="title">Stock List</h1>
         {this.renderStockListItems()}
-      </Wrapper>
-    )};
-  };
-  export default Dashboard;
-<div>
-  <Container fluid>
-    <Row>
-      <Col md={4}>
-        <Card bg="light" border="primary">
-          <Card.Body>
-            <Card.Title>Username: {this.state.username}</Card.Title>
-            <Card.Text>
-              This shows your username and your inputted user information!
-                  </Card.Text>
-          </Card.Body>
-        </Card>
-        <Card bg="light" border="primary">
-          <Card.Body>
-            <Card.Title>
-              User's Budget: ${this.state.budget}
-            </Card.Title>
-            <Card.Text>This shows the user's budget for trading!</Card.Text>
-          </Card.Body>
-        </Card>
-        <Card bg="light" border="primary">
-          <Card.Body>
-            <Card.Title>Stock Watchlist</Card.Title>
-            <Card.Text>
-              This shows your saved stocks!
-                  </Card.Text>
-          </Card.Body>
-        </Card>
-      </Col>
-      <br />
-      <Col md={8}>
-        <Card border="dark">
-          <Card.Header>Stock Search and Charts</Card.Header>
-          <Card.Body>
-            <Card.Title>Stock Search</Card.Title>
-            <Form inline>
-              <FormControl
-                type="text"
-                placeholder="Search"
-                className="mr-sm-2"
-                onChange={this.handleInputChange}
-              />
-              <Button variant="outline-info" onSubmit={this.handleSubmit}>Search</Button>
-            </Form>
+
+        <Container fluid>
+          <Row>
+            <Col md={4}>
+              <Card bg="light" border="primary">
+                <Card.Body>
+                  <Card.Title>Username: {this.state.username}</Card.Title>
+                  <Card.Text>
+                    This shows your username and your inputted user information!
+                 </Card.Text>
+                </Card.Body>
+              </Card>
+              <Card bg="light" border="primary">
+                <Card.Body>
+                  <Card.Title>
+                    User's Budget: ${this.state.budget}
+                  </Card.Title>
+                  <Card.Text>This shows the user's budget for trading!</Card.Text>
+                </Card.Body>
+              </Card>
+              <Card bg="light" border="primary">
+                <Card.Body>
+                  <Card.Title>Stock Watchlist</Card.Title>
+                  <Card.Text>
+                    This shows your saved stocks!
+                 </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
             <br />
-            <Card.Title>Stock Charts</Card.Title>
-            <Card.Text>
-              The stock charts should be displayed here.
-                  </Card.Text>
-          </Card.Body>
-        </Card>
-        <Card border="dark">
-          <Card.Body>
-            <Card.Title>Stock Buy/Sell</Card.Title>
-            <Button variant="outline-success" >Buy</Button>
-            <Button variant="outline-danger" >Sell</Button>
-          </Card.Body>
-        </Card>
-      </Col>
-    </Row>
-  </Container>
-</div>
-   
+            <Col md={8}>
+              <Card border="dark">
+                <Card.Body>
+                  <Card.Title>Stock Search</Card.Title>
+                  <Form inline>
+                    <FormControl
+                      type="text"
+                      placeholder="Search"
+                      className="mr-sm-2"
+                      value={this.state.stockInput}
+                      onChange={this.handleStockInputChange}
+                    />
+                    <Button variant="outline-info" onClick={(e) => this.handleStockSearchSubmit(e)}>Search</Button>
+                  </Form>
+                  <br />
+                </Card.Body>
+              </Card>
+              <Card border="dark">
+                <Card.Body>
+                  <Card.Title>Stock Buy/Sell</Card.Title>
+                  <Button variant="outline-success" >Buy</Button>
+                  <Button variant="outline-danger" >Sell</Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </Wrapper>
+    );
+  }
+}
+
+export default withRouter(Dashboard);
+
+
 

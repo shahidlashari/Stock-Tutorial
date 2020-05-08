@@ -3,16 +3,46 @@ const router = require('express').Router();
 const stocksController = require('../../../controllers/stocksController');
 
 // /api/stocks
-router.route('/')
+router.route ('/show')
+// .get(stocksController.getApiStock);
+.get(stocksController.getStock);
+// /api/stocks
+//http://localhost:3001/api/stocks/search?q=TSLA is the query route
+router.route('/search')
+.get(stocksController.getStock);
+
+router.route('/save')
 .post(stocksController.postStock)
-// .get(stocksController.getStock)
-.get(stocksController.getStock)
-.delete(stocksController.deleteStock)
-.get(stocksController.getApiStock);
+.get(stocksController.getSavedStock);
+
+
 router.route('/buy')
-.patch(stocksController.buyStocks);
+.post(stocksController.buyStocks)
+.get(stocksController.getOwnedStock);
+
 router.route('/sell')
-.patch(stocksController.sellStocks);
+.post(stocksController.sellStocks)
+.get(stocksController.getSoldStock);
+
+router.route('/trading')
+.get(stocksController.getTrading);
+
+router.route('/tradingBySymbol')
+.get(stocksController.getTradingBySymbol);
+
+
+// router.route('/save')
+// .post(stocksController.postStock)
+// .get(stocksController.getStock)
+// .delete(stocksController.deleteStock);
+
+
+// router.route('/buy')
+// .patch(stocksController.buyStocks);
+
+// router.route('/sell')
+// .patch(stocksController.sellStocks);
+
 // /api/stocks/:id
 // router.route('/:id')
 module.exports = router;

@@ -1,41 +1,75 @@
 import React, { Component } from 'react';
-import { Container, Row, Col, CardDeck, Card, Form, Button, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap'
-import CurrencyExchangeRate from '../../components/CurrencyExchangeRate';
-import ForeignMonthly from '../../components/ForeignMonthly';
-import Cryptorating from '../../components/CryptoRating';
-import DigitalMonthly from '../../components/DigitalMonthly';
+import { Container, Row, Col, CardDeck } from 'react-bootstrap'
+import TrendingCardStock from '../TrendingCardStock';
+import TrendingCardForex from '../TrendingCardForex';
+import TrendingCardCrypto from '../TrendingCardCrypto'; 
+import TrendingCardChartResult from '../../components/TrendingCardChartResult';
+import TrendingCardTextResult from '../../components/TrendingCardTextResult';
 import './style.css';
 import axios from 'axios';
 
 class Trending extends Component {
   state = {
-    forexActiveKey: '#currencyExchange',
-    cryptoActiveKey: '#cryptorating',
-    stockInput: '',
-    result: ''
+    data: [],
+    isStock: false,
+    isCurrency: false,
+    isForex: false,
+    isCrypto: false,
+    isDigital: false
   }
 
-  handleForexSelect = selectedKey => {
-    this.setState({forexActiveKey: selectedKey});
-  }
-
-  handleCryptoSelect = selectedKey => {
-    this.setState({cryptoActiveKey: selectedKey});
-  }
-
-  handleStockInputChange = event => {
-    this.setState({ stockInput: event.target.value });
-  }
-
-  handleStockSubmit = async event => {
-    event.preventDefault();
+  handleStockSubmit = async inputStock => {
     try {
-      const inputSymbol = this.state.stockInput
-      console.log(inputSymbol);
-      const { data } = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${inputSymbol}&apikey=MN608K5DXF6IBFAL`)
+      this.setState({ isStock: false, isCurrency: false, isForex: false, isCrypto: false, isDigital: false });
+      const { data } = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${inputStock}&apikey=MN608K5DXF6IBFAL`);
       console.log(data);
+      this.setState({ data, isStock: true });
     } catch (err) {
-      console.log(err)
+      console.log(err);
+    }
+  };
+
+  handleCurrencySubmit = async (inputCurrencyFrom, inputCurrencyTo) => {
+    try {
+      this.setState({ isStock: false, isCurrency: false, isForex: false, isCrypto: false, isDigital: false });
+      const { data } = await axios.get(`https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${inputCurrencyFrom}&to_currency=${inputCurrencyTo}&apikey=MN608K5DXF6IBFAL`)
+      console.log(data);
+      this.setState({ data, isCurrency: true });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  handleForexMonthlySubmit = async (inputForexFrom, inputForexTo) => {
+    try {
+      this.setState({ isStock: false, isCurrency: false, isForex: false, isCrypto: false, isDigital: false });
+      const { data } = await axios.get(`https://www.alphavantage.co/query?function=FX_MONTHLY&from_symbol=${inputForexFrom}&to_symbol=${inputForexTo}&apikey=MN608K5DXF6IBFAL`)
+      console.log(data);
+      this.setState({ data, isForex: true });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  handleCryptoSubmit = async inputCrypto => {
+    try {
+      this.setState({ isStock: false, isCurrency: false, isForex: false, isCrypto: false, isDigital: false });
+      const { data } = await axios.get(`https://www.alphavantage.co/query?function=CRYPTO_RATING&symbol=${inputCrypto}&apikey=MN608K5DXF6IBFAL`);
+      console.log(data);
+      this.setState({ data, isCrypto: true });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  handleDigitalMonthlySubmit = async (inputDigitalCurrency, inputPhysicalMarket) => {
+    try {
+      this.setState({ isStock: false, isCurrency: false, isForex: false, isCrypto: false, isDigital: false });
+      const { data } = await axios.get(`https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_MONTHLY&symbol=${inputDigitalCurrency}&market=${inputPhysicalMarket}&apikey=MN608K5DXF6IBFAL`)
+      console.log(data);
+      this.setState({ data, isDigital: true });
+    } catch (err) {
+      console.log(err);
     }
   }
 
@@ -44,109 +78,35 @@ class Trending extends Component {
       <div>
         <Container>
           <Row>
-            <CardDeck className="card-deck">
-              <Col large={4} md={4} sm={12} xs={12} className="stock-card" >
-                <Card>
-                  <Card.Header className="stock-header">
-                    <OverlayTrigger key='top' placement='top' overlay= {
-                      <Tooltip id={'tooltip-top'}>
-                        Realtime and historical global equity data by Monthly time series
-                      </Tooltip>
-                    }>
-                    <Card.Title>Stock Time Series</Card.Title>
-                    </OverlayTrigger>
-                  </Card.Header>
-                  <Card.Body>
-                    <Card.Text>
-                      <Form>
-                        <Form.Group controlId="formStockSymbol">
-                          <Form.Label>Time Series Monthly</Form.Label>
-                          <Form.Control  value={this.state.stockInput} onChange={this.handleStockInputChange} type="text" placeholder="Enter stock symbol" />
-                          <Form.Text className="text-muted">
-                            Ex: FB (Facebook), AMZN (Amazon), MSFT (Microsoft), etc.
-                          </Form.Text>
-                        </Form.Group>
-                        <Button onClick={ (e) => this.handleStockSubmit(e) } variant="dark" type="submit">
-                          Submit
-                        </Button>
-                      </Form>
-                    </Card.Text>
-                  </Card.Body>
-                </Card>  
+            <CardDeck className='card-deck'>
+              <Col large={4} md={4} sm={12} xs={12} className='stock-card'>
+                <TrendingCardStock handleStockSubmit={this.handleStockSubmit}/>
               </Col>
-              <Col large={4} md={4} sm={12} xs={12} className='forex-card' >
-                <Card>
-                  <Card.Header className="forex-header">
-                    <OverlayTrigger key='top' placement='top' overlay= {
-                      <Tooltip id={'tooltip-top'}>
-                        Realtime exchange rate for any pair of digital currency (Ex: Bitcoin) and physical currency (Ex: USD)
-                      </Tooltip>
-                    }>
-                    <Card.Title>Foreign Exchange Rates (Forex)</Card.Title>
-                    </OverlayTrigger>
-                    <Nav variant="tabs" defaultActiveKey={this.state.forexActiveKey} onSelect={this.handleForexSelect}>
-                      <Nav.Item>
-                        <Nav.Link href="#currencyExchange">Currency Exchange</Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item>
-                        <Nav.Link href="#forexMonthly">Forex Monthly</Nav.Link>
-                      </Nav.Item>
-                    </Nav>
-                  </Card.Header>
-                  <Card.Body>
-                    <Card.Text>
-                      {this.state.forexActiveKey === '#currencyExchange' ? <CurrencyExchangeRate/> : <ForeignMonthly/>}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
+
+              <Col large={4} md={4} sm={12} xs={12} className='forex-card'>
+                <TrendingCardForex handleCurrencySubmit={this.handleCurrencySubmit} handleForexMonthlySubmit={this.handleForexMonthlySubmit}/>
               </Col>
-              <Col large={4} md={4} sm={12} xs={12} className='crypto-card' >
-                <Card>
-                  <Card.Header className="crypto-header">
-                    <OverlayTrigger key='top' placement='top' overlay= {
-                      <Tooltip id={'tooltip-top'}>
-                        Crytpo-rating to assess the health index of crypto projects and Monthly historical time series for a digital currency (Ex: BTC) traded on a specific market 
-                      </Tooltip>
-                    }>
-                    <Card.Title>Cryptocurrencies</Card.Title>
-                  </OverlayTrigger> 
-                  <Nav variant="tabs" defaultActiveKey={this.state.cryptoActiveKey} onSelect={this.handleCryptoSelect}>
-                    <Nav.Item>
-                      <Nav.Link href="#cryptorating">Cryptorating</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link href="#digitalMonthly">Digital Monthly</Nav.Link>
-                    </Nav.Item>
-                  </Nav> 
-                  </Card.Header>
-                  <Card.Body>
-                    <Card.Text>
-                      {this.state.cryptoActiveKey === "#cryptorating" ? <Cryptorating/> : <DigitalMonthly/>}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
+
+              <Col large={4} md={4} sm={12} xs={12} className='crypto-card'>
+                <TrendingCardCrypto handleCryptoSubmit={this.handleCryptoSubmit} handleDigitalMonthlySubmit={this.handleDigitalMonthlySubmit}/>
               </Col>
             </CardDeck>
           </Row>
         </Container>
+
         <Container>
           <Row>
             <Col>
-              <Card className="card-display">
-                <Card.Header>
-                  <Card.Title>Data Result</Card.Title>
-                </Card.Header>
-                <Card.Body>
-                  <Card.Text>
-                    
-                  </Card.Text>
-                </Card.Body>
-              </Card>
+            {this.state.isStock ? <TrendingCardChartResult isStock={this.state.isStock} data={this.state.data}/> : null}
+            {this.state.isCurrency ? <TrendingCardTextResult isCurrency={this.state.isCurrency} data={this.state.data}/> : null}
+            {this.state.isForex ? <TrendingCardChartResult isForex={this.state.isForex} data={this.state.data}/> : null}
+            {this.state.isCrypto ? <TrendingCardTextResult isCrypto={this.state.isCrypto} data={this.state.data}/> : null}
+            {this.state.isDigital ? <TrendingCardChartResult isDigital={this.state.isDigital} data={this.state.data}/> : null}
             </Col>
           </Row>
         </Container>
-      </div> 
-    )
+      </div>
+    );
   };
 }
 
