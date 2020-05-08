@@ -2,14 +2,10 @@ const router = require('express').Router();
 // /api/stocks prepended to every route inside of here
 const stocksController = require('../../../controllers/stocksController');
 
-// /api/stocks
+//http://localhost:3001/api/stocks/show?q=TSLA is the query route
 router.route ('/show')
-// .get(stocksController.getApiStock);
 .get(stocksController.getStock);
 // /api/stocks
-//http://localhost:3001/api/stocks/search?q=TSLA is the query route
-router.route('/search')
-.get(stocksController.getStock);
 
 router.route('/save')
 .post(stocksController.postStock)

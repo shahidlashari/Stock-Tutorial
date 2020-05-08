@@ -45,7 +45,7 @@ module.exports = {
     }
   },
   getUserInfo: async (req, res) => {
-    const { id } = req.params;
+    const { id } = req.body;
     try {
       const [newUser] = await connection.query(stockQueries.getUserInfo, id);
       return res.status(200).json(newUser);
@@ -66,7 +66,7 @@ module.exports = {
     }
   },
   getStock: async (req, res) => {
-    console.log(req.query);
+    // console.log(req.query);
     const { q: stockSymbol } = req.query;
     try {
       const { data } = await axios.get(
@@ -100,7 +100,7 @@ module.exports = {
       const date = dateArray[0];
       const price = data["Time Series (Daily)"][date]["1. open"];
       saveDatabase(symbol, price, date, user_id);
-      res.status(200).json({ symbol, price, date, user_id });
+      res.status(200).json(`USER ID: ${user_id} has added ${symbol} to watchlist on ${date}`);
     } catch (e) {
       res.status(403).json({ e });
     }
