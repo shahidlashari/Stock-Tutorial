@@ -1,6 +1,6 @@
 // recent 
 const userInfo = 'INSERT INTO users SET ?;';
-const getUserInfo = 'SELECT * FROM users where name = ?;';
+const getUserInfo = 'SELECT username, password, email FROM users WHERE id=?;';
 const saveStock = 'INSERT INTO savedStocks SET ?;';
 const getSavedStock = `select users.name, savedStocks.user_id, savedStocks.symbol, savedStocks.price, savedStocks.date_api from savedStocks 
                       inner join users on users.id=savedStocks.user_id 

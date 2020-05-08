@@ -7,6 +7,6 @@ const Home = () => (
     <HomeJumbotron />
     <HomeCardDeck />
   </div>
-)
+);
 
 export default Home;

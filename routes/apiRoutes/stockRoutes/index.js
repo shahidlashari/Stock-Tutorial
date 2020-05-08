@@ -7,11 +7,6 @@ router.route ('/show')
 // .get(stocksController.getApiStock);
 .get(stocksController.getStock);
 // /api/stocks
-router.route('/')
-
-.post(stocksController.userInfo)
-.get(stocksController.getUser);
-
 //http://localhost:3001/api/stocks/search?q=TSLA is the query route
 router.route('/search')
 .get(stocksController.getStock);
