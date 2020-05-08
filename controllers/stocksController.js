@@ -44,15 +44,15 @@ module.exports = {
       if (e) throw e;
     }
   },
-  // getUser: async (req, res) => {
-  //   const { id } = req.params;
-  //   try {
-  //     const [newUser] = await connection.query(stockQueries.getUserInfo, id);
-  //     return res.status(200).json(newUser);
-  //   } catch (e) {
-  //     return res.status(403).json({ e });
-  //   }
-  // },
+  getUserInfo: async (req, res) => {
+    const { id } = req.params;
+    try {
+      const [newUser] = await connection.query(stockQueries.getUserInfo, id);
+      return res.status(200).json(newUser);
+    } catch (e) {
+      return res.status(403).json({ e });
+    }
+  },
   getSavedStock: async (req, res) => {
     const { user_id } = req.body;
     try {

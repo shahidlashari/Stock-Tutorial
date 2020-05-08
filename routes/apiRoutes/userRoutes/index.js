@@ -4,9 +4,8 @@ const stocksController = require('../../../controllers/stocksController');
 
 // /api/users
 router.route ('/signup')
-.post(stocksController.userInfo);
-
-router.route ('/')
+.post(stocksController.userInfo)
 .get(stocksController.getUserInfo);
+router.route ('/')
 
 module.exports = router;

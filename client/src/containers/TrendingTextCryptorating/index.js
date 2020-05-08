@@ -10,7 +10,7 @@ class TrendingTextCurrency extends Component {
     textDeveloperScore: '',
     textMarketScore: '',
     textUtilityScore: '',
-    textLastRefreshed: ''
+    textLastRefreshed: '',
   }
 
   componentDidMount() {
@@ -28,20 +28,16 @@ class TrendingTextCurrency extends Component {
     if (fcasRating === 'Superb') {
       const colorSuperb = '#009919';
       this.setState({ textFcasColor: colorSuperb });
-    } 
-    else if (fcasRating === 'Attractive') {
+    } else if (fcasRating === 'Attractive') {
       const colorAttractive = '#73f573';
       this.setState({ textFcasColor: colorAttractive });
-    }
-    else if (fcasRating === 'Basic') {
+    } else if (fcasRating === 'Basic') {
       const colorBasic = '#f1fc9a';
       this.setState({ textFcasColor: colorBasic });
-    }
-    else if (fcasRating === 'Caution') {
+    } else if (fcasRating === 'Caution') {
       const colorCaution = '#ebba65';
       this.setState({ textFcasColor: colorCaution });
-    }
-    else if (fcasRating === 'Fragile') {
+    } else if (fcasRating === 'Fragile') {
       const colorFragile = '#e33d3d';
       this.setState({ textFcasColor: colorFragile });
     }
@@ -60,15 +56,15 @@ class TrendingTextCurrency extends Component {
 
   render() {
     return (
-    <div> 
-      <p style={{ fontSize: '48px' }}>{this.state.textSymbol} ({this.state.textName}) Crypto Rating</p>
-      <p style={{ fontSize: '24px' }}>FCAS Rating and Score: <strong style={{ backgroundColor: this.state.textFcasColor}}>{this.state.textFcasRating}</strong> | <strong>{this.state.textFcasScore}</strong></p>
-      <p style={{ fontSize: '24px' }}>Developer Score: <strong>{this.state.textDeveloperScore}</strong></p>
-      <p style={{ fontSize: '24px' }}>Market Maturity Score: <strong>{this.state.textMarketScore}</strong></p>
-      <p style={{ fontSize: '24px' }}>Utility Score: <strong>{this.state.textUtilityScore}</strong></p>
-      <p>Last Refreshed: <strong>{this.state.textLastRefreshed}</strong></p>
-    </div> 
-    )
+      <div>
+        <p style={{ fontSize: '48px' }}>{this.state.textSymbol} ({this.state.textName}) Crypto Rating</p>
+        <p style={{ fontSize: '24px' }}>FCAS Rating and Score: <strong style={{ backgroundColor: this.state.textFcasColor }}>{this.state.textFcasRating}</strong> | <strong>{this.state.textFcasScore}</strong></p>
+        <p style={{ fontSize: '24px' }}>Developer Score: <strong>{this.state.textDeveloperScore}</strong></p>
+        <p style={{ fontSize: '24px' }}>Market Maturity Score: <strong>{this.state.textMarketScore}</strong></p>
+        <p style={{ fontSize: '24px' }}>Utility Score: <strong>{this.state.textUtilityScore}</strong></p>
+        <p>Last Refreshed: <strong>{this.state.textLastRefreshed}</strong></p>
+      </div>
+    );
   }
 }
 

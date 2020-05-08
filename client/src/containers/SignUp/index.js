@@ -1,54 +1,55 @@
-import React, { Component } from "react";
-import {withRouter} from 'react-router-dom';
-import axios from "axios";
-import "./style.css";
-import { Container, Form, Button } from "react-bootstrap";
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import axios from 'axios';
+import './style.css';
+import { Container, Form, Button } from 'react-bootstrap';
 
 class SignUp extends Component {
   state = {
-    username: "",
-    password: "",
-    email: "",
+    username: '',
+    password: '',
+    email: '',
   };
-  async handleClick(event) {
-    event.preventDefault();
-    const {data}= await axios.post('/api/users/signup', {username: this.state.username, password: this.state.password, email: this.state.email});
-    console.log(data);
-    this.props.history.push({
-      pathname: '/dashboard',
-      state: {newUser:data}
 
-    })
-    };
-   
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     const { value, name } = event.target;
     this.setState({ [name]: value });
   }
+
+  async handleClick(event) {
+    event.preventDefault();
+    const { data } = await axios.post('/api/users/signup', { username: this.state.username, password: this.state.password, email: this.state.email });
+    console.log(data);
+    this.props.history.push({
+      pathname: '/dashboard',
+      state: { newUser: data },
+
+    });
+  }
+
   render() {
     return (
       <Container>
-        <h1 className='signup-title'>Create your own account!</h1>
+        <h1 className="signup-title">Create your own account!</h1>
         <Form>
           <Form.Group controlId="formBasicUsername">
             <Form.Label>Username</Form.Label>
             <Form.Control
-              name= 'username'
+              name="username"
               type="text"
               placeholder="Create your username"
               value={this.state.username}
-              onChange={this.handleInputChange} 
+              onChange={this.handleInputChange}
             />
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
-              name= 'password'
+              name="password"
               type="password"
               placeholder="Enter your password"
               value={this.state.password}
-              onChange={this.handleInputChange} 
-              
+              onChange={this.handleInputChange}
             />
             <Form.Text className="text-muted">
               Password length does not matter.
@@ -57,11 +58,11 @@ class SignUp extends Component {
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
-               name= 'email'
+              name="email"
               type="email"
               placeholder="Enter email"
               value={this.state.email}
-              onChange={this.handleInputChange} 
+              onChange={this.handleInputChange}
             />
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.

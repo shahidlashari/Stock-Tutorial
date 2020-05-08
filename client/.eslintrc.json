@@ -13,6 +13,7 @@
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
+    "parser": "babel-eslint",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -23,5 +24,27 @@
         "react"
     ],
     "rules": {
+        "linebreak-style": ["off"],
+        "no-console": ["off"],
+        "arrow-body-style": ["off"],
+        "object-curly-newline": ["off"],
+        "no-else-return": ["off"],
+        "lines-between-class-members": ["off"],
+        "max-len": ["off"],
+        "operator-linebreak": ["off"],
+        "no-restricted-syntax": ["off"],
+        "guard-for-in": ["off"],
+        "quote-props": ["off"],
+        "dot-notation": ["off"],
+        "react/jsx-filename-extension": ["off"],
+        "react/jsx-wrap-multilines": ["off"],
+        "react/jsx-curly-brace-presence": ["off"],
+        "react/jsx-one-expression-per-line": ["off"],
+        "react/state-in-constructor": ["off"],
+        "react/no-unescaped-entities": ["off"],
+        "react/no-access-state-in-setstate": ["off"],
+        "react/destructuring-assignment": ["off"],
+        "react/prop-types": ["off"],
+        "react/button-has-type": ["off"]
     }
 }

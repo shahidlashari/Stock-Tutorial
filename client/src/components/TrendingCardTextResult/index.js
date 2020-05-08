@@ -1,9 +1,9 @@
-import React from "react";
-import { Card, OverlayTrigger, Tooltip } from "react-bootstrap";
+import React from 'react';
+import { Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import TrendingTextCurrency from '../../containers/TrendingTextCurrency';
 import TrendingTextCryptorating from '../../containers/TrendingTextCryptorating';
 
-const TrendingCardTextResult = props => {
+const TrendingCardTextResult = (props) => {
   return (
     <Card className="text-center card-text-display">
       <Card.Header>
@@ -11,7 +11,7 @@ const TrendingCardTextResult = props => {
           key="top"
           placement="top"
           overlay={
-            <Tooltip id={"tooltip-top"}>
+            <Tooltip id={'tooltip-top'}>
               Data result from the stock time series, foreign exchange rates
               (forex), or cyrptocurrencies
             </Tooltip>

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import "./style.css";
+import './style.css';
 import axios from 'axios';
 
 class RenderStockList extends Component {
   state = {
     priceStock: {},
-    isStock: false
+    isStock: false,
   }
   // console.log(props.key);
   // console.log(props);
 
-  handlePriceSubmit = async symbol => {
+  handlePriceSubmit = async (symbol) => {
     console.log(symbol);
     try {
       const { data } = await axios.get(`/api/stocks/show?q=${symbol}`);
@@ -18,19 +18,19 @@ class RenderStockList extends Component {
       console.log(data);
       // const priceStock = [...this.state.priceStock, data];
       // this.setState({ priceStock});
-      this.setState({priceStock: data, isStock: true});
+      this.setState({ priceStock: data, isStock: true });
       // console.log(priceStock);
     } catch (e) {
       console.log(e);
     }
   }
 
-  handleStockSubmt = async symbol => {
+  handleStockSubmt = async (symbol) => {
     try {
       const { data } = await axios.post('');
       console.log(data);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   }
   render() {
@@ -51,17 +51,16 @@ class RenderStockList extends Component {
               <strong>Currency:</strong> {this.props.currency}
             </li>
             {/* <span onClick={ () => props.handleSubmit(props.symbol) }  className="remove">Show Price</span> */}
-            <button onClick={ () => this.handlePriceSubmit(this.props.symbol)} className="submit"> Show Price </button>
-            <button onClick={ () => this.handleStockSubmit(this.props.symbol)} className="submit"> Save Stock </button>
-            { this.state.isStock && 
+            <button onClick={() => this.handlePriceSubmit(this.props.symbol)} className="submit"> Show Price </button>
+            <button onClick={() => this.handleStockSubmit(this.props.symbol)} className="submit"> Save Stock </button>
+            { this.state.isStock &&
               <div>
                 <p>Date: {this.state.priceStock.date}</p>
                 <p>Price-Open: {this.state.priceStock.priceOpen}</p>
                 <p>Price-High: {this.state.priceStock.priceHigh}</p>
                 <p>Price-Low: {this.state.priceStock.priceLow}</p>
                 <p>Price-Close: {this.state.priceStock.priceClose}</p>
-              </div>
-            }
+              </div>}
           </ul>
         </div>
       </div>
