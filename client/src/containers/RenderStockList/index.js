@@ -6,12 +6,12 @@ import axios from 'axios';
 class RenderStockList extends Component {
   state = {
     priceStock: {},
-    isStock: false
+    isStock: false,
   }
   // console.log(props.key);
   // console.log(props);
 
-  handlePriceSubmit = async symbol => {
+  handlePriceSubmit = async (symbol) => {
     console.log(symbol);
     try {
       const { data } = await axios.get(`/api/stocks/show?q=${symbol}`);
@@ -19,7 +19,7 @@ class RenderStockList extends Component {
       console.log(data);
       // const priceStock = [...this.state.priceStock, data];
       // this.setState({ priceStock});
-      this.setState({priceStock: data, isStock: true});
+      this.setState({ priceStock: data, isStock: true });
       // console.log(priceStock);
     } catch (e) {
       console.log(e);
@@ -34,7 +34,7 @@ class RenderStockList extends Component {
       this.setState({priceStock: this.state.data})
 
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   }
   render() {

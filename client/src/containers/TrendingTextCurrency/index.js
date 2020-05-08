@@ -7,7 +7,7 @@ class TrendingTextCurrency extends Component {
     textToCurrencyCode: '',
     textToCurrencyName: '',
     textExchangeRate: '',
-    textLastRefreshed: ''
+    textLastRefreshed: '',
   }
 
   componentDidMount() {
@@ -32,12 +32,12 @@ class TrendingTextCurrency extends Component {
 
   render() {
     return (
-    <div> 
-      <p style={{ fontSize: '36px' }}>{this.state.textFromCurrencyCode} ({this.state.textFromCurrencyName}) to {this.state.textToCurrencyCode} ({this.state.textToCurrencyName})</p>
-      <p style={{ fontSize: '24px' }}>Exchange Rate: <strong>{this.state.textExchangeRate}</strong></p>
-      <p>Last Refreshed: <strong>{this.state.textLastRefreshed}</strong></p>
-    </div> 
-    )
+      <div>
+        <p style={{ fontSize: '36px' }}>{this.state.textFromCurrencyCode} ({this.state.textFromCurrencyName}) to {this.state.textToCurrencyCode} ({this.state.textToCurrencyName})</p>
+        <p style={{ fontSize: '24px' }}>Exchange Rate: <strong>{this.state.textExchangeRate}</strong></p>
+        <p>Last Refreshed: <strong>{this.state.textLastRefreshed}</strong></p>
+      </div>
+    );
   }
 }
 

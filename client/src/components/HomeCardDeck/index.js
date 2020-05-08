@@ -7,11 +7,11 @@ import SignUpImg from '../../images/card-signup.png';
 const HomeCardDeck = () => (
   <Container>
     <CardDeck>
-      <Card className='text-center'>
-        <Card.Img variant='top' src={TrendingImg} />
+      <Card className="text-center">
+        <Card.Img variant="top" src={TrendingImg} />
 
         <Card.Body>
-          <Card.Title className='card-title'>Trending</Card.Title>
+          <Card.Title className="card-title">Trending</Card.Title>
           <Card.Text>
             This is a wider card with supporting text below as a natural lead-in
             to additional content. This content is a little bit longer.
@@ -19,15 +19,15 @@ const HomeCardDeck = () => (
         </Card.Body>
 
         <Card.Footer>
-          <Button href='/trending' variant='dark'>View Trending Page</Button>
+          <Button href="/trending" variant="dark">View Trending Page</Button>
         </Card.Footer>
       </Card>
-      
-      <Card className='text-center'>
-        <Card.Img variant='top' src={DashboardImg} />
+
+      <Card className="text-center">
+        <Card.Img variant="top" src={DashboardImg} />
 
         <Card.Body>
-          <Card.Title className='card-title'>Dashboard</Card.Title>
+          <Card.Title className="card-title">Dashboard</Card.Title>
           <Card.Text>
             This card has supporting text below as a natural lead-in to
             additional content.
@@ -35,16 +35,16 @@ const HomeCardDeck = () => (
         </Card.Body>
 
         <Card.Footer>
-          <Button href='/dashboard' variant='dark'>View Dashboard Page</Button>
+          <Button href="/dashboard" variant="dark">View Dashboard Page</Button>
         </Card.Footer>
 
       </Card>
 
-      <Card className='text-center'>
-        <Card.Img variant='top' src={SignUpImg} />
-        
+      <Card className="text-center">
+        <Card.Img variant="top" src={SignUpImg} />
+
         <Card.Body>
-          <Card.Title className='card-title'>Sign-Up/Login</Card.Title>
+          <Card.Title className="card-title">Sign-Up/Login</Card.Title>
           <Card.Text>
             This is a wider card with supporting text below as a natural lead-in
             to additional content. This card has even longer content than the
@@ -53,7 +53,7 @@ const HomeCardDeck = () => (
         </Card.Body>
 
         <Card.Footer>
-          <Button href='/signup' variant='dark'>View Sign-Up/Login Page</Button>
+          <Button href="/signup" variant="dark">View Sign-Up/Login Page</Button>
         </Card.Footer>
       </Card>
     </CardDeck>

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Button, Container, Row, Col, Form, Card, FormControl } from 'react-bootstrap';
+import axios from 'axios';
 import RenderStockList from '../RenderStockList';
 import Wrapper from '../../components/Wrapper';
-import axios from 'axios';
 import './style.css';
 
 class Dashboard extends Component {
@@ -18,16 +18,17 @@ class Dashboard extends Component {
     // budget: '',
     // stocksearch: ''
   }
+
   componentDidMount() {
     console.log(this.props.history);
 
     const newUser = this.props.history.location.state && this.props.history.location.state.newUser
       ? this.props.history.location.state.newUser
-      : undefined
+      : undefined;
 
     this.setState({
-      currentUser: newUser
-    })
+      currentUser: newUser,
+    });
     // console.log(newUser);
   }
 
@@ -50,53 +51,48 @@ class Dashboard extends Component {
     if (this.state.stocks.length === 0) {
       return <h4>No Stock yet</h4>;
     } else {
-      return this.state.stocks.map(stock => {
+      return this.state.stocks.map((stock) => {
         // console.log(stock);
 
         return <RenderStockList
 
-          // key={stock["1. symbol"]}
-          symbol={stock["1. symbol"]}
-          name={stock["2. name"]}
-          region={stock["4. region"]}
-          matchscore={stock["9. matchScore"]}
-          currency={stock["8. currency"]}
+          // key={stock['1. symbol']}
+          symbol={stock['1. symbol']}
+          name={stock['2. name']}
+          region={stock['4. region']}
+          matchscore={stock['9. matchScore']}
+          currency={stock['8. currency']}
           handleSubmit={this.handleSubmit}
         // openprice={this.state.priceStock[5]}
-        />
-
-      })
-
+        />;
+      });
     }
   }
 
-  handleStockInputChange = event => {
+  handleStockInputChange = (event) => {
     this.setState({ stockInput: event.target.value });
   }
 
-  handleStockSearchSubmit = async event => {
+  handleStockSearchSubmit = async (event) => {
     event.preventDefault();
     try {
-      const inputSymbol = this.state.stockInput
+      const inputSymbol = this.state.stockInput;
       // console.log(inputSymbol);
       const { data: { bestMatches } } = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${inputSymbol}&apikey=4EOUWW7RMTJ1A28A`);
       // console.log(data);
-      let stocks = [...this.state.stocks, ...bestMatches];
+      const stocks = [...this.state.stocks, ...bestMatches];
       // console.log(bestMatches);
       this.setState({ stocks });
       this.setState({ stocks, stockInput: '' })
       // renderStockListItems()
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
 
   render() {
-
     // console.log(this.state.stocks)
     return (
-
-
       <Wrapper>
         <Container fluid>
           <Row>
@@ -106,7 +102,7 @@ class Dashboard extends Component {
                   <Card.Title>Username: {this.state.username}</Card.Title>
                   <Card.Text>
                     This shows your username and your inputted user information!
-                 </Card.Text>
+                  </Card.Text>
                 </Card.Body>
               </Card>
               <Card bg="light" border="primary">
@@ -122,7 +118,7 @@ class Dashboard extends Component {
                   <Card.Title>Stock Watchlist</Card.Title>
                   <Card.Text key="savedStocks">
                     This shows your saved stocks!
-                 </Card.Text>
+                  </Card.Text>
                 </Card.Body>
               </Card>
             </Col>
@@ -155,6 +151,3 @@ class Dashboard extends Component {
 }
 
 export default withRouter(Dashboard);
-
-
-
