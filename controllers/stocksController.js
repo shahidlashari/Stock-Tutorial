@@ -3,27 +3,27 @@ const stockQueries = require('../models/stocks/stockQueries');
 const axios = require('axios');
 
 const saveDatabase = async (symbol, price, date_api, user_id) => {
-  try{
-    await connection.query(stockQueries.saveStock, {symbol, price, date_api, user_id});
-  } catch (e){
+  try {
+    await connection.query(stockQueries.saveStock, { symbol, price, date_api, user_id });
+  } catch (e) {
 
     if (e) throw e;
   }
 };
 
 const buyStock = async (symbol, purchase_price, date_api, user_id) => {
-  try{
-    await connection.query(stockQueries.buyStocks, {symbol, purchase_price, date_api, user_id});
-  }catch(e){
+  try {
+    await connection.query(stockQueries.buyStocks, { symbol, purchase_price, date_api, user_id });
+  } catch (e) {
     console.log(error);
   }
 };
 
-const sellStock = async(symbol, sell_price, date_api, user_id) => {
-  try{
-    await connection.query(stockQueries.sellStocks, {symbol, sell_price, date_api, user_id});
-  }catch(e){
-    if(e) throw e;
+const sellStock = async (symbol, sell_price, date_api, user_id) => {
+  try {
+    await connection.query(stockQueries.sellStocks, { symbol, sell_price, date_api, user_id });
+  } catch (e) {
+    if (e) throw e;
   }
 };
 module.exports = {
@@ -32,14 +32,15 @@ module.exports = {
     const { username } = req.body;
     const { email } = req.body;
     const { password } = req.body;
-    
+
     try {
-     const insertedUser= await connection.query(stockQueries.userInfo, {username, email, password});
-     console.log(insertedUser);
-    //  const {newUser} = await connection.query(stockQueries.getUserInfo, insertedUser.id);
-    //   console.log(newUser);
-     //get newUser by insertedUser id from DB and res.json with newUser
-      return res.status(200).json(insertedUser);
+      const insertedUser = await connection.query(stockQueries.userInfo, { username, email, password });
+      const newUserId = insertedUser[0]['insertId']
+      const [newUser] = await connection.query(stockQueries.getUserInfo, newUserId);
+
+      return res.status(200).json({ newUser });
+
+
     } catch (e) {
       if (e) throw e;
     }
@@ -48,7 +49,9 @@ module.exports = {
     const { id } = req.body;
     try {
       const [newUser] = await connection.query(stockQueries.getUserInfo, id);
-      return res.status(200).json(newUser);
+      // console.log(newUser);
+      return res.status(200).json({ newUser });
+
     } catch (e) {
       return res.status(403).json({ e });
     }
@@ -82,7 +85,7 @@ module.exports = {
       res
         .status(200)
         .json({ date, priceOpen, priceHigh, priceLow, priceClose });
-        
+
     } catch (e) {
       res.status(403).json({ e });
     }
@@ -208,3 +211,7 @@ module.exports = {
     }
   },
 };
+
+function newFunction(newUser) {
+  console.log(newUser);
+}
