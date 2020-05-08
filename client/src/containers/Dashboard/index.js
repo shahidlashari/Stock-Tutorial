@@ -24,12 +24,12 @@ class Dashboard extends Component {
 
     const newUser = this.props.history.location.state && this.props.history.location.state.newUser
       ? this.props.history.location.state.newUser
-      : undefined;
+      : JSON.parse(localStorage.getItem("currentStockBroker"))
 
     this.setState({
-      currentUser: newUser,
-    });
-    // console.log(newUser);
+      currentUser: newUser
+    })
+    console.log(newUser);
   }
 
   // async componentDidMount() {
@@ -56,12 +56,13 @@ class Dashboard extends Component {
 
         return <RenderStockList
 
-          // key={stock['1. symbol']}
-          symbol={stock['1. symbol']}
-          name={stock['2. name']}
-          region={stock['4. region']}
-          matchscore={stock['9. matchScore']}
-          currency={stock['8. currency']}
+          // key={stock["1. symbol"]}
+          // userId={this.state.currentUser.id}
+          symbol={stock["1. symbol"]}
+          name={stock["2. name"]}
+          region={stock["4. region"]}
+          matchscore={stock["9. matchScore"]}
+          currency={stock["8. currency"]}
           handleSubmit={this.handleSubmit}
         // openprice={this.state.priceStock[5]}
         />;
@@ -90,64 +91,80 @@ class Dashboard extends Component {
     }
   }
 
+  navigateAway() {
+    // settimeout function
+    // that will display some alert or error
+    // then after a couple second, call history.push
+    this.props.history.push('/')
+  }
+
   render() {
-    // console.log(this.state.stocks)
-    return (
-      <Wrapper>
-        <Container fluid>
-          <Row>
-            <Col md={4}>
-              <Card bg="light" border="primary">
-                <Card.Body>
-                  <Card.Title>Username: {this.state.username}</Card.Title>
-                  <Card.Text>
-                    This shows your username and your inputted user information!
+    if (!this.state.currentUser && !this.props.history.location.state && !localStorage.getItem("currentStockBroker")) {
+
+      return (
+        <div>
+          {this.navigateAway()}
+        </div>
+      )
+
+    } else {
+      // console.log(this.state.stocks)
+      return (
+        <Wrapper>
+          <Container fluid>
+            <Row>
+              <Col md={4}>
+                <Card bg="light" border="primary">
+                  <Card.Body>
+                    <Card.Title>Username: {this.state.username}</Card.Title>
+                    <Card.Text>
+                      This shows your username and your inputted user information!
                   </Card.Text>
-                </Card.Body>
-              </Card>
-              <Card bg="light" border="primary">
-                <Card.Body>
-                  <Card.Title>
-                    User's Budget: ${this.state.budget}
-                  </Card.Title>
-                  <Card.Text>This shows the user's budget for trading!</Card.Text>
-                </Card.Body>
-              </Card>
-              <Card bg="light" border="primary">
-                <Card.Body>
-                  <Card.Title>Stock Watchlist</Card.Title>
-                  <Card.Text key="savedStocks">
-                    This shows your saved stocks!
+                  </Card.Body>
+                </Card>
+                <Card bg="light" border="primary">
+                  <Card.Body>
+                    <Card.Title>
+                      User's Budget: ${this.state.budget}
+                    </Card.Title>
+                    <Card.Text>This shows the user's budget for trading!</Card.Text>
+                  </Card.Body>
+                </Card>
+                <Card bg="light" border="primary">
+                  <Card.Body>
+                    <Card.Title>Stock Watchlist</Card.Title>
+                    <Card.Text key="savedStocks">
+                      This shows your saved stocks!
                   </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-            <br />
-            <Col md={8}>
-              <Card border="dark">
-                <Card.Body>
-                  <Card.Title>Stock Search</Card.Title>
-                  <Form inline>
-                    <FormControl
-                      type="text"
-                      placeholder="Search"
-                      className="mr-sm-2"
-                      value={this.state.stockInput}
-                      onChange={this.handleStockInputChange}
-                    />
-                    <Button variant="outline-info" onClick={(e) => this.handleStockSearchSubmit(e)}>Search</Button>
-                  </Form>
-                  <br />
-                  <h3>Stock List</h3>
-                  {this.renderStockListItems()}
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
-      </Wrapper>
-    );
+                  </Card.Body>
+                </Card>
+              </Col>
+              <br />
+              <Col md={8}>
+                <Card border="dark">
+                  <Card.Body>
+                    <Card.Title>Stock Search</Card.Title>
+                    <Form inline>
+                      <FormControl
+                        type="text"
+                        placeholder="Search"
+                        className="mr-sm-2"
+                        value={this.state.stockInput}
+                        onChange={this.handleStockInputChange}
+                      />
+                      <Button variant="outline-info" onClick={(e) => this.handleStockSearchSubmit(e)}>Search</Button>
+                    </Form>
+                    <br />
+                    <h3>Stock List</h3>
+                    {this.renderStockListItems()}
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
+        </Wrapper>
+      );
+    }
   }
 }
-
 export default withRouter(Dashboard);

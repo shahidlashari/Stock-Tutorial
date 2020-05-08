@@ -2,13 +2,13 @@ DROP DATABASE IF EXISTS stocksDB;
 CREATE DATABASE stocksDB;
 USE stocksDB;
 
-CREATE TABLE users (
-	id INT(5) auto_increment PRIMARY KEY NOT NULL,
-    name VARCHAR(20) NOT NULL,
-    email VARCHAR(20) NOT NULL,
-    password VARCHAR(30) NOT NULL
+CREATE TABLE users(
+	id INT AUTO_INCREMENT,
+    username VARCHAR (50) NOT NULL,
+    password VARCHAR (50) NOT NULL,
+    email VARCHAR (50) NOT NULL,
+    PRIMARY KEY(id)
 );
-
 CREATE TABLE savedStocks (
     id int(5) auto_increment primary key not null,
     user_id int,    
