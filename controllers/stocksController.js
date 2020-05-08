@@ -44,15 +44,15 @@ module.exports = {
       if (e) throw e;
     }
   },
-  // getUser: async (req, res) => {
-  //   const { id } = req.params;
-  //   try {
-  //     const [newUser] = await connection.query(stockQueries.getUserInfo, id);
-  //     return res.status(200).json(newUser);
-  //   } catch (e) {
-  //     return res.status(403).json({ e });
-  //   }
-  // },
+  getUserInfo: async (req, res) => {
+    const { id } = req.params;
+    try {
+      const [newUser] = await connection.query(stockQueries.getUserInfo, id);
+      return res.status(200).json(newUser);
+    } catch (e) {
+      return res.status(403).json({ e });
+    }
+  },
   getSavedStock: async (req, res) => {
     const { user_id } = req.body;
     try {
@@ -105,18 +105,18 @@ module.exports = {
       res.status(403).json({ e });
     }
   },
-  // getApiStock: async (req, res) => {
-  //   const { q: inputSymbol } = req.query;
-  //   try {
-  //     const { data } = await axios.get(
-  //       `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${inputSymbol}&apikey=4EOUWW7RMTJ1A28A`
-  //     );
+  getApiStock: async (req, res) => {
+    const { q: inputSymbol } = req.query;
+    try {
+      const { data } = await axios.get(
+        `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${inputSymbol}&apikey=4EOUWW7RMTJ1A28A`
+      );
 
-  //     res.status(200).json(data);
-  //   } catch (e) {
-  //     res.status(403).json({ e });
-  //   }
-  // },
+      res.status(200).json(data);
+    } catch (e) {
+      res.status(403).json({ e });
+    }
+  },
 
   buyStocks: async (req, res) => {
     const { stockSymbol } = req.body;

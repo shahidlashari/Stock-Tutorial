@@ -1,12 +1,11 @@
 .dashboard-stock-display {
-  background: rgb(5, 133, 165);
+  background: rgb(117, 223, 250);
   border-radius: 2px;
-  height: 330px;
+  height: 60%;
   margin: .5rem;
   position: relative;
-  width: 325px;
+  width: 80%;
   box-shadow: 0 3px 6px #999, 0 3px 6px #999;
-  text-align: left;
 }
 
 /* .img-container {
