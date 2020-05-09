@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import "./style.css";
-import { Button } from "react-bootstrap";
-import axios from "axios";
+import React, { Component } from 'react';
+import './style.css';
+import { Button } from 'react-bootstrap';
+import axios from 'axios';
 
 class RenderStockList extends Component {
   state = {
     priceStock: {},
     isStock: false,
     user_id: 1,
-    symbol: "",
-    savedNotification: "",
+    symbol: '',
+    savedNotification: '',
   };
 
   handlePriceSubmit = async (symbol) => {
@@ -36,11 +36,11 @@ class RenderStockList extends Component {
 
   handleSaveStockSubmit = async (symbol) => {
     console.log(this.state.user_id);
-    const user_id = this.state.user_id;
+    const { user_id } = this.state;
     const stockSymbol = symbol;
     console.log(stockSymbol);
     try {
-      const { data } = await axios.post(`/api/stocks/save`,{
+      const { data } = await axios.post('/api/stocks/save', {
         stockSymbol,
         user_id,
       });
@@ -91,7 +91,7 @@ class RenderStockList extends Component {
                   <strong>Date:</strong> {this.state.priceStock.date}
                 </p>
                 <p>
-                  <strong>Price-Open: </strong>{" "}
+                  <strong>Price-Open: </strong>
                   {this.state.priceStock.priceOpen}
                 </p>
                 <p>
@@ -101,7 +101,7 @@ class RenderStockList extends Component {
                   <strong>Price-Low:</strong> {this.state.priceStock.priceLow}
                 </p>
                 <p>
-                  <strong>Price-Close:</strong>{" "}
+                  <strong>Price-Close:</strong>
                   {this.state.priceStock.priceClose}
                 </p>
                 <p>{this.state.savedNotification}</p>

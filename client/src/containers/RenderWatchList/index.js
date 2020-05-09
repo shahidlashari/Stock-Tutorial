@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
-import "./style.css";
 import axios from 'axios';
 
 class RenderWatchList extends Component {
   state = {
     isStock: false,
     user_id: 1,
-    savedNotification: ''
+    savedNotification: '',
   }
 
-  handleWatchListSubmit = async symbol => {
+  handleWatchListSubmit = async (symbol) => {
     console.log(this.state.user_id);
-    const user_id =  this.state.user_id;
+    const { user_id } = this.state;
     const stockSymbol = symbol;
     try {
-      const { data } = await axios.post(`/api/stocks/save`,{stockSymbol, user_id});
+      const { data } = await axios.post('/api/stocks/save', { stockSymbol, user_id });
       console.log(data);
-      this.setState({savedNotification: data})
+      this.setState({ savedNotification: data });
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   }
   render() {
@@ -38,9 +37,9 @@ class RenderWatchList extends Component {
             <li>
               <strong>Currency:</strong> {this.props.currency}
             </li> */}
-            <button onClick={ () => this.handlePriceSubmit(this.props.symbol)} className="submit"> Show Price </button>
-            <button onClick={ (e) => this.handleSaveStockSubmit(this.state.symbol)} className="submit"> Save Stock </button>
-            { this.state.isStock && 
+            <button onClick={() => this.handlePriceSubmit(this.props.symbol)} className="submit"> Show Price </button>
+            <button onClick={() => this.handleSaveStockSubmit(this.state.symbol)} className="submit"> Save Stock </button>
+            { this.state.isStock &&
               <div>
                 <p>Date: {this.state.priceStock.date}</p>
                 <p>Price-Open: {this.state.priceStock.priceOpen}</p>
@@ -48,8 +47,7 @@ class RenderWatchList extends Component {
                 <p>Price-Low: {this.state.priceStock.priceLow}</p>
                 <p>Price-Close: {this.state.priceStock.priceClose}</p>
                 <p>{this.state.savedNotification}</p>
-              </div>
-            }
+              </div>}
           </ul>
         </div>
       </div>

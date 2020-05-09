@@ -10,12 +10,12 @@ import SignUp from '../../containers/SignUp';
 
 const App = () => (
   <Router>
-    <Navbar/>
-    <Route exact path='/' component={Home}/>
-    <Route exact path='/home' component={Home}/>
-    <Route exact path='/dashboard' component={Dashboard}/>
-    <Route exact path='/trending' component={Trending}/>
-    <Route exact path='/signup' component={SignUp}/>
+    <Navbar />
+    <Route exact path="/" component={Home} />
+    <Route exact path="/home" component={Home} />
+    <Route exact path="/dashboard" component={Dashboard} />
+    <Route exact path="/trending" component={Trending} />
+    <Route exact path="/signup" component={SignUp} />
   </Router>
 );
 export default App;
