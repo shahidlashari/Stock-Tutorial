@@ -16,6 +16,7 @@ class SignUp extends Component {
     this.setState({ [name]: value });
   }
 
+  // eslint-disable-next-line react/sort-comp
   async handleClick(event) {
     event.preventDefault();
     // validate input form fields
@@ -25,33 +26,33 @@ class SignUp extends Component {
     if (emailCheck && passwordCheck && usernameCheck) {
       const { data } = await axios.post('/api/users/signup', { username: this.state.username, password: this.state.password, email: this.state.email });
       // validate data from post request
-      console.log(data.newUser[0]);
+      // console.log(data.newUser[0]);
       localStorage.setItem('currentStockBroker', JSON.stringify(data.newUser[0]));
       this.props.history.push({
         pathname: '/dashboard',
         state: { newUser: data.newUser[0] },
-
       });
     } else {
       console.log('Please enter valid informations');
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
   isEmail(value) {
     return value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? false : true;
   }
-
+  // eslint-disable-next-line class-methods-use-this
   isPassword(value) {
     return value && !/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/.test(value) ? false : true;
   }
-
+  // eslint-disable-next-line class-methods-use-this
   isRequired(value) {
     return value && value !== '' ? true : false;
   }
-  // handleInputChange = event => {
-  //   const { value, name } = event.target;
-  //   this.setState({ [name]: value });
-  // }
+  handleInputChange = (event) => {
+    const { value, name } = event.target;
+    this.setState({ [name]: value });
+  }
 
   render() {
     return (
@@ -107,5 +108,4 @@ class SignUp extends Component {
     );
   }
 }
-
 export default withRouter(SignUp);

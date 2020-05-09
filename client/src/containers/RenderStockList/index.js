@@ -6,13 +6,17 @@ import axios from 'axios';
 class RenderStockList extends Component {
   state = {
     priceStock: {},
-    isStock: false,
-    user_id: 1,
-    symbol: '',
+    // eslint-disable-next-line react/no-unused-state
     savedNotification: '',
+    isStock: false,
+    // eslint-disable-next-line react/no-unused-state
+    user_id: 1,
+    // eslint-disable-next-line react/no-unused-state
+    symbol: '',
   };
 
   handlePriceSubmit = async (symbol) => {
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ symbol: this.props.symbol });
     try {
       const { data } = await axios.get(`/api/stocks/show?q=${symbol}`);
@@ -26,21 +30,13 @@ class RenderStockList extends Component {
       console.log(e);
     }
   };
-
-  // handleStockSubmit = async symbol => {
-  //   console.log(symbol)
-  //   try {
-  //     const { data } = await axios.post(`/api/stocks/save?q=${symbol}`);
-  //     console.log(data);
-  //     this.setState({priceStock: this.state.data})
-
   handleSaveStockSubmit = async (symbol) => {
     console.log(this.state.user_id);
-    const { user_id } = this.state;
+    const {user_id} = this.state;
     const stockSymbol = symbol;
     console.log(stockSymbol);
     try {
-      const { data } = await axios.post('/api/stocks/save', {
+      const { data } = await axios.post('/api/stocks/save',{
         stockSymbol,
         user_id,
       });
@@ -61,13 +57,6 @@ class RenderStockList extends Component {
             <li>
               <strong>Name:</strong> {this.props.name}
             </li>
-            {/* <li>
-              <strong>Region:</strong> {this.props.region}
-            </li>
-            <li>
-              <strong>Currency:</strong> {this.props.currency}
-            </li>
-            {/* <span onClick={ () => props.handleSubmit(props.symbol) }  className="remove">Show Price</span> */}
             <Button
               variant="light"
               onClick={() => this.handlePriceSubmit(this.props.symbol)}
@@ -91,7 +80,7 @@ class RenderStockList extends Component {
                   <strong>Date:</strong> {this.state.priceStock.date}
                 </p>
                 <p>
-                  <strong>Price-Open: </strong>
+                  <strong>Price-Open: </strong>{' '}
                   {this.state.priceStock.priceOpen}
                 </p>
                 <p>
@@ -101,10 +90,11 @@ class RenderStockList extends Component {
                   <strong>Price-Low:</strong> {this.state.priceStock.priceLow}
                 </p>
                 <p>
-                  <strong>Price-Close:</strong>
+                  <strong>Price-Close:</strong>{' '}
                   {this.state.priceStock.priceClose}
                 </p>
-                <p>{this.state.savedNotification}</p>
+                {/* <p>{this.state.savedNotification}</p> */}
+
               </div>
             )}
           </ul>

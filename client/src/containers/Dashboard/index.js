@@ -9,10 +9,12 @@ import './style.css';
 class Dashboard extends Component {
   state = {
     stocks: [],
-    priceStock: [],
+    savedStock: '',
     stockInput: '',
     currentUser: {},
-    savedStock: {},
+    // eslint-disable-next-line react/no-unused-state
+    isStock: false,
+    // eslint-disable-next-line react/no-unused-state
     // dash: [],
     // username: '',
     // budget: '',
@@ -20,7 +22,7 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.history);
+    // console.log(this.props.history);
 
     const newUser = this.props.history.location.state && this.props.history.location.state.newUser
       ? this.props.history.location.state.newUser
@@ -29,7 +31,7 @@ class Dashboard extends Component {
     this.setState({
       currentUser: newUser,
     });
-    console.log(newUser);
+    // console.log(newUser);
   }
 
   // async componentDidMount() {
@@ -46,24 +48,37 @@ class Dashboard extends Component {
   //     console.log(e);
   //   }
   // }
-
+  handleSaveStockSubmit = async (symbol) => {
+    // eslint-disable-next-line react/no-unused-state
+    this.setState({ symbol: this.props.symbol });
+    try {
+      const [data] = await axios.get(`/api/stocks/show?q=${symbol}`);
+      // const { data } = await axios.get(`/api/stocks/show${symbol}`);
+      console.log(data);
+      // const priceStock = [...this.state.priceStock, data];
+      // this.setState({ priceStock});
+      this.setState({ savedStock: data, isStock: true });
+      // console.log(priceStock);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   renderStockListItems = () => {
     if (this.state.stocks.length === 0) {
       return <h4>No Stock yet</h4>;
     } else {
       return this.state.stocks.map((stock) => {
-        // console.log(stock);
 
         return <RenderStockList
 
-          // key={stock["1. symbol"]}
-          // userId={this.state.currentUser.id}
+          key={stock['1. symbol']}
           symbol={stock['1. symbol']}
           name={stock['2. name']}
           region={stock['4. region']}
           matchscore={stock['9. matchScore']}
           currency={stock['8. currency']}
           handleSubmit={this.handleSubmit}
+          handleSaveStockSubmit={this.handleSaveStockSubmit}
         // openprice={this.state.priceStock[5]}
         />;
       });
@@ -114,9 +129,13 @@ class Dashboard extends Component {
               <Col md={4}>
                 <Card bg="light" border="primary">
                   <Card.Body>
-                    <Card.Title>Username: {this.state.username}</Card.Title>
+                    <Card.Title>User Informations </Card.Title>
                     <Card.Text>
-                      This shows your username and your inputted user information!
+                      ID: {this.state.currentUser.id}
+                      <br />
+                      Username: {this.state.currentUser.username}
+                      <br />
+                      Email: {this.state.currentUser.email}
                     </Card.Text>
                   </Card.Body>
                 </Card>
@@ -132,7 +151,13 @@ class Dashboard extends Component {
                   <Card.Body>
                     <Card.Title>Stock Watchlist</Card.Title>
                     <Card.Text key="savedStocks">
-                      This shows your saved stocks!
+                      {this.state.isStock && (
+                      <div>
+                        <p>Symbol: {this.state.savedStock.symbol}</p>
+                        <p>Date: {this.state.savedStock.date}</p>
+                        <p>Price: {this.state.savedStock.price}</p>
+                      </div>
+                      )}
                     </Card.Text>
                   </Card.Body>
                 </Card>

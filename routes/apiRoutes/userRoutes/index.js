@@ -3,10 +3,10 @@ const router = require('express').Router();
 const stocksController = require('../../../controllers/stocksController');
 
 // /api/users
-router.route ('/signup')
-.post(stocksController.userInfo)
-.get(stocksController.getUserInfo);
+router.route('/signup')
+  .post(stocksController.userInfo)
+  .get(stocksController.getUserInfo);
 
-router.route ('/')
-
+// eslint-disable-next-line semi
+router.route('/')
 module.exports = router;

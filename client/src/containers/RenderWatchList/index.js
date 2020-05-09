@@ -1,58 +1,71 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+// import React, { Component } from 'react';
+// // eslint-disable-next-line import/no-unresolved
+// import './style.css';
+// import { Button } from 'react-bootstrap';
+// // eslint-disable-next-line import/order
+// import axios from 'axios';
 
-class RenderWatchList extends Component {
-  state = {
-    isStock: false,
-    user_id: 1,
-    savedNotification: '',
-  }
+// class RenderWatchList extends Component {
+//   state = {
+//     // eslint-disable-next-line react/no-unused-state
+//     // watchListStock: {},
+//     isStock: false,
+//     // eslint-disable-next-line react/no-unused-state
+//     user_id: 1,
+//     // eslint-disable-next-line react/no-unused-state
+//     symbol: '',
+//   };
 
-  handleWatchListSubmit = async (symbol) => {
-    console.log(this.state.user_id);
-    const { user_id } = this.state;
-    const stockSymbol = symbol;
-    try {
-      const { data } = await axios.post('/api/stocks/save', { stockSymbol, user_id });
-      console.log(data);
-      this.setState({ savedNotification: data });
-    } catch (e) {
-      console.log(e);
-    }
-  }
-  render() {
-    return (
-      <div className="dashboard-stock-display">
-        <div className="dashboard-stock-content">
-          <ul>
-            <li>
-              <strong>Symbol:</strong> {this.props.symbol}
-            </li>
-            <li>
-              <strong>Name:</strong> {this.props.name}
-            </li>
-            {/* <li>
-              <strong>Region:</strong> {this.props.region}
-            </li>
-            <li>
-              <strong>Currency:</strong> {this.props.currency}
-            </li> */}
-            <button onClick={() => this.handlePriceSubmit(this.props.symbol)} className="submit"> Show Price </button>
-            <button onClick={() => this.handleSaveStockSubmit(this.state.symbol)} className="submit"> Save Stock </button>
-            { this.state.isStock &&
-              <div>
-                <p>Date: {this.state.priceStock.date}</p>
-                <p>Price-Open: {this.state.priceStock.priceOpen}</p>
-                <p>Price-High: {this.state.priceStock.priceHigh}</p>
-                <p>Price-Low: {this.state.priceStock.priceLow}</p>
-                <p>Price-Close: {this.state.priceStock.priceClose}</p>
-                <p>{this.state.savedNotification}</p>
-              </div>}
-          </ul>
-        </div>
-      </div>
-    );
-  }
-}
+//   // handleWatchListSubmit = async (symbol) => {
+//   //   // eslint-disable-next-line react/no-unused-state
+//   //   this.setState({ symbol: this.props.symbol });
+//   //   try {
+//   //     const { data } = await axios.get(`/api/stocks/show?q=${symbol}`);
+//   //     // console.log(data);
+//   //     this.setState({ watchListStock: data, isStock: true });
+//   //   } catch (e) {
+//   //     console.log(e);
+//   //   }
+//   // };
+//   render() {
+//     return (
+//       <div className="dashboard-stock-display">
+//         <div className="dashboard-stock-content">
+//           <ul>
+//             <li>
+//               <strong>Symbol:</strong> {this.props.symbol}
+//             </li>
+//             <li>
+//               <strong>Name:</strong> {this.props.name}
+//             </li>
+//             {/* <li>
+//               <strong>Region:</strong> {this.props.region}
+//             </li>
+//             <li>
+//               <strong>Currency:</strong> {this.props.currency}
+//             </li> */}
+//             {/* <Button
+//               variant="light"
+//               onClick={() => this.handleWatchlist(this.props.symbol)}
+//               className="submit"
+//             >
+//               Save Stock
+//             </Button> */}
+//             <Button variant="success"> Buy Stock </Button>
+//             <Button variant="danger"> Sell Stock </Button>
+//             {/* {this.state.isStock &&
+//               <div>
+//                 <p>Date: {this.state.watchListStock.date}</p>
+//                 <p>Price-Open: {this.state.watchListStock.priceOpen}</p>
+//                 <p>Price-High: {this.state.watchListStock.priceHigh}</p>
+//                 <p>Price-Low: {this.state.watchListStock.priceLow}</p>
+//                 <p>Price-Close: {this.state.watchListStock.priceClose}</p>
+//               </div>} */}
+//           </ul>
+//         </div>
+//       </div>
+//     );
+//   }
+// }
 
-export default RenderWatchList;
+// export default RenderWatchList;
