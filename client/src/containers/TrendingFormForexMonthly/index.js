@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { Form, Col, Button } from 'react-bootstrap';
+import TrendingErrorMessage from '../../components/TrendingErrorInput';
+import TrendingErrorAPI from '../../components/TrendingErrorAPI';
 
 class ForeignMonthly extends Component {
   state = {
     forexFromInput: '',
     forexToInput: '',
+    isErrorInput: false,
   };
+
+  componentDidUpdate() {
+    setTimeout(() => this.setState({ isErrorInput: false }), 5000);
+  }
 
   handleForexMonthlyFromChange = (event) => {
     this.setState({ forexFromInput: event.target.value });
@@ -17,8 +24,12 @@ class ForeignMonthly extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.handleForexMonthlySubmit(this.state.forexFromInput, this.state.forexToInput);
-    this.setState({ forexFromInput: '', forexToInput: '' });
+    if (this.state.forexFromInput === '' || this.state.forexFromInput === '') {
+      this.setState({ isErrorInput: true });
+    } else {
+      this.props.handleForexMonthlySubmit(this.state.forexFromInput.toUpperCase(), this.state.forexToInput.toUpperCase());
+      this.setState({ forexFromInput: '', forexToInput: '' });
+    }
   }
 
   render() {
@@ -30,15 +41,16 @@ class ForeignMonthly extends Component {
           <Form>
             <Form.Row>
               <Col>
-                <Form.Control value={this.state.forexFromInput} onChange={this.handleForexMonthlyFromChange} type="text" placeholder="EUR" />
+                <Form.Control value={this.state.forexFromInput} onChange={this.handleForexMonthlyFromChange} autoComplete="off" type="text" placeholder="EUR" />
               </Col>
 
               <Col>
-                <Form.Control value={this.state.forexToInput} onChange={this.handleForexMonthlyToChange} type="text" placeholder="USD" />
+                <Form.Control value={this.state.forexToInput} onChange={this.handleForexMonthlyToChange} autoComplete="off" type="text" placeholder="USD" />
               </Col>
             </Form.Row>
           </Form>
-
+          {this.state.isErrorInput ? <TrendingErrorMessage /> : null }
+          {this.props.isErrorForexAPI ? <TrendingErrorAPI /> : null}
           <Form.Text className="text-muted">Note: Must be physical currency</Form.Text>
           <Form.Text className="text-muted">Ex: EUR (Euro) to USD (US Dollar)</Form.Text>
         </Form.Group>

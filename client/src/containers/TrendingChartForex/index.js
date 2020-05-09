@@ -20,117 +20,117 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 // ];
 
 export default class TrendingChartStock extends PureComponent {
+  static jsfiddleUrl = 'https://jsfiddle.net/alidingling/xqjtetw0/';
+
   state = {
     data: [],
     textFrom: '',
-    textTo: ''
+    textTo: '',
   }
-
-  static jsfiddleUrl = 'https://jsfiddle.net/alidingling/xqjtetw0/';
 
   componentDidMount() {
     console.log(this.props.data);
     // console.log(chartData);
 
     const dataObj = {
-      "Meta Data": {
-        "From Symbol": this.props.data['Meta Data']['2. From Symbol'],
-        "To Symbol": this.props.data['Meta Data']['3. To Symbol']
+      'Meta Data': {
+        'From Symbol': this.props.data['Meta Data']['2. From Symbol'],
+        'To Symbol': this.props.data['Meta Data']['3. To Symbol'],
       },
-      "Time Series FX (Monthly)": {
-        "2019-04-30": {
-          "1. open": this.props.data['Time Series FX (Monthly)']['2019-04-30']['1. open'], 
-          "2. high": this.props.data['Time Series FX (Monthly)']['2019-04-30']['2. high'], 
-          "3. low": this.props.data['Time Series FX (Monthly)']['2019-04-30']['3. low'], 
-          "4. close": this.props.data['Time Series FX (Monthly)']['2019-04-30']['4. close']
+      'Time Series FX (Monthly)': {
+        '2019-04-30': {
+          '1. open': this.props.data['Time Series FX (Monthly)']['2019-04-30']['1. open'],
+          '2. high': this.props.data['Time Series FX (Monthly)']['2019-04-30']['2. high'],
+          '3. low': this.props.data['Time Series FX (Monthly)']['2019-04-30']['3. low'],
+          '4. close': this.props.data['Time Series FX (Monthly)']['2019-04-30']['4. close'],
         },
-        "2019-05-31": {
-          "1. open": this.props.data['Time Series FX (Monthly)']['2019-05-31']['1. open'], 
-          "2. high": this.props.data['Time Series FX (Monthly)']['2019-05-31']['2. high'], 
-          "3. low": this.props.data['Time Series FX (Monthly)']['2019-05-31']['3. low'], 
-          "4. close": this.props.data['Time Series FX (Monthly)']['2019-05-31']['4. close']
+        '2019-05-31': {
+          '1. open': this.props.data['Time Series FX (Monthly)']['2019-05-31']['1. open'],
+          '2. high': this.props.data['Time Series FX (Monthly)']['2019-05-31']['2. high'],
+          '3. low': this.props.data['Time Series FX (Monthly)']['2019-05-31']['3. low'],
+          '4. close': this.props.data['Time Series FX (Monthly)']['2019-05-31']['4. close'],
         },
-        "2019-06-28": {
-          "1. open": this.props.data['Time Series FX (Monthly)']['2019-06-28']['1. open'], 
-          "2. high": this.props.data['Time Series FX (Monthly)']['2019-06-28']['2. high'], 
-          "3. low": this.props.data['Time Series FX (Monthly)']['2019-06-28']['3. low'], 
-          "4. close": this.props.data['Time Series FX (Monthly)']['2019-06-28']['4. close']
+        '2019-06-28': {
+          '1. open': this.props.data['Time Series FX (Monthly)']['2019-06-28']['1. open'],
+          '2. high': this.props.data['Time Series FX (Monthly)']['2019-06-28']['2. high'],
+          '3. low': this.props.data['Time Series FX (Monthly)']['2019-06-28']['3. low'],
+          '4. close': this.props.data['Time Series FX (Monthly)']['2019-06-28']['4. close'],
         },
-        "2019-07-31": {
-          "1. open": this.props.data['Time Series FX (Monthly)']['2019-07-31']['1. open'], 
-          "2. high": this.props.data['Time Series FX (Monthly)']['2019-07-31']['2. high'], 
-          "3. low": this.props.data['Time Series FX (Monthly)']['2019-07-31']['3. low'], 
-          "4. close": this.props.data['Time Series FX (Monthly)']['2019-07-31']['4. close']
+        '2019-07-31': {
+          '1. open': this.props.data['Time Series FX (Monthly)']['2019-07-31']['1. open'],
+          '2. high': this.props.data['Time Series FX (Monthly)']['2019-07-31']['2. high'],
+          '3. low': this.props.data['Time Series FX (Monthly)']['2019-07-31']['3. low'],
+          '4. close': this.props.data['Time Series FX (Monthly)']['2019-07-31']['4. close'],
         },
-        "2019-08-30": {
-          "1. open": this.props.data['Time Series FX (Monthly)']['2019-08-30']['1. open'], 
-          "2. high": this.props.data['Time Series FX (Monthly)']['2019-08-30']['2. high'], 
-          "3. low": this.props.data['Time Series FX (Monthly)']['2019-08-30']['3. low'], 
-          "4. close": this.props.data['Time Series FX (Monthly)']['2019-08-30']['4. close']
+        '2019-08-30': {
+          '1. open': this.props.data['Time Series FX (Monthly)']['2019-08-30']['1. open'],
+          '2. high': this.props.data['Time Series FX (Monthly)']['2019-08-30']['2. high'],
+          '3. low': this.props.data['Time Series FX (Monthly)']['2019-08-30']['3. low'],
+          '4. close': this.props.data['Time Series FX (Monthly)']['2019-08-30']['4. close'],
         },
-        "2019-09-30": {
-          "1. open": this.props.data['Time Series FX (Monthly)']['2019-09-30']['1. open'], 
-          "2. high": this.props.data['Time Series FX (Monthly)']['2019-09-30']['2. high'], 
-          "3. low": this.props.data['Time Series FX (Monthly)']['2019-09-30']['3. low'], 
-          "4. close": this.props.data['Time Series FX (Monthly)']['2019-09-30']['4. close']
+        '2019-09-30': {
+          '1. open': this.props.data['Time Series FX (Monthly)']['2019-09-30']['1. open'],
+          '2. high': this.props.data['Time Series FX (Monthly)']['2019-09-30']['2. high'],
+          '3. low': this.props.data['Time Series FX (Monthly)']['2019-09-30']['3. low'],
+          '4. close': this.props.data['Time Series FX (Monthly)']['2019-09-30']['4. close'],
         },
-        "2019-10-31": {
-          "1. open": this.props.data['Time Series FX (Monthly)']['2019-10-31']['1. open'], 
-          "2. high": this.props.data['Time Series FX (Monthly)']['2019-10-31']['2. high'], 
-          "3. low": this.props.data['Time Series FX (Monthly)']['2019-10-31']['3. low'], 
-          "4. close": this.props.data['Time Series FX (Monthly)']['2019-10-31']['4. close']
+        '2019-10-31': {
+          '1. open': this.props.data['Time Series FX (Monthly)']['2019-10-31']['1. open'],
+          '2. high': this.props.data['Time Series FX (Monthly)']['2019-10-31']['2. high'],
+          '3. low': this.props.data['Time Series FX (Monthly)']['2019-10-31']['3. low'],
+          '4. close': this.props.data['Time Series FX (Monthly)']['2019-10-31']['4. close'],
         },
-        "2019-11-29": {
-          "1. open": this.props.data['Time Series FX (Monthly)']['2019-11-29']['1. open'], 
-          "2. high": this.props.data['Time Series FX (Monthly)']['2019-11-29']['2. high'], 
-          "3. low": this.props.data['Time Series FX (Monthly)']['2019-11-29']['3. low'], 
-          "4. close": this.props.data['Time Series FX (Monthly)']['2019-11-29']['4. close']
+        '2019-11-29': {
+          '1. open': this.props.data['Time Series FX (Monthly)']['2019-11-29']['1. open'],
+          '2. high': this.props.data['Time Series FX (Monthly)']['2019-11-29']['2. high'],
+          '3. low': this.props.data['Time Series FX (Monthly)']['2019-11-29']['3. low'],
+          '4. close': this.props.data['Time Series FX (Monthly)']['2019-11-29']['4. close'],
         },
-        "2019-12-31": {
-          "1. open": this.props.data['Time Series FX (Monthly)']['2019-12-31']['1. open'], 
-          "2. high": this.props.data['Time Series FX (Monthly)']['2019-12-31']['2. high'], 
-          "3. low": this.props.data['Time Series FX (Monthly)']['2019-12-31']['3. low'], 
-          "4. close": this.props.data['Time Series FX (Monthly)']['2019-12-31']['4. close']
+        '2019-12-31': {
+          '1. open': this.props.data['Time Series FX (Monthly)']['2019-12-31']['1. open'],
+          '2. high': this.props.data['Time Series FX (Monthly)']['2019-12-31']['2. high'],
+          '3. low': this.props.data['Time Series FX (Monthly)']['2019-12-31']['3. low'],
+          '4. close': this.props.data['Time Series FX (Monthly)']['2019-12-31']['4. close'],
         },
-        "2020-01-31": {
-          "1. open": this.props.data['Time Series FX (Monthly)']['2020-01-31']['1. open'], 
-          "2. high": this.props.data['Time Series FX (Monthly)']['2020-01-31']['2. high'], 
-          "3. low": this.props.data['Time Series FX (Monthly)']['2020-01-31']['3. low'], 
-          "4. close": this.props.data['Time Series FX (Monthly)']['2020-01-31']['4. close']
+        '2020-01-31': {
+          '1. open': this.props.data['Time Series FX (Monthly)']['2020-01-31']['1. open'],
+          '2. high': this.props.data['Time Series FX (Monthly)']['2020-01-31']['2. high'],
+          '3. low': this.props.data['Time Series FX (Monthly)']['2020-01-31']['3. low'],
+          '4. close': this.props.data['Time Series FX (Monthly)']['2020-01-31']['4. close'],
         },
-        "2020-02-28": {
-          "1. open": this.props.data['Time Series FX (Monthly)']['2020-02-28']['1. open'], 
-          "2. high": this.props.data['Time Series FX (Monthly)']['2020-02-28']['2. high'], 
-          "3. low": this.props.data['Time Series FX (Monthly)']['2020-02-28']['3. low'], 
-          "4. close": this.props.data['Time Series FX (Monthly)']['2020-02-28']['4. close']
+        '2020-02-28': {
+          '1. open': this.props.data['Time Series FX (Monthly)']['2020-02-28']['1. open'],
+          '2. high': this.props.data['Time Series FX (Monthly)']['2020-02-28']['2. high'],
+          '3. low': this.props.data['Time Series FX (Monthly)']['2020-02-28']['3. low'],
+          '4. close': this.props.data['Time Series FX (Monthly)']['2020-02-28']['4. close'],
         },
-        "2020-03-31": {
-          "1. open": this.props.data['Time Series FX (Monthly)']['2020-03-31']['1. open'], 
-          "2. high": this.props.data['Time Series FX (Monthly)']['2020-03-31']['2. high'], 
-          "3. low": this.props.data['Time Series FX (Monthly)']['2020-03-31']['3. low'], 
-          "4. close": this.props.data['Time Series FX (Monthly)']['2020-03-31']['4. close']
+        '2020-03-31': {
+          '1. open': this.props.data['Time Series FX (Monthly)']['2020-03-31']['1. open'],
+          '2. high': this.props.data['Time Series FX (Monthly)']['2020-03-31']['2. high'],
+          '3. low': this.props.data['Time Series FX (Monthly)']['2020-03-31']['3. low'],
+          '4. close': this.props.data['Time Series FX (Monthly)']['2020-03-31']['4. close'],
         },
-        "2020-04-30": {
-          "1. open": this.props.data['Time Series FX (Monthly)']['2020-04-30']['1. open'], 
-          "2. high": this.props.data['Time Series FX (Monthly)']['2020-04-30']['2. high'], 
-          "3. low": this.props.data['Time Series FX (Monthly)']['2020-04-30']['3. low'], 
-          "4. close": this.props.data['Time Series FX (Monthly)']['2020-04-30']['4. close']
-        }
-      }
-    }
+        '2020-04-30': {
+          '1. open': this.props.data['Time Series FX (Monthly)']['2020-04-30']['1. open'],
+          '2. high': this.props.data['Time Series FX (Monthly)']['2020-04-30']['2. high'],
+          '3. low': this.props.data['Time Series FX (Monthly)']['2020-04-30']['3. low'],
+          '4. close': this.props.data['Time Series FX (Monthly)']['2020-04-30']['4. close'],
+        },
+      },
+    };
 
     console.log(dataObj);
 
     function mapData() {
-      let dataArr = [];
-      let timeSeries = dataObj['Time Series FX (Monthly)'];
-      for (let property in timeSeries) {
-        let eachDate = {};
+      const dataArr = [];
+      const timeSeries = dataObj['Time Series FX (Monthly)'];
+      for (const property in timeSeries) {
+        const eachDate = {};
         eachDate.name = property;
-        eachDate.open = parseFloat(timeSeries[property]["1. open"]);
-        eachDate.high = parseFloat(timeSeries[property]["2. high"]);
-        eachDate.low = parseFloat(timeSeries[property]["3. low"]);
-        eachDate.close = parseFloat(timeSeries[property]["4. close"]);
+        eachDate.open = parseFloat(timeSeries[property]['1. open']);
+        eachDate.high = parseFloat(timeSeries[property]['2. high']);
+        eachDate.low = parseFloat(timeSeries[property]['3. low']);
+        eachDate.close = parseFloat(timeSeries[property]['4. close']);
         eachDate.amt = 2000;
         dataArr.push(eachDate);
       }
@@ -141,7 +141,7 @@ export default class TrendingChartStock extends PureComponent {
 
     const symbolFromText = dataObj['Meta Data']['From Symbol'];
     const symbolToText = dataObj['Meta Data']['To Symbol'];
-  
+
     this.setState({ data: dataChart, textFrom: symbolFromText, textTo: symbolToText });
   }
 
@@ -174,4 +174,3 @@ export default class TrendingChartStock extends PureComponent {
     );
   }
 }
-

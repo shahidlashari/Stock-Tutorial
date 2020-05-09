@@ -42,7 +42,7 @@ class TrendingCardForex extends Component {
 
         <Card.Body>
           <Card.Text>
-            {this.state.forexActiveKey === '#currencyExchange' ? <CurrencyExchangeRate handleCurrencySubmit={this.props.handleCurrencySubmit} /> : <ForeignMonthly handleForexMonthlySubmit={this.props.handleForexMonthlySubmit} />}
+            {this.state.forexActiveKey === '#currencyExchange' ? <CurrencyExchangeRate handleCurrencySubmit={this.props.handleCurrencySubmit} isErrorCurrencyAPI={this.props.isErrorCurrencyAPI} /> : <ForeignMonthly handleForexMonthlySubmit={this.props.handleForexMonthlySubmit} isErrorForexAPI={this.props.isErrorForexAPI} />}
           </Card.Text>
         </Card.Body>
       </Card>

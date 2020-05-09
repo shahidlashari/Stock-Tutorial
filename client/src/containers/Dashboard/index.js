@@ -12,7 +12,7 @@ class Dashboard extends Component {
     priceStock: [],
     stockInput: '',
     currentUser: {},
-    savedStock: {}
+    savedStock: {},
     // dash: [],
     // username: '',
     // budget: '',
@@ -24,11 +24,11 @@ class Dashboard extends Component {
 
     const newUser = this.props.history.location.state && this.props.history.location.state.newUser
       ? this.props.history.location.state.newUser
-      : JSON.parse(localStorage.getItem("currentStockBroker"))
+      : JSON.parse(localStorage.getItem('currentStockBroker'));
 
     this.setState({
-      currentUser: newUser
-    })
+      currentUser: newUser,
+    });
     console.log(newUser);
   }
 
@@ -58,11 +58,11 @@ class Dashboard extends Component {
 
           // key={stock["1. symbol"]}
           // userId={this.state.currentUser.id}
-          symbol={stock["1. symbol"]}
-          name={stock["2. name"]}
-          region={stock["4. region"]}
-          matchscore={stock["9. matchScore"]}
-          currency={stock["8. currency"]}
+          symbol={stock['1. symbol']}
+          name={stock['2. name']}
+          region={stock['4. region']}
+          matchscore={stock['9. matchScore']}
+          currency={stock['8. currency']}
           handleSubmit={this.handleSubmit}
         // openprice={this.state.priceStock[5]}
         />;
@@ -84,7 +84,7 @@ class Dashboard extends Component {
       const stocks = [...this.state.stocks, ...bestMatches];
       // console.log(bestMatches);
       this.setState({ stocks });
-      this.setState({ stocks, stockInput: '' })
+      this.setState({ stocks, stockInput: '' });
       // renderStockListItems()
     } catch (err) {
       console.log(err);
@@ -95,18 +95,16 @@ class Dashboard extends Component {
     // settimeout function
     // that will display some alert or error
     // then after a couple second, call history.push
-    this.props.history.push('/')
+    this.props.history.push('/');
   }
 
   render() {
-    if (!this.state.currentUser && !this.props.history.location.state && !localStorage.getItem("currentStockBroker")) {
-
+    if (!this.state.currentUser && !this.props.history.location.state && !localStorage.getItem('currentStockBroker')) {
       return (
         <div>
           {this.navigateAway()}
         </div>
-      )
-
+      );
     } else {
       // console.log(this.state.stocks)
       return (
@@ -119,7 +117,7 @@ class Dashboard extends Component {
                     <Card.Title>Username: {this.state.username}</Card.Title>
                     <Card.Text>
                       This shows your username and your inputted user information!
-                  </Card.Text>
+                    </Card.Text>
                   </Card.Body>
                 </Card>
                 <Card bg="light" border="primary">
@@ -135,7 +133,7 @@ class Dashboard extends Component {
                     <Card.Title>Stock Watchlist</Card.Title>
                     <Card.Text key="savedStocks">
                       This shows your saved stocks!
-                  </Card.Text>
+                    </Card.Text>
                   </Card.Body>
                 </Card>
               </Col>

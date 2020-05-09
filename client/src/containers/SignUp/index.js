@@ -18,49 +18,52 @@ class SignUp extends Component {
 
   async handleClick(event) {
     event.preventDefault();
-    //validate input form fields
-    const emailCheck = this.isEmail(this.state.email)
-    const passwordCheck = this.isPassword(this.state.password)
-    const usernameCheck = this.isRequired(this.state.username)
+    // validate input form fields
+    const emailCheck = this.isEmail(this.state.email);
+    const passwordCheck = this.isPassword(this.state.password);
+    const usernameCheck = this.isRequired(this.state.username);
     if (emailCheck && passwordCheck && usernameCheck) {
       const { data } = await axios.post('/api/users/signup', { username: this.state.username, password: this.state.password, email: this.state.email });
-      //validate data from post request
-      console.log (data.newUser[0]);
-      localStorage.setItem("currentStockBroker", JSON.stringify(data.newUser[0]))
+      // validate data from post request
+      console.log(data.newUser[0]);
+      localStorage.setItem('currentStockBroker', JSON.stringify(data.newUser[0]));
       this.props.history.push({
         pathname: '/dashboard',
-        state: { newUser: data.newUser[0] }
+        state: { newUser: data.newUser[0] },
 
-      })
+      });
     } else {
-      console.log('Please enter valid informations')
+      console.log('Please enter valid informations');
     }
-  };
+  }
 
   isEmail(value) {
-    return value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? false : true
-  };
+    return value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? false : true;
+  }
+
   isPassword(value) {
-    return value && !/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/.test(value) ? false : true
+    return value && !/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/.test(value) ? false : true;
   }
+
   isRequired(value) {
-    return value && value !== '' ? true : false
-  };
-  handleInputChange = event => {
-    const { value, name } = event.target;
-    this.setState({ [name]: value });
+    return value && value !== '' ? true : false;
   }
+  // handleInputChange = event => {
+  //   const { value, name } = event.target;
+  //   this.setState({ [name]: value });
+  // }
 
   render() {
     return (
       <Container>
-        <h1 className="signup-title">Create your own account!</h1>
+        <h1 className="signup-title">Create an account to start trading stocks!</h1>
         <Form>
           <Form.Group controlId="formBasicUsername">
             <Form.Label>Username</Form.Label>
             <Form.Control
-              name='username'
+              name="username"
               type="text"
+              autoComplete="off"
               placeholder="Create your username"
               value={this.state.username}
               onChange={this.handleInputChange}
@@ -69,20 +72,20 @@ class SignUp extends Component {
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
-              name='password'
+              name="password"
               type="password"
               placeholder="Enter your password"
               value={this.state.password}
               onChange={this.handleInputChange}
             />
             <Form.Text className="text-muted">
-              Password length does not matter.
+              Password must be 6-16 characters, and must contain at least one number and one special character!
             </Form.Text>
           </Form.Group>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
-              name='email'
+              name="email"
               type="email"
               placeholder="Enter email"
               value={this.state.email}

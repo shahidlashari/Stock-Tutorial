@@ -43,7 +43,7 @@ class TrendingCardCrypto extends Component {
 
         <Card.Body>
           <Card.Text>
-            {this.state.cryptoActiveKey === '#cryptorating' ? <Cryptorating handleCryptoSubmit={this.props.handleCryptoSubmit} /> : <DigitalMonthly handleDigitalMonthlySubmit={this.props.handleDigitalMonthlySubmit} />}
+            {this.state.cryptoActiveKey === '#cryptorating' ? <Cryptorating handleCryptoSubmit={this.props.handleCryptoSubmit} isErrorCryptoAPI={this.props.isErrorCryptoAPI} /> : <DigitalMonthly handleDigitalMonthlySubmit={this.props.handleDigitalMonthlySubmit} isErrorDigitalAPI={this.props.isErrorDigitalAPI} />}
           </Card.Text>
         </Card.Body>
       </Card>
