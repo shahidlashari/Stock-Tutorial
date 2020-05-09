@@ -1,4 +1,4 @@
-// recent 
+// recent
 const userInfo = 'INSERT INTO users SET ?;';
 const getUserInfo = 'SELECT * FROM users WHERE id=?;';
 const saveStock = 'INSERT INTO savedStocks SET ?;';
