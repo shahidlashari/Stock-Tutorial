@@ -6,7 +6,7 @@ import TrendingChartDigital from '../../containers/TrendingChartDigital';
 
 const TrendingCardResult = (props) => {
   return (
-    <Card className="text-center card-chart-display">
+    <Card className="text-center card-chart-display" border="dark">
       <Card.Header>
         <OverlayTrigger
           key="top"

@@ -38,6 +38,7 @@
         "quote-props": ["off"],
         "dot-notation": ["off"],
         "camelcase": ["off"],
+        "no-alert": ["off"],
         "no-unneeded-ternary": ["off"],
         "class-methods-use-this": ["off"],
         "no-inner-declarations": ["off"],

@@ -53,7 +53,7 @@ class DigitalMonthly extends Component {
           </Form>
           {this.state.isErrorInput ? <TrendingErrorMessage /> : null }
           {this.props.isErrorDigitalAPI ? <TrendingErrorAPI /> : null}
-          <Form.Text className="text-muted">Ex: CNY (Chinese Yuan), MXN (Mexican Peso), KRW (South Korean Won), etc.</Form.Text>
+          <Form.Text className="text-muted">e.g. CNY (Chinese Yuan), MXN (Mexican Peso), KRW (South Korean Won), etc.</Form.Text>
         </Form.Group>
 
         <Button onClick={(e) => this.handleSubmit(e)} variant="dark" type="submit">Submit</Button>

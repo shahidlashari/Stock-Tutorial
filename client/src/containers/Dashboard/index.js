@@ -2,28 +2,24 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Button, Container, Row, Col, Form, Card, FormControl } from 'react-bootstrap';
 import axios from 'axios';
-import RenderStockList from '../RenderStockList';
 import Wrapper from '../../components/Wrapper';
+import RenderStockList from '../RenderStockList';
+import RenderWatchList from '../RenderWatchList';
+// import DashboardAlertMessage from '../../components/DashboardAlertMessage';
 import './style.css';
 
 class Dashboard extends Component {
   state = {
     stocks: [],
-    savedStock: '',
+    savedStock: [],
     stockInput: '',
     currentUser: {},
-    // eslint-disable-next-line react/no-unused-state
     isStock: false,
-    // eslint-disable-next-line react/no-unused-state
-    // dash: [],
-    // username: '',
-    // budget: '',
-    // stocksearch: ''
+    isWatchList: false,
+    // isErrorNoUser: false,
   }
 
   componentDidMount() {
-    // console.log(this.props.history);
-
     const newUser = this.props.history.location.state && this.props.history.location.state.newUser
       ? this.props.history.location.state.newUser
       : JSON.parse(localStorage.getItem('currentStockBroker'));
@@ -31,59 +27,11 @@ class Dashboard extends Component {
     this.setState({
       currentUser: newUser,
     });
-    // console.log(newUser);
   }
 
-  // async componentDidMount() {
-  //   console.log(inputSymbol);
-
-  //   try {
-  //     const inputSymbol = this.state.stockInput
-  //     const { data: { bestMatches } } = await axios.get('/api/stocks');
-  //     let stocks = [...this.state.stocks, ...bestMatches];
-  //     // console.log(bestMatches);
-  //     this.setState({ stocks });
-  //     // console.log(stocks);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
+  // componentDidUpdate() {
+  //   setTimeout(() => this.setState({ isErrorNoUser: false }), 5000);
   // }
-  handleSaveStockSubmit = async (symbol) => {
-    // eslint-disable-next-line react/no-unused-state
-    this.setState({ symbol: this.props.symbol });
-    try {
-      const [data] = await axios.get(`/api/stocks/show?q=${symbol}`);
-      // const { data } = await axios.get(`/api/stocks/show${symbol}`);
-      console.log(data);
-      // const priceStock = [...this.state.priceStock, data];
-      // this.setState({ priceStock});
-      this.setState({ savedStock: data, isStock: true });
-      // console.log(priceStock);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  renderStockListItems = () => {
-    if (this.state.stocks.length === 0) {
-      return <h4>No Stock yet</h4>;
-    } else {
-      return this.state.stocks.map((stock) => {
-
-        return <RenderStockList
-
-          key={stock['1. symbol']}
-          symbol={stock['1. symbol']}
-          name={stock['2. name']}
-          region={stock['4. region']}
-          matchscore={stock['9. matchScore']}
-          currency={stock['8. currency']}
-          handleSubmit={this.handleSubmit}
-          handleSaveStockSubmit={this.handleSaveStockSubmit}
-        // openprice={this.state.priceStock[5]}
-        />;
-      });
-    }
-  }
 
   handleStockInputChange = (event) => {
     this.setState({ stockInput: event.target.value });
@@ -92,17 +40,91 @@ class Dashboard extends Component {
   handleStockSearchSubmit = async (event) => {
     event.preventDefault();
     try {
+      this.setState({ stocks: [] });
       const inputSymbol = this.state.stockInput;
-      // console.log(inputSymbol);
       const { data: { bestMatches } } = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${inputSymbol}&apikey=4EOUWW7RMTJ1A28A`);
-      // console.log(data);
       const stocks = [...this.state.stocks, ...bestMatches];
-      // console.log(bestMatches);
-      this.setState({ stocks });
+      // this.setState({ stocks });
       this.setState({ stocks, stockInput: '' });
-      // renderStockListItems()
+
+      const user_id = this.state.currentUser.id;
+      const { data } = await axios.get(`/api/stocks/save?q=${user_id}`);
+      console.log(data);
+      this.setState({ savedStock: data, isWatchList: true });
     } catch (err) {
       console.log(err);
+    }
+  }
+
+  handleSaveStockSubmit = async (symbol) => {
+    const user_id = this.state.currentUser.id;
+    const stockSymbol = symbol;
+    console.log(user_id);
+    console.log(stockSymbol);
+
+    try {
+      const { data } = await axios.post('/api/stocks/save', {
+        stockSymbol,
+        user_id,
+      });
+
+      console.log(data);
+
+      const { data: stockFromID } = await axios.get(`/api/stocks/save?q=${user_id}`);
+      console.log(stockFromID);
+      this.setState({ savedStock: stockFromID, isStock: true, isWatchList: true });
+      console.log(this.state.savedStock);
+      this.setState({ isStock: true });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  // handleWatchList = async () => {
+  //   try {
+  //     if (this.state.savedStock.length === 0) {
+  //       return;
+  //     } else {
+  //       const user_id = this.state.currentUser.id;
+  //       const { data: stockFromID } = await axios.get(`/api/stocks/save?q=${user_id}`);
+  //       console.log(stockFromID);
+  //       this.setState({ savedStock: stockFromID, isWatchList: true });
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }
+
+  renderStockListItems = () => {
+    if (this.state.stocks.length === 0) {
+      return <h4>No Stock yet</h4>;
+    } else {
+      return this.state.stocks.map((stock) => {
+        return <RenderStockList
+          key={stock['1. symbol']}
+          symbol={stock['1. symbol']}
+          name={stock['2. name']}
+          priceStock={this.state.priceStock}
+          handleSaveStockSubmit={this.handleSaveStockSubmit}
+          isStock={this.state.isStock}
+        />;
+      });
+    }
+  }
+
+  renderWatchListItems = () => {
+    if (this.state.savedStock.length === 0) {
+      return <h4>No Stock(s) in Watchlist yet</h4>;
+    } else {
+      return this.state.savedStock.map((stock) => {
+        console.log(stock['symbol']);
+        return <RenderWatchList
+          key={stock['symbol']}
+          symbol={stock['symbol']}
+          price={stock['price']}
+          isWatchList={this.state.isWatchList}
+        />;
+      });
     }
   }
 
@@ -110,6 +132,8 @@ class Dashboard extends Component {
     // settimeout function
     // that will display some alert or error
     // then after a couple second, call history.push
+    // this.setState({ isErrorNoUser: true });
+    alert('Please create an account to access Dashboard!');
     this.props.history.push('/');
   }
 
@@ -121,15 +145,14 @@ class Dashboard extends Component {
         </div>
       );
     } else {
-      // console.log(this.state.stocks)
       return (
         <Wrapper>
-          <Container fluid>
+          <Container>
             <Row>
               <Col md={4}>
-                <Card bg="light" border="primary">
+                <Card bg="light" border="dark" className="dashboard-user-card">
                   <Card.Body>
-                    <Card.Title>User Informations </Card.Title>
+                    <Card.Title>User Information </Card.Title>
                     <Card.Text>
                       ID: {this.state.currentUser.id}
                       <br />
@@ -139,7 +162,7 @@ class Dashboard extends Component {
                     </Card.Text>
                   </Card.Body>
                 </Card>
-                <Card bg="light" border="primary">
+                <Card bg="light" border="dark" className="dashboard-budget-card">
                   <Card.Body>
                     <Card.Title>
                       User's Budget: ${this.state.budget}
@@ -147,17 +170,11 @@ class Dashboard extends Component {
                     <Card.Text>This shows the user's budget for trading!</Card.Text>
                   </Card.Body>
                 </Card>
-                <Card bg="light" border="primary">
+                <Card bg="light" border="dark" className="dashboard-watchlist-card">
                   <Card.Body>
                     <Card.Title>Stock Watchlist</Card.Title>
                     <Card.Text key="savedStocks">
-                      {this.state.isStock && (
-                      <div>
-                        <p>Symbol: {this.state.savedStock.symbol}</p>
-                        <p>Date: {this.state.savedStock.date}</p>
-                        <p>Price: {this.state.savedStock.price}</p>
-                      </div>
-                      )}
+                      {this.renderWatchListItems()}
                     </Card.Text>
                   </Card.Body>
                 </Card>
@@ -190,4 +207,5 @@ class Dashboard extends Component {
     }
   }
 }
+
 export default withRouter(Dashboard);

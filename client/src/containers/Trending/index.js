@@ -24,7 +24,18 @@ class Trending extends Component {
   }
 
   componentDidUpdate() {
-    setTimeout(() => this.setState({ isErrorStockAPI: false, isErrorCurrencyAPI: false, isErrorForexAPI: false, isErrorCryptoAPI: false, isErrorDigitalAPI: false }), 6000);
+    if (this.state.isErrorStockAPI === true) {
+      setTimeout(() => this.setState({ isErrorStockAPI: false }), 6000);
+    } else if (this.state.isErrorCurrencyAPI === true) {
+      setTimeout(() => this.setState({ isErrorCurrencyAPI: false }), 6000);
+    } else if (this.state.isErrorForexAPI === true) {
+      setTimeout(() => this.setState({ isErrorForexAPI: false }), 6000);
+    } else if (this.state.isErrorCryptoAPI === true) {
+      setTimeout(() => this.setState({ isErrorCryptoAPI: false }), 6000);
+    } else {
+      setTimeout(() => this.setState({ isErrorDigitalAPI: false }), 6000);
+    }
+    // setTimeout(() => this.setState({ isErrorStockAPI: false, isErrorCurrencyAPI: false, isErrorForexAPI: false, isErrorCryptoAPI: false, isErrorDigitalAPI: false }), 6000);
   }
 
   handleStockSubmit = async (inputStock) => {
