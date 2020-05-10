@@ -2,37 +2,45 @@ DROP DATABASE IF EXISTS stocksDB;
 CREATE DATABASE stocksDB;
 USE stocksDB;
 
-CREATE TABLE users(
-	id INT AUTO_INCREMENT,
-    username VARCHAR (50) NOT NULL,
-    password VARCHAR (50) NOT NULL,
-    email VARCHAR (50) NOT NULL,
-    PRIMARY KEY(id)
+CREATE TABLE users (
+	id INT(5) auto_increment PRIMARY KEY NOT NULL,
+    username VARCHAR(20) NOT NULL,
+    password VARCHAR(30) NOT NULL,
+    email VARCHAR(20) NOT NULL
 );
+
+CREATE TABLE budget(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    initial_amount int(5) default 10000,
+    purchase_id int,
+    user_id int,
+    sell_id int,
+	FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (purchase_id) REFERENCES ownedStocks(id),
+	FOREIGN KEY (sell_id) REFERENCES soldStocks(id)
+);
+
+-- select ownedStocks.purchase_price, ownedStocks.date_api, ownedStocks.symbol, budget.initial_amount from ownedStocks 
+--                       inner join budget on budget.purchase_id=ownedStocks.id;
+--                       
+-- insert into budget ( user_id, purchase_id, sell_id) values(1,1,1);
+--  
+-- select * from budget;
+
+
 CREATE TABLE savedStocks (
     id int(5) auto_increment primary key not null,
     user_id int,    
     symbol VARCHAR (50) NOT NULL,
-    price decimal (10,4) NOT NULL,
+    price decimal (10,2) NOT NULL,
     date_api varchar(20) NOT NULL,
 	FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
--- CREATE TABLE currentStocks(
--- 	id int(4) auto_increment primary key not null,
---     user_id int,
--- 	symbol VARCHAR (50) NOT NULL,
---     date_api varchar(20) not null,
---     purchase_price decimal(10,4) null,
---     sold boolean default false,
---     sell_price decimal(10,4) null,
--- 	FOREIGN KEY (user_id) REFERENCES users(id)
--- );
-
 CREATE TABLE ownedStocks(
 id int(4) auto_increment primary key not null,
 	symbol VARCHAR (50) NOT NULL,
-    purchase_price decimal(10,4) null,
+    purchase_price decimal(10,2) null,
     date_api varchar(20) not null,
     user_id int,
 	FOREIGN KEY (user_id) REFERENCES users(id)
@@ -41,12 +49,35 @@ id int(4) auto_increment primary key not null,
 CREATE TABLE soldStocks(
 	id int(4) auto_increment primary key not null,
 	symbol VARCHAR (50) NOT NULL,
-    sell_price decimal(10,4) null,
+    sell_price decimal(10,2) null,
     date_api varchar(20) not null,
     user_id int,
 	FOREIGN KEY (user_id) REFERENCES users(id)
 );
+-- INSERT INTO savedStocks SET symbol = (`${symbol}`), price = (`${price}`), date_api= (`${date_api}`), user_id =(`${user_id}`)
+-- ON DUPLICATE KEY UPDATE  price = (`${price}`);
 
+-- select * from savedStocks;
+
+-- INSERT INTO savedStocks (symbol, price, date_api, user_id) values('fb', 300, 2018-09-22, 2)
+-- ON DUPLICATE KEY UPDATE  price = (130);
+
+--     
+
+
+-- insert into ownedStocks(symbol, purchase_price, date_api, user_id) values('h', 50.97, 2009-05-02, 2);
+-- select users.username, ownedStocks.user_id, ownedStocks.id, ownedStocks.symbol, ownedStocks.purchase_price, ownedStocks.date_api from ownedStocks 
+--                       inner join users on users.id=ownedStocks.user_id 
+--                       where ownedStocks.user_id = 2 and ownedStocks.symbol = "H" order by ownedStocks.date_api DESC LIMIT 1;
+
+
+-- select * from ownedStocks;
+-- select * from soldStocks;
+
+
+
+-- select * from ownedStocks;
+-- select * from soldStocks;
 -- insert into savedStocks(user_id, symbol, price, date_api) value(2, "FB", 300.00, 2020.05);
 -- select * from savedStocks;
 -- select users.name, savedStocks.user_id, savedStocks.symbol, savedStocks.price, savedStocks.date_api from savedStocks 
