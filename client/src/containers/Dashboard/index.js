@@ -5,7 +5,6 @@ import axios from 'axios';
 import Wrapper from '../../components/Wrapper';
 import RenderStockList from '../RenderStockList';
 import RenderWatchList from '../RenderWatchList';
-// import DashboardAlertMessage from '../../components/DashboardAlertMessage';
 import './style.css';
 
 class Dashboard extends Component {
@@ -16,6 +15,7 @@ class Dashboard extends Component {
     currentUser: {},
     isStock: false,
     isWatchList: false,
+    budget: 1000,
     // isErrorNoUser: false,
   }
 
@@ -23,15 +23,17 @@ class Dashboard extends Component {
     const newUser = this.props.history.location.state && this.props.history.location.state.newUser
       ? this.props.history.location.state.newUser
       : JSON.parse(localStorage.getItem('currentStockBroker'));
-
     this.setState({
       currentUser: newUser,
     });
   }
 
-  // componentDidUpdate() {
-  //   setTimeout(() => this.setState({ isErrorNoUser: false }), 5000);
-  // }
+  // eslint-disable-next-line react/sort-comp
+  logOut() {
+    // eslint-disable-next-line no-undef
+    localStorage.clear('currentStockBroker');
+    this.props.history.push('/');
+  }
 
   handleStockInputChange = (event) => {
     this.setState({ stockInput: event.target.value });
@@ -44,9 +46,7 @@ class Dashboard extends Component {
       const inputSymbol = this.state.stockInput;
       const { data: { bestMatches } } = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${inputSymbol}&apikey=4EOUWW7RMTJ1A28A`);
       const stocks = [...this.state.stocks, ...bestMatches];
-      // this.setState({ stocks });
       this.setState({ stocks, stockInput: '' });
-
       const user_id = this.state.currentUser.id;
       const { data } = await axios.get(`/api/stocks/save?q=${user_id}`);
       console.log(data);
@@ -61,24 +61,49 @@ class Dashboard extends Component {
     const stockSymbol = symbol;
     console.log(user_id);
     console.log(stockSymbol);
-
     try {
-      const { data } = await axios.post('/api/stocks/save', {
+      await axios.post('/api/stocks/save', {
         stockSymbol,
         user_id,
       });
-
-      console.log(data);
-
-      const { data: stockFromID } = await axios.get(`/api/stocks/save?q=${user_id}`);
-      console.log(stockFromID);
-      this.setState({ savedStock: stockFromID, isStock: true, isWatchList: true });
+      // console.log(data);
+      const { data: stockByID } = await axios.get(`/api/stocks/save?q=${user_id}`);
+      console.log(stockByID);
+      this.setState({ savedStock: stockByID, isStock: true, isWatchList: true });
       console.log(this.state.savedStock);
       this.setState({ isStock: true });
     } catch (e) {
       console.log(e);
     }
   };
+
+  handleBuyStockSubmit = async (symbol) => {
+    const user_id = this.state.currentUser.id;
+    const stockSymbol = symbol;
+    console.log(symbol);
+    console.log(user_id);
+    try {
+      const { data } = await axios.post('/api/stocks/buy', { stockSymbol, user_id });
+      const buyPrice = parseFloat(data.price, 10);
+      const currentBudget = parseFloat(this.state.budget, 10);
+      this.setState({ budget: (currentBudget - buyPrice) });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  handleSellStockSubmit = async (symbol) => {
+    const user_id = this.state.currentUser.id;
+    const stockSymbol = symbol;
+    try {
+      const { data } = await axios.post('/api/stocks/sell', { stockSymbol, user_id });
+      const newPrice = parseFloat(data.price, 10);
+      const currentBudget = parseFloat(this.state.budget, 10);
+      this.setState({ budget: (currentBudget + newPrice) });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   // handleWatchList = async () => {
   //   try {
@@ -122,7 +147,10 @@ class Dashboard extends Component {
           key={stock['symbol']}
           symbol={stock['symbol']}
           price={stock['price']}
+          handleBuyStockSubmit={this.handleBuyStockSubmit}
+          handleSellStockSubmit={this.handleSellStockSubmit}
           isWatchList={this.state.isWatchList}
+
         />;
       });
     }
@@ -159,6 +187,8 @@ class Dashboard extends Component {
                       Username: {this.state.currentUser.username}
                       <br />
                       Email: {this.state.currentUser.email}
+                      <br />
+                      <Button variant="outline-info" onClick={(e) => this.logOut(e)}>Log Out</Button>
                     </Card.Text>
                   </Card.Body>
                 </Card>

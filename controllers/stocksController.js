@@ -128,8 +128,7 @@ module.exports = {
       const date = dateArray[0];
       const price = data['Time Series (Daily)'][date]['1. open'];
       buyStock(symbol, price, date, user_id);
-      // const [updatedStock] = await connection.query(stockQueries.getOwnedStocks);
-      res.status(200).json({ symbol, price, date, user_id });
+      res.status(200).json({ price });
     } catch (e) {
       res.status(403).json({ e });
     }
@@ -162,7 +161,7 @@ module.exports = {
       const price = data['Time Series (Daily)'][date]['4. close'];
       sellStock(symbol, price, date, user_id);
       // const [updatedStock] = await connection.query(stockQueries.getStock);
-      res.status(200).json({ symbol, price, date, user_id });
+      res.status(200).json({ price });
     } catch (e) {
       res.status(403).json({ e });
     }
