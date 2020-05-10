@@ -7,6 +7,5 @@ router.route('/signup')
   .post(stocksController.userInfo)
   .get(stocksController.getUserInfo);
 
-// eslint-disable-next-line semi
-router.route('/')
+router.route('/');
 module.exports = router;

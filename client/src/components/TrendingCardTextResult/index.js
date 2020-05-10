@@ -5,7 +5,7 @@ import TrendingTextCryptorating from '../../containers/TrendingTextCryptorating'
 
 const TrendingCardTextResult = (props) => {
   return (
-    <Card className="text-center card-text-display">
+    <Card className="text-center card-text-display" border="dark">
       <Card.Header>
         <OverlayTrigger
           key="top"

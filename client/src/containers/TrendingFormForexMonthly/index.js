@@ -52,7 +52,7 @@ class ForeignMonthly extends Component {
           {this.state.isErrorInput ? <TrendingErrorMessage /> : null }
           {this.props.isErrorForexAPI ? <TrendingErrorAPI /> : null}
           <Form.Text className="text-muted">Note: Must be physical currency</Form.Text>
-          <Form.Text className="text-muted">Ex: EUR (Euro) to USD (US Dollar)</Form.Text>
+          <Form.Text className="text-muted">e.g. EUR (Euro) to USD (US Dollar)</Form.Text>
         </Form.Group>
 
         <Button onClick={(e) => this.handleSubmit(e)} variant="dark" type="submit">Submit</Button>

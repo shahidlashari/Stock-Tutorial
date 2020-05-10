@@ -3,18 +3,25 @@ import { Container, CardDeck, Card, Button } from 'react-bootstrap';
 import TrendingImg from '../../images/card-trending.png';
 import DashboardImg from '../../images/card-dashboard.png';
 import SignUpImg from '../../images/card-signup.png';
+import './style.css';
 
 const HomeCardDeck = () => (
   <Container>
     <CardDeck>
-      <Card className="text-center">
+      <Card className="text-center" border="dark">
         <Card.Img variant="top" src={TrendingImg} />
 
         <Card.Body>
           <Card.Title className="card-title">Trending</Card.Title>
           <Card.Text>
-            This is a wider card with supporting text below as a natural lead-in
-            to additional content. This content is a little bit longer.
+            Analyze the current trends and obtain data based on:
+            <ul className="home-trending-information">
+              <li>Stock Time Series (Monthly)</li>
+              <li>Currency Exchange Rate</li>
+              <li>Foreign Exchange Rate (Monthly)</li>
+              <li>Cryptorating</li>
+              <li>Digital Currency in Physical Market (Monthly)</li>
+            </ul>
           </Card.Text>
         </Card.Body>
 
@@ -23,7 +30,7 @@ const HomeCardDeck = () => (
         </Card.Footer>
       </Card>
 
-      <Card className="text-center">
+      <Card className="text-center" border="dark">
         <Card.Img variant="top" src={DashboardImg} />
 
         <Card.Body>
@@ -40,7 +47,7 @@ const HomeCardDeck = () => (
 
       </Card>
 
-      <Card className="text-center">
+      <Card className="text-center" border="dark">
         <Card.Img variant="top" src={SignUpImg} />
 
         <Card.Body>

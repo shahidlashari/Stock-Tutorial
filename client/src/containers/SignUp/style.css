@@ -1,3 +1,16 @@
-.signup-title{
+.signup-card {
+  margin: 0 auto;
   margin-top: 30px;
+}
+
+.signup-card-header {
+  font-size: 36px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.signup-card-title {
+  font-size: 24px;
+  text-align: center;
+  text-decoration: none;
 }

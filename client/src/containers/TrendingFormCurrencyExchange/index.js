@@ -52,7 +52,7 @@ class CurrencyExchangeRate extends Component {
           {this.state.isErrorInput ? <TrendingErrorMessage /> : null }
           {this.props.isErrorCurrencyAPI ? <TrendingErrorAPI /> : null}
           <Form.Text className="text-muted">Note: Can't do physical (Ex: USD) to digital (Ex: BTC) currency exchange</Form.Text>
-          <Form.Text className="text-muted">Ex: USD (US Dollar) to JPY (Japanese Yen)</Form.Text>
+          <Form.Text className="text-muted">e.g. USD (US Dollar) to JPY (Japanese Yen)</Form.Text>
         </Form.Group>
 
         <Button onClick={(e) => this.handleSubmit(e)} variant="dark" type="submit">Submit</Button>

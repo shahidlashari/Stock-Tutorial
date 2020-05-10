@@ -23,5 +23,8 @@
         "react"
     ],
     "rules": {
+        "camelcase": ["off"],
+        "max-len": ["off"],
+        "object-curly-newline": ["off"]
     }
 }

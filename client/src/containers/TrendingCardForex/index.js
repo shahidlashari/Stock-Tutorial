@@ -14,7 +14,7 @@ class TrendingCardForex extends Component {
 
   render() {
     return (
-      <Card>
+      <Card border="dark">
         <Card.Header className="forex-header">
           <OverlayTrigger
             key="top"

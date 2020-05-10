@@ -35,7 +35,7 @@ class Cryptorating extends Component {
           <Form.Control value={this.state.cryptoInput} onChange={this.handleCryptoChange} autoComplete="off" type="text" placeholder="Enter digital currency" />
           {this.state.isErrorInput ? <TrendingErrorInput /> : null }
           {this.props.isErrorCryptoAPI ? <TrendingErrorAPI /> : null}
-          <Form.Text className="text-muted">Ex: BTC (Bitcoin), ETH (Ethereum), USDT (Tether), etc.</Form.Text>
+          <Form.Text className="text-muted">e.g. BTC (Bitcoin), ETH (Ethereum), USDT (Tether), etc.</Form.Text>
         </Form.Group>
 
         <Button onClick={(e) => this.handleSubmit(e)} variant="dark" type="submit">Submit</Button>

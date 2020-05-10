@@ -14,7 +14,7 @@ class TrendingCardCrypto extends Component {
 
   render() {
     return (
-      <Card>
+      <Card border="dark">
         <Card.Header className="crypto-header">
           <OverlayTrigger
             key="top"

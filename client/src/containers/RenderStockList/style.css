@@ -26,9 +26,25 @@
 
 .dashboard-stock-content > ul {
   list-style-type: none;
+  margin-left: -15px;
 }
 
 .dashboard-stock-content > ul > li {
   margin-top: 10px;
+}
+
+.stocklist-symbol,
+.stocklist-name {
+  font-size: 18px;
+}
+
+.dashboard-price-button {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.dashboard-save-button {
+  margin-top: -10px;
+  margin-bottom: 5px
 }
 

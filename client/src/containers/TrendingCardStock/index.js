@@ -30,7 +30,7 @@ class TrendingCardStock extends Component {
   render() {
     return (
       <>
-        <Card>
+        <Card border="dark">
           <Card.Header className="stock-header">
             <OverlayTrigger
               key="top"
@@ -54,7 +54,7 @@ class TrendingCardStock extends Component {
                   <Form.Control value={this.state.stockInput} onChange={this.handleStockInputChange} autoComplete="off" type="text" placeholder="Enter stock symbol" />
                   {this.state.isErrorInput ? <TrendingErrorInput /> : null }
                   {this.props.isErrorStockAPI ? <TrendingErrorAPI /> : null}
-                  <Form.Text className="text-muted">Ex: FB (Facebook), AMZN (Amazon), MSFT (Microsoft), etc.</Form.Text>
+                  <Form.Text className="text-muted">e.g. FB (Facebook), AMZN (Amazon), MSFT (Microsoft), etc.</Form.Text>
                 </Form.Group>
 
                 <Button onClick={(e) => this.handleSubmit(e)} variant="dark" type="submit">Submit</Button>

@@ -22,7 +22,7 @@ const ReactNavbar = () => {
           <Nav.Link href="/home" className={location.pathname === '/home' ? 'nav-link active' : 'nav-link'}>Home</Nav.Link>
           <Nav.Link href="/trending" className={location.pathname === '/trending' ? 'nav-link active' : 'nav-link'}>Trending</Nav.Link>
           <Nav.Link href="/dashboard" className={location.pathname === '/dashboard' ? 'nav-link active' : 'nav-link'}>Dashboard</Nav.Link>
-          <Nav.Link href="/signup" className={location.pathname === '/signup' ? 'nav-link active' : 'nav-link'}>Sign-Up/Login</Nav.Link>
+          <Nav.Link href="/signup" className={location.pathname === '/signup' ? 'nav-link active' : 'nav-link'}>Sign-Up</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

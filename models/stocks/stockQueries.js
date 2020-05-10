@@ -2,22 +2,22 @@
 const userInfo = 'INSERT INTO users SET ?;';
 const getUserInfo = 'SELECT * FROM users WHERE id=?;';
 const saveStock = 'INSERT INTO savedStocks SET ?;';
-const getSavedStock = `select users.name, savedStocks.user_id, savedStocks.symbol, savedStocks.price, savedStocks.date_api from savedStocks 
+const getSavedStock = `select users.username, savedStocks.user_id, savedStocks.symbol, savedStocks.price, savedStocks.date_api from savedStocks 
                       inner join users on users.id=savedStocks.user_id 
-                      where savedStocks.user_id = ?;`;
+                      where savedStocks.user_id = ? group by savedStocks.symbol;`;
 const buyStocks = 'INSERT INTO ownedStocks SET ?;';
-const getOwnedStocks = `select users.name, ownedStocks.user_id, ownedStocks.symbol, ownedStocks.purchase_price, ownedStocks.date_api from ownedStocks 
+const getOwnedStocks = `select users.username, ownedStocks.user_id, ownedStocks.symbol, ownedStocks.purchase_price, ownedStocks.date_api from ownedStocks 
                       inner join users on users.id=ownedStocks.user_id 
                       where ownedStocks.user_id = ?;`;
 const sellStocks = 'INSERT INTO soldStocks SET ?;';
-const getSoldStocks = `select users.name, soldStocks.user_id, soldStocks.symbol, soldStocks.sell_price, soldStocks.date_api from soldStocks 
+const getSoldStocks = `select users.username, soldStocks.user_id, soldStocks.symbol, soldStocks.sell_price, soldStocks.date_api from soldStocks 
                       inner join users on users.id=soldStocks.user_id 
                       where soldStocks.user_id = ?;`;
-const tradingHistoryByUser = `select ownedStocks.user_id, users.name, ownedStocks.symbol, ownedStocks.purchase_price,  
+const tradingHistoryByUser = `select ownedStocks.user_id, users.username, ownedStocks.symbol, ownedStocks.purchase_price,  
                       soldStocks.sell_price from soldStocks inner join ownedStocks on ownedStocks.user_id = soldStocks.user_id 
                       inner join users on ownedStocks.user_id = users.id 
                       where users.id =?;`;
-const tradingHistoryBySymbol = `select soldStocks.id as stock_ID, ownedStocks.user_id, users.name, ownedStocks.symbol, ownedStocks.purchase_price,  
+const tradingHistoryBySymbol = `select soldStocks.id as stock_ID, ownedStocks.user_id, users.username, ownedStocks.symbol, ownedStocks.purchase_price,  
                                 soldStocks.sell_price from soldStocks inner join ownedStocks on ownedStocks.user_id = soldStocks.user_id 
                                 inner join users on ownedStocks.user_id = users.id 
                                 where ownedStocks.symbol = ? and users.id =?
