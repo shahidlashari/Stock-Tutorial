@@ -1,6 +1,10 @@
 // recent
 const userInfo = 'INSERT INTO users SET ?;';
+const updateBuyBalance = 'UPDATE users SET initial_budget = (initial_budget - ?) where id = ?;';
+const updateSellBalance = 'UPDATE users SET initial_budget = (initial_budget + ?) where id = ?;';
+
 const getUserInfo = 'SELECT * FROM users WHERE id=?;';
+const getBalance = 'SELECT initial_budget FROM users WHERE id = ?;';
 const saveStock = 'INSERT INTO savedStocks SET ?;';
 const getSavedStock = `select users.username, savedStocks.user_id, savedStocks.symbol, savedStocks.price, savedStocks.date_api from savedStocks 
                       inner join users on users.id=savedStocks.user_id 
@@ -37,7 +41,10 @@ module.exports = {
   // buyStock,
   // sellStock,
   userInfo,
+  updateBuyBalance,
+  updateSellBalance,
   getUserInfo,
+  getBalance,
   saveStock,
   getSavedStock,
   buyStocks,
