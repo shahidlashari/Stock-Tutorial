@@ -13,6 +13,8 @@ const saveDatabase = async (symbol, price, date_api, user_id) => {
 const buyStock = async (symbol, purchase_price, date_api, user_id) => {
   try {
     await connection.query(stockQueries.buyStocks, { symbol, purchase_price, date_api, user_id });
+    await connection.query(stockQueries.updateBuyBalance, [purchase_price, user_id]);
+    await connection.query(stockQueries.getUserInfo, user_id);
   } catch (e) {
     if (e) throw e;
   }
@@ -21,6 +23,8 @@ const buyStock = async (symbol, purchase_price, date_api, user_id) => {
 const sellStock = async (symbol, sell_price, date_api, user_id) => {
   try {
     await connection.query(stockQueries.sellStocks, { symbol, sell_price, date_api, user_id });
+    await connection.query(stockQueries.updateSellBalance, [sell_price, user_id]);
+    await connection.query(stockQueries.getUserInfo, user_id);
   } catch (e) {
     if (e) throw e;
   }
@@ -119,7 +123,6 @@ module.exports = {
   buyStocks: async (req, res) => {
     const { stockSymbol } = req.body;
     const { user_id } = req.body;
-
     try {
       const { data } = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&apikey=4EOUWW7RMTJ1A28A`);
       const symbol = data['Meta Data']['2. Symbol'];
@@ -128,7 +131,9 @@ module.exports = {
       const date = dateArray[0];
       const price = data['Time Series (Daily)'][date]['1. open'];
       buyStock(symbol, price, date, user_id);
-      res.status(200).json({ price });
+      const balance = await connection.query(stockQueries.getBalance, user_id);
+
+      res.status(200).json({ balance });
     } catch (e) {
       res.status(403).json({ e });
     }
@@ -160,8 +165,8 @@ module.exports = {
       const date = dateArray[0];
       const price = data['Time Series (Daily)'][date]['4. close'];
       sellStock(symbol, price, date, user_id);
-      // const [updatedStock] = await connection.query(stockQueries.getStock);
-      res.status(200).json({ price });
+      const balance = await connection.query(stockQueries.getBalance, user_id);
+      res.status(200).json({ balance });
     } catch (e) {
       res.status(403).json({ e });
     }
