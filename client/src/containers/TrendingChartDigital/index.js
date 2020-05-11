@@ -11,11 +11,8 @@ export default class TrendingChartStock extends PureComponent {
   }
 
   componentDidMount() {
-    console.log(this.props.data);
-    // console.log(chartData);
     let market = this.props.data['Meta Data']['4. Market Code'];
     market = market.substring(0, market.length);
-    console.log(market);
 
     const dataObj = {
       'Meta Data': {
@@ -104,8 +101,6 @@ export default class TrendingChartStock extends PureComponent {
       },
     };
 
-    console.log(dataObj);
-
     function mapData() {
       const dataArr = [];
       const timeSeries = dataObj['Time Series (Digital Currency Monthly)'];
@@ -122,7 +117,6 @@ export default class TrendingChartStock extends PureComponent {
       return dataArr;
     }
     const dataChart = mapData();
-    console.log(dataChart);
 
     const digitalCurrencyText = dataObj['Meta Data']['Digital Currency Code'];
     const physicalMarketText = dataObj['Meta Data']['Market Code'];
@@ -131,7 +125,6 @@ export default class TrendingChartStock extends PureComponent {
   }
 
   render() {
-    // console.log(this.state.data)
     return (
       <div style={{ width: '100%', height: 350 }}>
         <h2>{this.state.textCurrency} in the {this.state.textMarket} Market Trade for the Past Year (Monthly) </h2>

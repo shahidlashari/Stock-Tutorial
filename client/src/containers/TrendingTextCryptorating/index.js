@@ -14,8 +14,6 @@ class TrendingTextCurrency extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.data);
-
     const symbol = this.props.data['Crypto Rating (FCAS)']['1. symbol'];
     const name = this.props.data['Crypto Rating (FCAS)']['2. name'];
     const fcasRating = this.props.data['Crypto Rating (FCAS)']['3. fcas rating'];

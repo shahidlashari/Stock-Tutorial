@@ -4,7 +4,7 @@ import { Button, Container, Row, Col, Form, Card, FormControl } from 'react-boot
 import axios from 'axios';
 import Wrapper from '../../components/Wrapper';
 import RenderStockList from '../RenderStockList';
-import RenderWatchList from '../RenderWatchList';
+import RenderWatchList from '../../components/RenderWatchList';
 import './style.css';
 
 class Dashboard extends Component {
@@ -16,13 +16,13 @@ class Dashboard extends Component {
     isStock: false,
     isWatchList: false,
     balance: [],
-    // isErrorNoUser: false,
   }
 
   componentDidMount() {
     const newUser = this.props.history.location.state && this.props.history.location.state.newUser
       ? this.props.history.location.state.newUser
       : JSON.parse(localStorage.getItem('currentStockBroker'));
+
     this.setState({
       currentUser: newUser,
     });
@@ -34,86 +34,64 @@ class Dashboard extends Component {
 
   handleStockSearchSubmit = async (event) => {
     event.preventDefault();
+
     try {
       this.setState({ stocks: [] });
       const inputSymbol = this.state.stockInput;
       const { data: { bestMatches } } = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${inputSymbol}&apikey=4EOUWW7RMTJ1A28A`);
       const stocks = [...this.state.stocks, ...bestMatches];
       this.setState({ stocks, stockInput: '' });
+
       const user_id = this.state.currentUser.id;
       const { data } = await axios.get(`/api/stocks/save?q=${user_id}`);
-      console.log(data);
       this.setState({ savedStock: data, isWatchList: true });
-    } catch (err) {
-      console.log(err);
+    } catch (e) {
+      if (e) throw e;
     }
   }
 
   handleSaveStockSubmit = async (symbol) => {
     const user_id = this.state.currentUser.id;
     const stockSymbol = symbol;
-    console.log(user_id);
-    console.log(stockSymbol);
+
     try {
       await axios.post('/api/stocks/save', {
         stockSymbol,
         user_id,
       });
-      // console.log(data);
+
       const { data: stockByID } = await axios.get(`/api/stocks/save?q=${user_id}`);
-      console.log(stockByID);
       this.setState({ savedStock: stockByID, isStock: true, isWatchList: true });
-      console.log(this.state.savedStock);
-      this.setState({ isStock: true });
     } catch (e) {
-      console.log(e);
+      if (e) throw e;
     }
   };
 
   handleBuyStockSubmit = async (symbol) => {
     const user_id = this.state.currentUser.id;
     const stockSymbol = symbol;
-    console.log(symbol);
-    console.log(user_id);
+
     try {
       const { data } = await axios.post('/api/stocks/buy', { stockSymbol, user_id });
-      console.log(data);
       const newBalance = data.balance[0][0].initial_budget;
-      console.log(newBalance);
       this.setState({ balance: newBalance });
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      if (e) throw e;
     }
   }
 
   handleSellStockSubmit = async (symbol) => {
     const user_id = this.state.currentUser.id;
     const stockSymbol = symbol;
-    console.log(user_id);
-    console.log(stockSymbol);
+
     try {
       const { data } = await axios.post('/api/stocks/sell', { stockSymbol, user_id });
       const newBalance = data.balance[0][0].initial_budget;
       this.setState({ balance: newBalance });
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      if (e) throw e;
     }
   }
-
-  // handleWatchList = async () => {
-  //   try {
-  //     if (this.state.savedStock.length === 0) {
-  //       return;
-  //     } else {
-  //       const user_id = this.state.currentUser.id;
-  //       const { data: stockFromID } = await axios.get(`/api/stocks/save?q=${user_id}`);
-  //       console.log(stockFromID);
-  //       this.setState({ savedStock: stockFromID, isWatchList: true });
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
 
   renderStockListItems = () => {
     if (this.state.stocks.length === 0) {
@@ -137,7 +115,6 @@ class Dashboard extends Component {
       return <h4>No Stock(s) in Watchlist yet</h4>;
     } else {
       return this.state.savedStock.map((stock) => {
-        console.log(stock['symbol']);
         return <RenderWatchList
           key={stock['symbol']}
           symbol={stock['symbol']}
@@ -157,10 +134,6 @@ class Dashboard extends Component {
   }
 
   navigateAway() {
-    // settimeout function
-    // that will display some alert or error
-    // then after a couple second, call history.push
-    // this.setState({ isErrorNoUser: true });
     alert('Please create an account to access Dashboard!');
     this.props.history.push('/');
   }

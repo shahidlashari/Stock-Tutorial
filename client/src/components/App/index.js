@@ -18,4 +18,5 @@ const App = () => (
     <Route exact path="/signup" component={SignUp} />
   </Router>
 );
+
 export default App;
