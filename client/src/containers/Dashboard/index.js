@@ -15,13 +15,11 @@ class Dashboard extends Component {
     currentUser: {},
     isStock: false,
     isWatchList: false,
-    // eslint-disable-next-line react/no-unused-state
-    balance: [],
+    budget: 1000,
     // isErrorNoUser: false,
   }
 
-  // eslint-disable-next-line react/sort-comp
-  async componentDidMount() {
+  componentDidMount() {
     const newUser = this.props.history.location.state && this.props.history.location.state.newUser
       ? this.props.history.location.state.newUser
       : JSON.parse(localStorage.getItem('currentStockBroker'));
@@ -30,9 +28,9 @@ class Dashboard extends Component {
     });
   }
 
-
   // eslint-disable-next-line react/sort-comp
   logOut() {
+    // eslint-disable-next-line no-undef
     localStorage.clear('currentStockBroker');
     this.props.history.push('/');
   }
@@ -68,6 +66,7 @@ class Dashboard extends Component {
         stockSymbol,
         user_id,
       });
+      // console.log(data);
       const { data: stockByID } = await axios.get(`/api/stocks/save?q=${user_id}`);
       console.log(stockByID);
       this.setState({ savedStock: stockByID, isStock: true, isWatchList: true });
@@ -85,8 +84,9 @@ class Dashboard extends Component {
     console.log(user_id);
     try {
       const { data } = await axios.post('/api/stocks/buy', { stockSymbol, user_id });
-      const newBalance = data.balance[0][0].initial_budget;
-      this.setState({ balance: newBalance });
+      const buyPrice = parseFloat(data.price, 10);
+      const currentBudget = parseFloat(this.state.budget, 10);
+      this.setState({ budget: (currentBudget - buyPrice) });
     } catch (error) {
       console.log(error);
     }
@@ -97,8 +97,9 @@ class Dashboard extends Component {
     const stockSymbol = symbol;
     try {
       const { data } = await axios.post('/api/stocks/sell', { stockSymbol, user_id });
-      const newBalance = data.balance[0][0].initial_budget;
-      this.setState({ balance: newBalance });
+      const newPrice = parseFloat(data.price, 10);
+      const currentBudget = parseFloat(this.state.budget, 10);
+      this.setState({ budget: (currentBudget + newPrice) });
     } catch (error) {
       console.log(error);
     }
@@ -194,14 +195,9 @@ class Dashboard extends Component {
                 <Card bg="light" border="dark" className="dashboard-budget-card">
                   <Card.Body>
                     <Card.Title>
-                      User's Initial Budget: ${this.state.currentUser.initial_budget}
+                      User's Budget: ${this.state.budget}
                     </Card.Title>
-                    <Card.Text>
-                      <div>
-
-                        User's Balance: ${this.state.balance}
-                      </div>
-                    </Card.Text>
+                    <Card.Text>This shows the user's budget for trading!</Card.Text>
                   </Card.Body>
                 </Card>
                 <Card bg="light" border="dark" className="dashboard-watchlist-card">
