@@ -2,13 +2,10 @@ const router = require('express').Router();
 // /api/stocks prepended to every route inside of here
 const stocksController = require('../../../controllers/stocksController');
 
-// http://localhost:3001/api/stocks/show?q=TSLA is the query route
-router.route('/show')
-  .get(stocksController.getStock);
 // /api/stocks
 
-// router.route('/save/:id')
-//   .get(stocksController.getSavedStock);
+router.route('/show')
+  .get(stocksController.getStock);
 
 router.route('/save')
   .post(stocksController.postStock)
@@ -28,19 +25,4 @@ router.route('/trading')
 router.route('/tradingBySymbol')
   .get(stocksController.getTradingBySymbol);
 
-
-// router.route('/save')
-// .post(stocksController.postStock)
-// .get(stocksController.getStock)
-// .delete(stocksController.deleteStock);
-
-
-// router.route('/buy')
-// .patch(stocksController.buyStocks);
-
-// router.route('/sell')
-// .patch(stocksController.sellStocks);
-
-// /api/stocks/:id
-// router.route('/:id')
 module.exports = router;
