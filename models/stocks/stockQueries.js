@@ -1,6 +1,9 @@
 // recent
 const userInfo = 'INSERT INTO users SET ?;';
+const updateBuyBalance = 'UPDATE users SET initial_budget = (initial_budget - ?) where id = ?;';
+const updateSellBalance = 'UPDATE users SET initial_budget = (initial_budget + ?) where id = ?;';
 const getUserInfo = 'SELECT * FROM users WHERE id=?;';
+const getBalance = 'SELECT initial_budget FROM users WHERE id = ?;';
 const saveStock = 'INSERT INTO savedStocks SET ?;';
 const getSavedStock = `select users.username, savedStocks.user_id, savedStocks.symbol, savedStocks.price, savedStocks.date_api from savedStocks 
                       inner join users on users.id=savedStocks.user_id 
@@ -23,21 +26,12 @@ const tradingHistoryBySymbol = `select soldStocks.id as stock_ID, ownedStocks.us
                                 where ownedStocks.symbol = ? and users.id =?
                                 group by ownedStocks.id;`;
 
-// previous queries
-// const postStock = 'INSERT INTO stocks SET ?;';
-// const getStock = 'SELECT * FROM stocks;';
-// const deleteStock = 'DELETE FROM stocks WHERE symbol = ?;';
-// const buyStock = `update stocks set purchase_price = ? where symbol = ?;`;
-// const sellStock = 'update stocks set sell_price = ? where symbol = ?;';
-
 module.exports = {
-  // postStock,
-  // getStock,
-  // deleteStock,
-  // buyStock,
-  // sellStock,
   userInfo,
+  updateBuyBalance,
+  updateSellBalance,
   getUserInfo,
+  getBalance,
   saveStock,
   getSavedStock,
   buyStocks,

@@ -15,7 +15,7 @@ class Dashboard extends Component {
     currentUser: {},
     isStock: false,
     isWatchList: false,
-    budget: 1000,
+    balance: [],
     // isErrorNoUser: false,
   }
 
@@ -77,9 +77,10 @@ class Dashboard extends Component {
     console.log(user_id);
     try {
       const { data } = await axios.post('/api/stocks/buy', { stockSymbol, user_id });
-      const buyPrice = parseFloat(data.price, 10);
-      const currentBudget = parseFloat(this.state.budget, 10);
-      this.setState({ budget: (currentBudget - buyPrice) });
+      console.log(data);
+      const newBalance = data.balance[0][0].initial_budget;
+      console.log(newBalance);
+      this.setState({ balance: newBalance });
     } catch (error) {
       console.log(error);
     }
@@ -92,9 +93,8 @@ class Dashboard extends Component {
     console.log(stockSymbol);
     try {
       const { data } = await axios.post('/api/stocks/sell', { stockSymbol, user_id });
-      const newPrice = parseFloat(data.price, 10);
-      const currentBudget = parseFloat(this.state.budget, 10);
-      this.setState({ budget: (currentBudget + newPrice) });
+      const newBalance = data.balance[0][0].initial_budget;
+      this.setState({ balance: newBalance });
     } catch (error) {
       console.log(error);
     }
@@ -194,8 +194,10 @@ class Dashboard extends Component {
                 </Card>
                 <Card bg="light" border="dark" className="dashboard-budget-card">
                   <Card.Body>
-                    <Card.Title>User's Budget</Card.Title>
-                    <Card.Title className="dashboard-budget-value">${this.state.budget}</Card.Title>
+                    <Card.Title>User's Initial Budget:</Card.Title>
+                    <Card.Title className="dashboard-budget-value">${this.state.currentUser.initial_budget}</Card.Title>
+                    <Card.Title>User's Balance: </Card.Title>
+                    <Card.Title className="dashboard-balance-value">${this.state.balance}</Card.Title>
                   </Card.Body>
                 </Card>
                 <Card bg="light" border="dark" className="dashboard-watchlist-card">
