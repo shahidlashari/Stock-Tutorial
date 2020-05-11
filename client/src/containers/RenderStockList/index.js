@@ -12,11 +12,9 @@ class RenderStockList extends Component {
   handlePriceSubmit = async (symbol) => {
     try {
       const { data } = await axios.get(`/api/stocks/show?q=${symbol}`);
-      console.log(data);
       this.setState({ priceStock: data, isStock: true });
-      console.log(this.state.priceStock);
     } catch (e) {
-      console.log(e);
+      if (e) throw e;
     }
   };
 

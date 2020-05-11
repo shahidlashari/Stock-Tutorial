@@ -10,9 +10,6 @@ export default class TrendingChartStock extends PureComponent {
   }
 
   componentDidMount() {
-    console.log(this.props.data);
-    // console.log(chartData);
-
     const dataObj = {
       'Meta Data': {
         'Symbol': this.props.data['Meta Data']['2. Symbol'],
@@ -99,8 +96,6 @@ export default class TrendingChartStock extends PureComponent {
       },
     };
 
-    console.log(dataObj);
-
     function mapData() {
       const dataArr = [];
       const timeSeries = dataObj['Monthly Time Series'];
@@ -117,7 +112,6 @@ export default class TrendingChartStock extends PureComponent {
       return dataArr;
     }
     const dataChart = mapData();
-    console.log(dataChart);
 
     const symbolText = dataObj['Meta Data']['Symbol'];
 
@@ -125,7 +119,6 @@ export default class TrendingChartStock extends PureComponent {
   }
 
   render() {
-    // console.log(this.state.data)
     return (
       <div style={{ width: '100%', height: 350 }}>
         <h2>{this.state.text} Prices for the Past Year (Monthly) </h2>

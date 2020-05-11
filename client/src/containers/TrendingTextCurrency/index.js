@@ -11,8 +11,6 @@ class TrendingTextCurrency extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.data);
-
     const fromCurrencyCode = this.props.data['Realtime Currency Exchange Rate']['1. From_Currency Code'];
     const fromCurrencyName = this.props.data['Realtime Currency Exchange Rate']['2. From_Currency Name'];
     const toCurrencyCode = this.props.data['Realtime Currency Exchange Rate']['3. To_Currency Code'];

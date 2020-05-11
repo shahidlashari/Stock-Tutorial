@@ -82,9 +82,7 @@ module.exports = {
       const priceHigh = data['Time Series (Daily)'][date]['2. high'];
       const priceLow = data['Time Series (Daily)'][date]['3. low'];
       const priceClose = data['Time Series (Daily)'][date]['4. close'];
-      res
-        .status(200)
-        .json({ date, priceOpen, priceHigh, priceLow, priceClose });
+      res.status(200).json({ date, priceOpen, priceHigh, priceLow, priceClose });
     } catch (e) {
       res.status(403).json({ e });
     }

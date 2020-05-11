@@ -4,7 +4,7 @@ import TrendingChartStock from '../../containers/TrendingChartStock';
 import TrendingChartForex from '../../containers/TrendingChartForex';
 import TrendingChartDigital from '../../containers/TrendingChartDigital';
 
-const TrendingCardResult = (props) => {
+const TrendingCardChartResult = (props) => {
   return (
     <Card className="text-center card-chart-display" border="dark">
       <Card.Header>
@@ -33,4 +33,4 @@ const TrendingCardResult = (props) => {
   );
 };
 
-export default TrendingCardResult;
+export default TrendingCardChartResult;
