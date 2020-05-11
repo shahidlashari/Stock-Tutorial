@@ -27,7 +27,7 @@ class TrendingCardCrypto extends Component {
               </Tooltip>
             }
           >
-            <Card.Title>Cryptocurrencies</Card.Title>
+            <Card.Title className="trending-crypto-title">Cryptocurrencies</Card.Title>
           </OverlayTrigger>
 
           <Nav variant="tabs" defaultActiveKey={this.state.cryptoActiveKey} onSelect={this.handleCryptoSelect}>

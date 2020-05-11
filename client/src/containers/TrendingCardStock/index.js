@@ -42,7 +42,7 @@ class TrendingCardStock extends Component {
                 </Tooltip>
               }
             >
-              <Card.Title>Stock Time Series</Card.Title>
+              <Card.Title className="trending-stock-title">Stock Time Series</Card.Title>
             </OverlayTrigger>
           </Card.Header>
 

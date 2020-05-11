@@ -1,4 +1,50 @@
-.home-trending-information {
+.home-trending-card,
+.home-dashboard-card,
+.home-signup-card {
+  margin-top: -25px;
+  text-align: center;
+  height: 600px;
+}
+
+.home-trending-information,
+.home-dashboard-information,
+.home-signup-information {
   margin-top: 10px;
   text-align: left;
+}
+
+.home-trending-title,
+.home-dashboard-title,
+.home-signup-title {
+  font-size: 24px;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 992px) {
+  .home-trending-card,
+  .home-dashboard-card,
+  .home-signup-card {
+    height: 725px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .home-trending-card,
+  .home-dashboard-card,
+  .home-signup-card {
+    height: 700px;
+    margin-top: 30px;
+  }
+
+  .home-trending-card {
+    margin-top: -20px;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .home-trending-card,
+  .home-dashboard-card,
+  .home-signup-card {
+    height: 650px;
+  }
 }

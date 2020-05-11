@@ -17,7 +17,7 @@ const TrendingCardTextResult = (props) => {
             </Tooltip>
           }
         >
-          <Card.Title>Data Result</Card.Title>
+          <Card.Title className="trending-text-title">Data Result</Card.Title>
         </OverlayTrigger>
       </Card.Header>
 

@@ -1,4 +1,21 @@
 .dashboard-user-card,
 .dashboard-budget-card {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.dashboard-logout-button {
+  margin-top: 10px;
+}
+
+.dashboard-budget-value {
+  color: green;
+  font-size: 36px;
+  text-align: center;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard-watchlist-card {
+    margin-bottom: 15px;
+  }
 }

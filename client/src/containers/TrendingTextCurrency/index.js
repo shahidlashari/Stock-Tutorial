@@ -34,8 +34,8 @@ class TrendingTextCurrency extends Component {
     return (
       <div>
         <p style={{ fontSize: '36px' }}>{this.state.textFromCurrencyCode} ({this.state.textFromCurrencyName}) to {this.state.textToCurrencyCode} ({this.state.textToCurrencyName})</p>
-        <p style={{ fontSize: '24px' }}>Exchange Rate: <strong>{this.state.textExchangeRate}</strong></p>
-        <p>Last Refreshed: <strong>{this.state.textLastRefreshed}</strong></p>
+        <p style={{ fontSize: '28px' }}>Exchange Rate: <strong>{this.state.textExchangeRate}</strong></p>
+        <p style={{ fontSize: '16px' }}>Last Refreshed: <strong>{this.state.textLastRefreshed}</strong></p>
       </div>
     );
   }

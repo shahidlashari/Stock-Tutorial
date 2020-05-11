@@ -8,16 +8,6 @@
   box-shadow: 0 3px 6px #999, 0 3px 6px #999;
 }
 
-/* .img-container {
-  height: 60%;
-  overflow: hidden;
-  text-align: center;
-  background:#6CADDC;
-}
-.img-container > img {
-  width: 60%
-} */
-
 .dashboard-stock-content {
   padding-left: .5rem;
   padding-right: .5rem;
@@ -44,7 +34,7 @@
 }
 
 .dashboard-save-button {
+  margin-left: -40px;
   margin-top: -10px;
   margin-bottom: 5px
 }
-

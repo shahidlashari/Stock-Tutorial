@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import "./style.css";
-import { Button } from "react-bootstrap";
-import axios from "axios";
+import React, { Component } from 'react';
+import './style.css';
+import { Button } from 'react-bootstrap';
+import axios from 'axios';
 
 class RenderStockList extends Component {
   state = {
@@ -49,22 +49,20 @@ class RenderStockList extends Component {
                     {this.state.priceStock.priceOpen}
                   </li>
                   <li>
-                    <strong>Price-High:</strong>
+                    <strong>Price-High: </strong>
                     {this.state.priceStock.priceHigh}
                   </li>
                   <li>
-                    <strong>Price-Low:</strong> {this.state.priceStock.priceLow}
+                    <strong>Price-Low: </strong> {this.state.priceStock.priceLow}
                   </li>
                   <li>
-                    <strong>Price-Close:</strong>
+                    <strong>Price-Close: </strong>
                     {this.state.priceStock.priceClose}
                   </li>
                   <br />
                   <Button
                     variant="dark"
-                    onClick={() =>
-                      this.props.handleSaveStockSubmit(this.props.symbol)
-                    }
+                    onClick={() => this.props.handleSaveStockSubmit(this.props.symbol)}
                     className="dashboard-save-button"
                   >
                     Save Stock

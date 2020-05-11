@@ -28,13 +28,6 @@ class Dashboard extends Component {
     });
   }
 
-  // eslint-disable-next-line react/sort-comp
-  logOut() {
-    // eslint-disable-next-line no-undef
-    localStorage.clear('currentStockBroker');
-    this.props.history.push('/');
-  }
-
   handleStockInputChange = (event) => {
     this.setState({ stockInput: event.target.value });
   }
@@ -95,6 +88,8 @@ class Dashboard extends Component {
   handleSellStockSubmit = async (symbol) => {
     const user_id = this.state.currentUser.id;
     const stockSymbol = symbol;
+    console.log(user_id);
+    console.log(stockSymbol);
     try {
       const { data } = await axios.post('/api/stocks/sell', { stockSymbol, user_id });
       const newPrice = parseFloat(data.price, 10);
@@ -156,6 +151,11 @@ class Dashboard extends Component {
     }
   }
 
+  logOut() {
+    localStorage.clear('currentStockBroker');
+    this.props.history.push('/');
+  }
+
   navigateAway() {
     // settimeout function
     // that will display some alert or error
@@ -188,16 +188,14 @@ class Dashboard extends Component {
                       <br />
                       Email: {this.state.currentUser.email}
                       <br />
-                      <Button variant="outline-info" onClick={(e) => this.logOut(e)}>Log Out</Button>
+                      <Button variant="outline-info" onClick={(e) => this.logOut(e)} className="dashboard-logout-button">Log Out</Button>
                     </Card.Text>
                   </Card.Body>
                 </Card>
                 <Card bg="light" border="dark" className="dashboard-budget-card">
                   <Card.Body>
-                    <Card.Title>
-                      User's Budget: ${this.state.budget}
-                    </Card.Title>
-                    <Card.Text>This shows the user's budget for trading!</Card.Text>
+                    <Card.Title>User's Budget</Card.Title>
+                    <Card.Title className="dashboard-budget-value">${this.state.budget}</Card.Title>
                   </Card.Body>
                 </Card>
                 <Card bg="light" border="dark" className="dashboard-watchlist-card">

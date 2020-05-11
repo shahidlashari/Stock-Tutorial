@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, CardDeck, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, CardDeck, Card, Button } from 'react-bootstrap';
 import TrendingImg from '../../images/card-trending.png';
 import DashboardImg from '../../images/card-dashboard.png';
 import SignUpImg from '../../images/card-signup.png';
@@ -7,63 +7,80 @@ import './style.css';
 
 const HomeCardDeck = () => (
   <Container>
-    <CardDeck>
-      <Card className="text-center" border="dark">
-        <Card.Img variant="top" src={TrendingImg} />
+    <Row>
+      <CardDeck>
+        <Col xl={4} lg={4} md={4} sm={12}>
+          <Card className="home-trending-card" border="dark">
+            <Card.Img variant="top" src={TrendingImg} />
 
-        <Card.Body>
-          <Card.Title className="card-title">Trending</Card.Title>
-          <Card.Text>
-            Analyze the current trends and obtain data based on:
-            <ul className="home-trending-information">
-              <li>Stock Time Series (Monthly)</li>
-              <li>Currency Exchange Rate</li>
-              <li>Foreign Exchange Rate (Monthly)</li>
-              <li>Cryptorating</li>
-              <li>Digital Currency in Physical Market (Monthly)</li>
-            </ul>
-          </Card.Text>
-        </Card.Body>
+            <Card.Body>
+              <Card.Title className="home-trending-title">Trending</Card.Title>
+              <Card.Text>
+                Analyze the current trends and obtain data based on:
+                <ul className="home-trending-information">
+                  <li>Stock Time Series (Monthly)</li>
+                  <li>Currency Exchange Rate</li>
+                  <li>Foreign Exchange Rate (Monthly)</li>
+                  <li>Cryptorating</li>
+                  <li>Digital Currency in the Physical Market (Monthly)</li>
+                </ul>
+              </Card.Text>
+            </Card.Body>
 
-        <Card.Footer>
-          <Button href="/trending" variant="dark">View Trending Page</Button>
-        </Card.Footer>
-      </Card>
+            <Card.Footer>
+              <Button href="/trending" variant="dark">View Trending Page</Button>
+            </Card.Footer>
+          </Card>
+        </Col>
 
-      <Card className="text-center" border="dark">
-        <Card.Img variant="top" src={DashboardImg} />
+        <Col xl={4} lg={4} md={4} sm={12}>
+          <Card className="home-dashboard-card" border="dark">
+            <Card.Img variant="top" src={DashboardImg} />
 
-        <Card.Body>
-          <Card.Title className="card-title">Dashboard</Card.Title>
-          <Card.Text>
-            This card has supporting text below as a natural lead-in to
-            additional content.
-          </Card.Text>
-        </Card.Body>
+            <Card.Body>
+              <Card.Title className="home-dashboard-title">Dashboard</Card.Title>
+              <Card.Text>
+                User dashboard that allows the user to interact with their stocks/shares and emulate a simple stock portfolio:
+                <ul className="home-dashboard-information">
+                  <li>Stock Search (Best-Matching Symbols and Market Information)</li>
+                  <li>Stock Watchlist</li>
+                  <li>User Information</li>
+                  <li>User Budget</li>
+                  <li>Buy/Sell/Save Stock</li>
+                </ul>
+              </Card.Text>
+            </Card.Body>
 
-        <Card.Footer>
-          <Button href="/dashboard" variant="dark">View Dashboard Page</Button>
-        </Card.Footer>
+            <Card.Footer>
+              <Button href="/dashboard" variant="dark">View Dashboard Page</Button>
+            </Card.Footer>
 
-      </Card>
+          </Card>
+        </Col>
 
-      <Card className="text-center" border="dark">
-        <Card.Img variant="top" src={SignUpImg} />
+        <Col xl={4} lg={4} md={4} sm={12}>
+          <Card className="home-signup-card" border="dark">
+            <Card.Img variant="top" src={SignUpImg} />
 
-        <Card.Body>
-          <Card.Title className="card-title">Sign-Up/Login</Card.Title>
-          <Card.Text>
-            This is a wider card with supporting text below as a natural lead-in
-            to additional content. This card has even longer content than the
-            first to show that equal height action.
-          </Card.Text>
-        </Card.Body>
+            <Card.Body>
+              <Card.Title className="home-signup-title">Sign-Up</Card.Title>
+              <Card.Text>
+                Access dashboard page by first creating an account in the Sign-Up form, which requires:
+                <ul className="home-signup-information">
+                  <li>Username</li>
+                  <li>Password</li>
+                  <li>Email Address</li>
+                </ul>
+              </Card.Text>
+            </Card.Body>
 
-        <Card.Footer>
-          <Button href="/signup" variant="dark">View Sign-Up/Login Page</Button>
-        </Card.Footer>
-      </Card>
-    </CardDeck>
+            <Card.Footer>
+              <Button href="/signup" variant="dark">View Sign-Up Page</Button>
+            </Card.Footer>
+          </Card>
+        </Col>
+      </CardDeck>
+    </Row>
   </Container>
 );
 
