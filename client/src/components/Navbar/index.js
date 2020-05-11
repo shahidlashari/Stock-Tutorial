@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { Image, Navbar, Nav } from 'react-bootstrap';
 import LogoImg from '../../images/logo.svg';
 import './style.css';
@@ -19,10 +19,10 @@ const ReactNavbar = () => {
 
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
-          <Nav.Link href="/home" className={location.pathname === '/home' ? 'nav-link active' : 'nav-link'}>Home</Nav.Link>
-          <Nav.Link href="/trending" className={location.pathname === '/trending' ? 'nav-link active' : 'nav-link'}>Trending</Nav.Link>
-          <Nav.Link href="/dashboard" className={location.pathname === '/dashboard' ? 'nav-link active' : 'nav-link'}>Dashboard</Nav.Link>
-          <Nav.Link href="/signup" className={location.pathname === '/signup' ? 'nav-link active' : 'nav-link'}>Sign-Up</Nav.Link>
+          <Nav.Link as={Link} to="/home" className={location.pathname === '/home' ? 'nav-link active' : 'nav-link'}>Home</Nav.Link>
+          <Nav.Link as={Link} to="/trending" className={location.pathname === '/trending' ? 'nav-link active' : 'nav-link'}>Trending</Nav.Link>
+          <Nav.Link as={Link} to="/dashboard" className={location.pathname === '/dashboard' ? 'nav-link active' : 'nav-link'}>Dashboard</Nav.Link>
+          <Nav.Link as={Link} to="/signup" className={location.pathname === '/signup' ? 'nav-link active' : 'nav-link'}>Sign-Up</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
