@@ -1,60 +1,65 @@
-# Project 2
+# Project 2-Stock Tutorial
 
-## Application Requirements
+# Team: Shahid Hussain, Norberto Mantohac,Narayan Poudel, Ujwal Kashyap
 
-* Must use a Node and Express server
+## URL Links
 
-* Must be backed by a MySQL database and an ORM (not necessarily Sequelize)
+  1) https://boiling-mesa-48982.herokuapp.com/
 
-* Must utilize both GET and POST routes for retrieving and adding new data
+  2) https://github.com/shahidlashari/project_2_stockTutorial
 
-* Must be deployed using Heroku (with data)
+## Description
 
-* Must utilize at least one new third-party API
+* The Stock Tutorial application works on showing the user how to search up information about stocks and show the user how to buy and sell stocks using opening and closing market data!  
 
-* Must have a polished UI
+* The application requires the user to log in, saves their information in local storage and give the user a paper money budget of $10,000 to buy and sell stocks.
 
-* Must use a CSS framework _other than_ Bootstrap
+## User Story
 
-* Must follow MVC paradigm
+* The user wants to learn more details about stocks but does not know where to start. The Stock Tutorial gives the user a demonstration on how to buy and sell stocks based on their opening and closing prices for the day.
 
-* Must meet good quality coding standards (indentation, scoping, naming)
+* User needs to create an account in order to access dashboard and user's data will be stored in our database and local storage. 
 
-* Must use Handlebars.js
+* User can search for stock of his choice, if he doesn't know the symbol of stock, our search bar has functionality to show the bestmatches stocks even if user enters just one letter.
+
+* User can view the price of desired stock and save it. This perticular stock will apear in stock watchlist and also will be stored in out database in order to make it possible for user to buy it if wants to. 
+
+* User has been alocated $10,000.00 to start with. This will appear in user budget model.
+
+* User can sell stock just clicking on sell and his busget will be updated acoordingly.
+
+* User can logout while pressing logout button and he will be redirected to home page. If he signs in back , his saved stock would be shown in watchlist and stocks he did buy.
+
+* User can view trending page having charts of stock time series (monthly), currency exchange rate, foreign exchange rate (monthly),cryptorating as well as digital currency in the physical market (monthly).
+
+## Technologies
+
+    * Node
+    * NPM Express
+    * React
+    * React-Bootstrap
+    * MySql
+    * API (Alpha Vantage) (API Docs)
+    * GitHub
+    * Heroku
+    * Travis CI/ESlint
+    * Rechart
+
+## Challenges
+
+* Working with React on a larger project created a lot of early confusion with class components , functional components, routes and API calls.
+
+* Dealing with our databases and using the correct queries involving our API calls and our database.
+
+* Deciding on a react chart (npm package) -> canvas.js/chart, react-charts, recharts
+
+* Trending -> Displaying the data from the API call as a chart (specific format)
+
+* Using href from React bootstrap was a bit challenge. After deploying to heroku it doesn’t work. We have to replace href with link tags.
 
 
-## Presentation Requirements
+## Screenshot(s)
 
-Use this [project presentation template](https://docs.google.com/presentation/d/1_u8TKy5zW5UlrVQVnyDEZ0unGI2tjQPDEpA0FNuBKAw/edit?usp=sharing) to address the following: 
+* Stock Tutorial - Overall Function
 
-* Elevator pitch: a one minute description of your application
-
-* Concept: What is your user story? What was your motivation for development?
-
-* Process: What were the technologies used? How were tasks and roles broken down and assigned? What challenges did you encounter? What were your successes?
-
-* Demo: Show your stuff!
-
-* Directions for Future Development
-
-* Links to to the deployed application and the GitHub repository
-
-
-## Grading Metrics 
-
-| Metric        | Weight | 
-| ---           | ---    |
-| Concept       | 10%    |
-| Design        | 20%    |
-| Functionality | 30%    |
-| Collaboration | 30%    |
-| Presentation  | 10%    |
-
-
-## Submission on BCS
-
-You are required to submit the following:
-
-* The URL of the deployed application
-
-* The URL of the GitHub repository
+![image]()
