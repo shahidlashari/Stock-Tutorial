@@ -57,12 +57,12 @@ class TrendingTextCurrency extends Component {
   render() {
     return (
       <div>
-        <p style={{ fontSize: '48px' }}>{this.state.textSymbol} ({this.state.textName}) Crypto Rating</p>
+        <p style={{ fontSize: '42px' }}>{this.state.textSymbol} ({this.state.textName}) Crypto Rating</p>
         <p style={{ fontSize: '24px' }}>FCAS Rating and Score: <strong style={{ backgroundColor: this.state.textFcasColor }}>{this.state.textFcasRating}</strong> | <strong>{this.state.textFcasScore}</strong></p>
         <p style={{ fontSize: '24px' }}>Developer Score: <strong>{this.state.textDeveloperScore}</strong></p>
         <p style={{ fontSize: '24px' }}>Market Maturity Score: <strong>{this.state.textMarketScore}</strong></p>
         <p style={{ fontSize: '24px' }}>Utility Score: <strong>{this.state.textUtilityScore}</strong></p>
-        <p>Last Refreshed: <strong>{this.state.textLastRefreshed}</strong></p>
+        <p style={{ fontSize: '16px' }}>Last Refreshed: <strong>{this.state.textLastRefreshed}</strong></p>
       </div>
     );
   }

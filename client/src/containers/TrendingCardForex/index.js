@@ -26,7 +26,7 @@ class TrendingCardForex extends Component {
               </Tooltip>
             }
           >
-            <Card.Title>Foreign Exchange Rates (Forex)</Card.Title>
+            <Card.Title className="trending-forex-title">Foreign Exchange Rates</Card.Title>
           </OverlayTrigger>
 
           <Nav variant="tabs" defaultActiveKey={this.state.forexActiveKey} onSelect={this.handleForexSelect}>

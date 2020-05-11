@@ -1,0 +1,37 @@
+.dashboard-buy-button,
+.dashboard-sell-button {
+  margin-top: -20px;
+}
+
+@media screen and (max-width: 1200px) {
+  .dashboard-buy-button {
+    padding: 7px 11px;
+    margin-bottom: 17px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .dashboard-buy-button {
+    padding: 7px 11px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard-buy-button {
+    padding: 6px 13px;
+  }
+
+  .dashboard-sell-button {
+    margin-bottom: 16px;
+  }
+}
+
+@media screen and (max-width: 396px) {
+  .dashboard-buy-button {
+    padding: 6px 11.2px;
+  }
+
+  .dashboard-sell-button {
+    margin-top: -16px;
+  }
+}

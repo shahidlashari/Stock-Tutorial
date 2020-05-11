@@ -16,6 +16,14 @@
   margin-top: 50px;
 }
 
+.trending-stock-title,
+.trending-forex-title,
+.trending-crypto-title,
+.trending-chart-title,
+.trending-text-title {
+  font-size: 24px;
+}
+
 @media screen and (max-width: 992px) {
   .card-chart-display {
     height: 540px;

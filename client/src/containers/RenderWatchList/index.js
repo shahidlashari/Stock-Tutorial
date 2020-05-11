@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import './style.css';
 
 const RenderWatchList = (props) => {
   return (
@@ -17,14 +18,18 @@ const RenderWatchList = (props) => {
               <br />
               <Button
                 variant="success"
-                // eslint-disable-next-line react/no-this-in-sfc
                 onClick={() => props.handleBuyStockSubmit(props.symbol)}
-                className="dashboard-save-button">Buy Stock</Button>
-              <Button 
+                className="dashboard-buy-button"
+              >
+                Buy Stock
+              </Button>
+              <Button
                 variant="danger"
-                // eslint-disable-next-line react/no-this-in-sfc
                 onClick={() => props.handleSellStockSubmit(props.symbol)}
-                className="dashboard-save-button">Sell Stock</Button>
+                className="dashboard-sell-button"
+              >
+                Sell Stock
+              </Button>
             </div>
           ) : null}
         </ul>
