@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Container, Row, Col, CardDeck, Card, Button } from 'react-bootstrap';
 import TrendingImg from '../../images/card-trending.png';
 import DashboardImg from '../../images/card-dashboard.png';
@@ -28,7 +29,7 @@ const HomeCardDeck = () => (
             </Card.Body>
 
             <Card.Footer>
-              <Button href="/trending" variant="dark">View Trending Page</Button>
+              <Button as={Link} to="/trending" variant="dark">View Trending Page</Button>
             </Card.Footer>
           </Card>
         </Col>
@@ -52,7 +53,7 @@ const HomeCardDeck = () => (
             </Card.Body>
 
             <Card.Footer>
-              <Button href="/dashboard" variant="dark">View Dashboard Page</Button>
+              <Button as={Link} to="/dashboard" variant="dark">View Dashboard Page</Button>
             </Card.Footer>
 
           </Card>
@@ -75,7 +76,7 @@ const HomeCardDeck = () => (
             </Card.Body>
 
             <Card.Footer>
-              <Button href="/signup" variant="dark">View Sign-Up Page</Button>
+              <Button as={Link} to="/signup" variant="dark">View Sign-Up Page</Button>
             </Card.Footer>
           </Card>
         </Col>
