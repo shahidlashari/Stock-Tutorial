@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import './style.css';
 import { Container, Form, Button, Card } from 'react-bootstrap';
 import SignUpErrorU from '../../components/SignUpErrorU';
 import SignUpErrorUandP from '../../components/SignUpErrorUandP';
@@ -10,6 +9,7 @@ import SignUpErrorE from '../../components/SignUpErrorE';
 import SignUpErrorEandP from '../../components/SignUpErrorEandP';
 import SignUpErrorP from '../../components/SignUpErrorP';
 import SignUpErrorUandEandP from '../../components/SignUpErrorUandEandP';
+import './style.css';
 
 class SignUp extends Component {
   state = {
@@ -54,7 +54,7 @@ class SignUp extends Component {
     }
   }
 
-  handleClick = async (event) => {
+  handleFormSubmit = async (event) => {
     event.preventDefault();
 
     // Validate input form fields
@@ -69,7 +69,7 @@ class SignUp extends Component {
       const { data } = await axios.post('/api/users/signup', { username: this.state.username, password: this.state.password, email: this.state.email });
       localStorage.setItem('currentStockBroker', JSON.stringify(data.newUser[0]));
 
-      // Sends user to dashboard once sign-up form is complete
+      // Sends user to dashboard page sign-up form is complete
       this.props.history.push({
         pathname: '/dashboard',
         state: { newUser: data.newUser[0] },
@@ -98,6 +98,7 @@ class SignUp extends Component {
           <Card.Header className="signup-card-header">Sign-Up Form</Card.Header>
           <Card.Body>
             <Card.Title className="signup-card-title">Create an account to access the dashboard page!</Card.Title>
+
             <Form>
               <Form.Group controlId="formBasicUsername">
                 {this.state.isErrorU ? <SignUpErrorU /> : null }
@@ -117,6 +118,7 @@ class SignUp extends Component {
                   onChange={this.handleInputChange}
                 />
               </Form.Group>
+
               <Form.Group controlId="formBasicPassword">
                 <Form.Label className="signup-password-label">Password</Form.Label>
                 <Form.Control
@@ -128,6 +130,7 @@ class SignUp extends Component {
                 />
                 <Form.Text className="text-muted">Password must be 6-16 characters, and must contain at least one number and one special character!</Form.Text>
               </Form.Group>
+
               <Form.Group controlId="formBasicEmail">
                 <Form.Label className="signup-email-label">Email address</Form.Label>
                 <Form.Control
@@ -140,12 +143,13 @@ class SignUp extends Component {
                 <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text>
               </Form.Group>
             </Form>
+
             <div className="text-center">
               <Button
                 variant="primary"
                 type="submit"
                 size="lg"
-                onClick={(event) => this.handleClick(event)}
+                onClick={(event) => this.handleFormSubmit(event)}
                 className="signup-submit-button"
               >
                 Submit

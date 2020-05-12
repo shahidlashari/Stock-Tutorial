@@ -1,10 +1,10 @@
 import React from 'react';
 import { Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import TrendingChartStock from '../../containers/TrendingChartStock';
-import TrendingChartForex from '../../containers/TrendingChartForex';
-import TrendingChartDigital from '../../containers/TrendingChartDigital';
+import TrendingResultChartStock from '../../containers/TrendingResultChartStock';
+import TrendingResultChartForex from '../../containers/TrendingResultChartForex';
+import TrendingResultChartDigital from '../../containers/TrendingResultChartDigital';
 
-const TrendingCardChartResult = (props) => {
+const TrendingCardResultChart = (props) => {
   return (
     <Card className="text-center card-chart-display" border="dark">
       <Card.Header>
@@ -24,13 +24,13 @@ const TrendingCardChartResult = (props) => {
 
       <Card.Body>
         <Card.Text>
-          {props.isStock ? <TrendingChartStock data={props.data} /> : null}
-          {props.isForex ? <TrendingChartForex data={props.data} /> : null}
-          {props.isDigital ? <TrendingChartDigital data={props.data} /> : null}
+          {props.isStock ? <TrendingResultChartStock data={props.data} /> : null}
+          {props.isForex ? <TrendingResultChartForex data={props.data} /> : null}
+          {props.isDigital ? <TrendingResultChartDigital data={props.data} /> : null}
         </Card.Text>
       </Card.Body>
     </Card>
   );
 };
 
-export default TrendingCardChartResult;
+export default TrendingCardResultChart;

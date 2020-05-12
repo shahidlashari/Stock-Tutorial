@@ -10,6 +10,7 @@ class DigitalMonthly extends Component {
     isErrorInput: false,
   };
 
+  // Timer to make Input Error text disappear aftr 5 seconds
   componentDidUpdate() {
     setTimeout(() => this.setState({ isErrorInput: false }), 5000);
   }
@@ -22,6 +23,7 @@ class DigitalMonthly extends Component {
     this.setState({ digitalMarketInput: event.target.value });
   }
 
+  // Cryptocurrencies: Digital Monthly Submit Button
   handleSubmit = (event) => {
     event.preventDefault();
     if (this.state.digitalCurrencyInput === '' || this.state.digitalMarketInput === '') {
@@ -51,8 +53,10 @@ class DigitalMonthly extends Component {
               </Col>
             </Form.Row>
           </Form>
+
           {this.state.isErrorInput ? <TrendingErrorMessage /> : null }
           {this.props.isErrorDigitalAPI ? <TrendingErrorAPI /> : null}
+
           <Form.Text className="text-muted">e.g. CNY (Chinese Yuan), MXN (Mexican Peso), KRW (South Korean Won), etc.</Form.Text>
         </Form.Group>
 

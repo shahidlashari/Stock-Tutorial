@@ -3,36 +3,36 @@ CREATE DATABASE stocksDB;
 USE stocksDB;
 
 CREATE TABLE users (
-	id INT(5) auto_increment PRIMARY KEY NOT NULL,
+	id INT(5) AUTO_INCREMENT PRIMARY KEY NOT NULL,
     username VARCHAR(20) NOT NULL,
     password VARCHAR(30) NOT NULL,
     email VARCHAR(20) NOT NULL,
-	initial_budget int(5) default 10000
+	initial_budget INT(5) DEFAULT 10000
 );
 
 CREATE TABLE savedStocks (
-    id int(5) auto_increment primary key not null,
-    user_id int,    
+    id INT(5) AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    user_id INT,    
     symbol VARCHAR (50) NOT NULL,
-    price decimal (10,2) NOT NULL,
-    date_api varchar(20) NOT NULL,
+    price DECIMAL (10,2) NOT NULL,
+    date_api VARCHAR(20) NOT NULL,
 	FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE ownedStocks(
-id int(4) auto_increment primary key not null,
-	symbol VARCHAR (50) NOT NULL,
-    purchase_price decimal(10,2) null,
-    date_api varchar(20) not null,
-    user_id int,
+CREATE TABLE ownedStocks (
+    id INT(4) AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	symbol VARCHAR(50) NOT NULL,
+    purchase_price DECIMAL(10,2) NULL,
+    date_api VARCHAR(20) NOT NULL,
+    user_id INT,
 	FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE soldStocks(
-	id int(4) auto_increment primary key not null,
+CREATE TABLE soldStocks (
+	id INT(4) AUTO_INCREMENT PRIMARY KEY NOT NULL,
 	symbol VARCHAR (50) NOT NULL,
-    sell_price decimal(10,2) null,
-    date_api varchar(20) not null,
-    user_id int,
+    sell_price DECIMAL(10,2) NULL,
+    date_api VARCHAR(20) NOT NULL,
+    user_id INT,
 	FOREIGN KEY (user_id) REFERENCES users(id)
 );

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import TrendingTextCurrency from '../../containers/TrendingTextCurrency';
-import TrendingTextCryptorating from '../../containers/TrendingTextCryptorating';
+import TrendingResultTextCurrency from '../../containers/TrendingResultTextCurrency';
+import TrendingResultTextCryptorating from '../../containers/TrendingResultTextCrytorating';
 
-const TrendingCardTextResult = (props) => {
+const TrendingCardResultText = (props) => {
   return (
     <Card className="text-center card-text-display" border="dark">
       <Card.Header>
@@ -23,12 +23,12 @@ const TrendingCardTextResult = (props) => {
 
       <Card.Body>
         <Card.Text>
-          {props.isCurrency ? <TrendingTextCurrency data={props.data} /> : null}
-          {props.isCrypto ? <TrendingTextCryptorating data={props.data} /> : null}
+          {props.isCurrency ? <TrendingResultTextCurrency data={props.data} /> : null}
+          {props.isCrypto ? <TrendingResultTextCryptorating data={props.data} /> : null}
         </Card.Text>
       </Card.Body>
     </Card>
   );
 };
 
-export default TrendingCardTextResult;
+export default TrendingCardResultText;

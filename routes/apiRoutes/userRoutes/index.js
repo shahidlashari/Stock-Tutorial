@@ -1,10 +1,10 @@
 const router = require('express').Router();
-// /api/users prepended to every route inside of here
 const stocksController = require('../../../controllers/stocksController');
 
-// /api/users
+// /api/users prepended to every route inside of here
+
 router.route('/signup')
-  .post(stocksController.userInfo)
-  .get(stocksController.getUserInfo);
+  .get(stocksController.getUserInfo)
+  .post(stocksController.userInfo);
 
 module.exports = router;

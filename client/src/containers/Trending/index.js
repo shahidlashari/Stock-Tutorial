@@ -4,8 +4,8 @@ import axios from 'axios';
 import TrendingCardStock from '../TrendingCardStock';
 import TrendingCardForex from '../TrendingCardForex';
 import TrendingCardCrypto from '../TrendingCardCrypto';
-import TrendingCardChartResult from '../../components/TrendingCardChartResult';
-import TrendingCardTextResult from '../../components/TrendingCardTextResult';
+import TrendingCardResultChart from '../../components/TrendingCardResultChart';
+import TrendingCardResultText from '../../components/TrendingCardResultText';
 import './style.css';
 
 class Trending extends Component {
@@ -23,6 +23,7 @@ class Trending extends Component {
     isErrorDigitalAPI: false,
   }
 
+  // Timer to make API Error text disappear after 6 seconds
   componentDidUpdate() {
     if (this.state.isErrorStockAPI === true) {
       setTimeout(() => this.setState({ isErrorStockAPI: false }), 6000);
@@ -37,11 +38,12 @@ class Trending extends Component {
     }
   }
 
+  // Stock Time Series: Time Series Monthly Submit Button
   handleStockSubmit = async (inputStock) => {
     try {
       this.setState({ isStock: false, isCurrency: false, isForex: false, isCrypto: false, isDigital: false,
         isErrorStockAPI: false, isErrorCurrencyAPI: false, isErrorForexAPI: false, isErrorCryptoAPI: false, isErrorDigitalAPI: false });
-      const { data } = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${inputStock}&apikey=MN608K5DXF6IBFAL`);
+      const { data } = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${inputStock}&apikey=${process.env.APIKEY}`);
 
       if (data['Error Message']) {
         this.setState({ isErrorStockAPI: true });
@@ -53,11 +55,12 @@ class Trending extends Component {
     }
   };
 
+  // Foreign Exchange Rates: Currency Exchange Rate Submit Button
   handleCurrencySubmit = async (inputCurrencyFrom, inputCurrencyTo) => {
     try {
       this.setState({ isStock: false, isCurrency: false, isForex: false, isCrypto: false, isDigital: false,
         isErrorStockAPI: false, isErrorCurrencyAPI: false, isErrorForexAPI: false, isErrorCryptoAPI: false, isErrorDigitalAPI: false });
-      const { data } = await axios.get(`https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${inputCurrencyFrom}&to_currency=${inputCurrencyTo}&apikey=MN608K5DXF6IBFAL`);
+      const { data } = await axios.get(`https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${inputCurrencyFrom}&to_currency=${inputCurrencyTo}&apikey=${process.env.APIKEY}`);
 
       if (data['Error Message']) {
         this.setState({ isErrorCurrencyAPI: true });
@@ -69,11 +72,12 @@ class Trending extends Component {
     }
   }
 
+  // Foreign Exchange Rates: Forex Monthly Submit Button
   handleForexMonthlySubmit = async (inputForexFrom, inputForexTo) => {
     try {
       this.setState({ isStock: false, isCurrency: false, isForex: false, isCrypto: false, isDigital: false,
         isErrorStockAPI: false, isErrorCurrencyAPI: false, isErrorForexAPI: false, isErrorCryptoAPI: false, isErrorDigitalAPI: false });
-      const { data } = await axios.get(`https://www.alphavantage.co/query?function=FX_MONTHLY&from_symbol=${inputForexFrom}&to_symbol=${inputForexTo}&apikey=MN608K5DXF6IBFAL`);
+      const { data } = await axios.get(`https://www.alphavantage.co/query?function=FX_MONTHLY&from_symbol=${inputForexFrom}&to_symbol=${inputForexTo}&apikey=${process.env.APIKEY}`);
 
       if (data['Error Message']) {
         this.setState({ isErrorForexAPI: true });
@@ -85,11 +89,12 @@ class Trending extends Component {
     }
   }
 
+  // Cryptocurrencies: Cryptorating Submit Button
   handleCryptoSubmit = async (inputCrypto) => {
     try {
       this.setState({ isStock: false, isCurrency: false, isForex: false, isCrypto: false, isDigital: false,
         isErrorStockAPI: false, isErrorCurrencyAPI: false, isErrorForexAPI: false, isErrorCryptoAPI: false, isErrorDigitalAPI: false });
-      const { data } = await axios.get(`https://www.alphavantage.co/query?function=CRYPTO_RATING&symbol=${inputCrypto}&apikey=MN608K5DXF6IBFAL`);
+      const { data } = await axios.get(`https://www.alphavantage.co/query?function=CRYPTO_RATING&symbol=${inputCrypto}&apikey=${process.env.APIKEY}`);
 
       if (Object.keys(data).length === 0) {
         this.setState({ isErrorCryptoAPI: true });
@@ -101,11 +106,12 @@ class Trending extends Component {
     }
   };
 
+  // Cryptocurrencies: Digital Monthly Submit Button
   handleDigitalMonthlySubmit = async (inputDigitalCurrency, inputPhysicalMarket) => {
     try {
       this.setState({ isStock: false, isCurrency: false, isForex: false, isCrypto: false, isDigital: false,
         isErrorStockAPI: false, isErrorCurrencyAPI: false, isErrorForexAPI: false, isErrorCryptoAPI: false, isErrorDigitalAPI: false });
-      const { data } = await axios.get(`https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_MONTHLY&symbol=${inputDigitalCurrency}&market=${inputPhysicalMarket}&apikey=MN608K5DXF6IBFAL`);
+      const { data } = await axios.get(`https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_MONTHLY&symbol=${inputDigitalCurrency}&market=${inputPhysicalMarket}&apikey=${process.env.APIKEY}`);
 
       if (data['Error Message']) {
         this.setState({ isErrorDigitalAPI: true });
@@ -154,11 +160,11 @@ class Trending extends Component {
         <Container>
           <Row>
             <Col>
-              {this.state.isStock ? <TrendingCardChartResult isStock={this.state.isStock} data={this.state.data} /> : null}
-              {this.state.isCurrency ? <TrendingCardTextResult isCurrency={this.state.isCurrency} data={this.state.data} /> : null}
-              {this.state.isForex ? <TrendingCardChartResult isForex={this.state.isForex} data={this.state.data} /> : null}
-              {this.state.isCrypto ? <TrendingCardTextResult isCrypto={this.state.isCrypto} data={this.state.data} /> : null}
-              {this.state.isDigital ? <TrendingCardChartResult isDigital={this.state.isDigital} data={this.state.data} /> : null}
+              {this.state.isStock ? <TrendingCardResultChart isStock={this.state.isStock} data={this.state.data} /> : null}
+              {this.state.isCurrency ? <TrendingCardResultText isCurrency={this.state.isCurrency} data={this.state.data} /> : null}
+              {this.state.isForex ? <TrendingCardResultChart isForex={this.state.isForex} data={this.state.data} /> : null}
+              {this.state.isCrypto ? <TrendingCardResultText isCrypto={this.state.isCrypto} data={this.state.data} /> : null}
+              {this.state.isDigital ? <TrendingCardResultChart isDigital={this.state.isDigital} data={this.state.data} /> : null}
             </Col>
           </Row>
         </Container>

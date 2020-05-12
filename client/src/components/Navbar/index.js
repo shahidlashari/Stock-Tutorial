@@ -5,6 +5,7 @@ import LogoImg from '../../images/logo.svg';
 import './style.css';
 
 const ReactNavbar = () => {
+  // Used to highlight the current page that the user is currently on in the navbar
   const location = useLocation();
 
   return (
