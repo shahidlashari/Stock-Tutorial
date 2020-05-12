@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import './style.css';
-import { Button } from 'react-bootstrap';
 import axios from 'axios';
+import { Button } from 'react-bootstrap';
+import './style.css';
 
-class RenderStockList extends Component {
+class DashboardStockList extends Component {
   state = {
     priceStock: [],
     isStock: false,
   };
 
+  // Show Price Submit Button
   handlePriceSubmit = async (symbol) => {
     try {
       const { data } = await axios.get(`/api/stocks/show?q=${symbol}`);
@@ -29,6 +30,7 @@ class RenderStockList extends Component {
             <li className="stocklist-name">
               <strong>Name:</strong> {this.props.name}
             </li>
+
             <Button
               variant="light"
               onClick={() => this.handlePriceSubmit(this.props.symbol)}
@@ -36,6 +38,7 @@ class RenderStockList extends Component {
             >
               Show Price
             </Button>
+
             {this.state.isStock && (
               <div>
                 <ul>
@@ -75,4 +78,4 @@ class RenderStockList extends Component {
   }
 }
 
-export default RenderStockList;
+export default DashboardStockList;

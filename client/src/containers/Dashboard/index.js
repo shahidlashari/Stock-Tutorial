@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Button, Container, Row, Col, Form, Card, FormControl } from 'react-bootstrap';
 import axios from 'axios';
+import { Button, Container, Row, Col, Form, Card, FormControl } from 'react-bootstrap';
 import Wrapper from '../../components/Wrapper';
-import RenderStockList from '../RenderStockList';
-import RenderWatchList from '../../components/RenderWatchList';
+import DashboardStockList from '../DashboardStockList';
+import DashboardWatchList from '../../components/DashboardWatchList';
 import './style.css';
 
 class Dashboard extends Component {
@@ -18,6 +18,9 @@ class Dashboard extends Component {
     balance: [],
   }
 
+  // Uses this.props.history.location.state that is given from passing down Dashboard as a prop component from App/index.js
+  // Sets this.props.history.location.state to newUser if conditions are true, else grabs 'currentStockBroker' from local storage
+  // Sets currentUser state to the information stored in the newUser variable
   componentDidMount() {
     const newUser = this.props.history.location.state && this.props.history.location.state.newUser
       ? this.props.history.location.state.newUser
@@ -32,16 +35,19 @@ class Dashboard extends Component {
     this.setState({ stockInput: event.target.value });
   }
 
+  // Stock Search Submit Button
   handleStockSearchSubmit = async (event) => {
     event.preventDefault();
 
     try {
       this.setState({ stocks: [] });
+
       const inputSymbol = this.state.stockInput;
-      const { data: { bestMatches } } = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${inputSymbol}&apikey=4EOUWW7RMTJ1A28A`);
+      const { data: { bestMatches } } = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${inputSymbol}&apikey=${process.env.APIKEY}`);
       const stocks = [...this.state.stocks, ...bestMatches];
       this.setState({ stocks, stockInput: '' });
 
+      // Conditional render for the stock watchlist
       const user_id = this.state.currentUser.id;
       const { data } = await axios.get(`/api/stocks/save?q=${user_id}`);
       this.setState({ savedStock: data, isWatchList: true });
@@ -50,6 +56,7 @@ class Dashboard extends Component {
     }
   }
 
+  // Save Stock Submit Button
   handleSaveStockSubmit = async (symbol) => {
     const user_id = this.state.currentUser.id;
     const stockSymbol = symbol;
@@ -59,7 +66,6 @@ class Dashboard extends Component {
         stockSymbol,
         user_id,
       });
-
       const { data: stockByID } = await axios.get(`/api/stocks/save?q=${user_id}`);
       this.setState({ savedStock: stockByID, isStock: true, isWatchList: true });
     } catch (e) {
@@ -67,6 +73,7 @@ class Dashboard extends Component {
     }
   };
 
+  // Buy Stock Submit Button
   handleBuyStockSubmit = async (symbol) => {
     const user_id = this.state.currentUser.id;
     const stockSymbol = symbol;
@@ -80,6 +87,7 @@ class Dashboard extends Component {
     }
   }
 
+  // Sell Stock Submit Button
   handleSellStockSubmit = async (symbol) => {
     const user_id = this.state.currentUser.id;
     const stockSymbol = symbol;
@@ -93,12 +101,20 @@ class Dashboard extends Component {
     }
   }
 
+  // Log Out Button
+  // Clears local storage and then sends the user to the Home page
+  handleLogOutSubmit() {
+    localStorage.clear('currentStockBroker');
+    this.props.history.push('/');
+  }
+
+  // Renders DashboardStockList JSX component if there is data in the stocks array
   renderStockListItems = () => {
     if (this.state.stocks.length === 0) {
       return <h4>No Stock yet</h4>;
     } else {
       return this.state.stocks.map((stock) => {
-        return <RenderStockList
+        return <DashboardStockList
           key={stock['1. symbol']}
           symbol={stock['1. symbol']}
           name={stock['2. name']}
@@ -110,12 +126,13 @@ class Dashboard extends Component {
     }
   }
 
+  // Renders DashboardWatchList JSX component if there is data in the savedStock array
   renderWatchListItems = () => {
     if (this.state.savedStock.length === 0) {
       return <h4>No Stock(s) in Watchlist yet</h4>;
     } else {
       return this.state.savedStock.map((stock) => {
-        return <RenderWatchList
+        return <DashboardWatchList
           key={stock['symbol']}
           symbol={stock['symbol']}
           price={stock['price']}
@@ -128,17 +145,14 @@ class Dashboard extends Component {
     }
   }
 
-  logOut() {
-    localStorage.clear('currentStockBroker');
-    this.props.history.push('/');
-  }
-
+  // Alert notification and then sends the user to Home page
   navigateAway() {
     alert('Please create an account to access Dashboard!');
     this.props.history.push('/');
   }
 
   render() {
+    // Conditions that invoke the navigateAway function if true, else the Dashboard page is rendered
     if (!this.state.currentUser && !this.props.history.location.state && !localStorage.getItem('currentStockBroker')) {
       return (
         <div>
@@ -161,10 +175,11 @@ class Dashboard extends Component {
                       <br />
                       Email: {this.state.currentUser.email}
                       <br />
-                      <Button variant="outline-info" onClick={(e) => this.logOut(e)} className="dashboard-logout-button">Log Out</Button>
+                      <Button variant="outline-info" onClick={(e) => this.handleLogOutSubmit(e)} className="dashboard-logout-button">Log Out</Button>
                     </Card.Text>
                   </Card.Body>
                 </Card>
+
                 <Card bg="light" border="dark" className="dashboard-budget-card">
                   <Card.Body>
                     <Card.Title>User's Initial Budget:</Card.Title>
@@ -173,6 +188,7 @@ class Dashboard extends Component {
                     <Card.Title className="dashboard-balance-value">${this.state.balance}</Card.Title>
                   </Card.Body>
                 </Card>
+
                 <Card bg="light" border="dark" className="dashboard-watchlist-card">
                   <Card.Body>
                     <Card.Title>Stock Watchlist</Card.Title>

@@ -74,14 +74,16 @@ module.exports = {
     const { q: stockSymbol } = req.query;
 
     try {
-      const { data } = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&apikey=4EOUWW7RMTJ1A28A`);
+      const { data } = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&apikey=${process.env.APIKEY}`);
       const dateRaw = data['Meta Data']['3. Last Refreshed'];
       const dateArray = dateRaw.split(/(\s+)/);
       const date = dateArray[0];
+
       const priceOpen = data['Time Series (Daily)'][date]['1. open'];
       const priceHigh = data['Time Series (Daily)'][date]['2. high'];
       const priceLow = data['Time Series (Daily)'][date]['3. low'];
       const priceClose = data['Time Series (Daily)'][date]['4. close'];
+
       res.status(200).json({ date, priceOpen, priceHigh, priceLow, priceClose });
     } catch (e) {
       res.status(403).json({ e });
@@ -92,12 +94,13 @@ module.exports = {
     try {
       const { stockSymbol } = req.body;
       const { user_id } = req.body;
-      const { data } = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&apikey=4EOUWW7RMTJ1A28A`);
+      const { data } = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&apikey=${process.env.APIKEY}`);
       const symbol = data['Meta Data']['2. Symbol'];
       const dateRaw = data['Meta Data']['3. Last Refreshed'];
       const dateArray = dateRaw.split(/(\s+)/);
       const date = dateArray[0];
       const price = data['Time Series (Daily)'][date]['1. open'];
+
       saveDatabase(symbol, price, date, user_id);
       res.status(200).json({ symbol, price, date, user_id });
     } catch (e) {
@@ -109,7 +112,7 @@ module.exports = {
     const { q: inputSymbol } = req.query;
 
     try {
-      const { data } = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${inputSymbol}&apikey=4EOUWW7RMTJ1A28A`);
+      const { data } = await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${inputSymbol}&apikey=${process.env.APIKEY}`);
       res.status(200).json(data);
     } catch (e) {
       res.status(403).json({ e });
@@ -121,12 +124,13 @@ module.exports = {
     const { user_id } = req.body;
 
     try {
-      const { data } = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&apikey=4EOUWW7RMTJ1A28A`);
+      const { data } = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&apikey=${process.env.APIKEY}`);
       const symbol = data['Meta Data']['2. Symbol'];
       const dateRaw = data['Meta Data']['3. Last Refreshed'];
       const dateArray = dateRaw.split(/(\s+)/);
       const date = dateArray[0];
       const price = data['Time Series (Daily)'][date]['1. open'];
+
       buyStock(symbol, price, date, user_id);
       const balance = await connection.query(stockQueries.getBalance, user_id);
       res.status(200).json({ balance });
@@ -154,12 +158,13 @@ module.exports = {
     const { user_id } = req.body;
 
     try {
-      const { data } = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&apikey=4EOUWW7RMTJ1A28A`);
+      const { data } = await axios.get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&apikey=${process.env.APIKEY}`);
       const symbol = data['Meta Data']['2. Symbol'];
       const dateRaw = data['Meta Data']['3. Last Refreshed'];
       const dateArray = dateRaw.split(/(\s+)/);
       const date = dateArray[0];
       const price = data['Time Series (Daily)'][date]['4. close'];
+
       sellStock(symbol, price, date, user_id);
       const balance = await connection.query(stockQueries.getBalance, user_id);
       res.status(200).json({ balance });

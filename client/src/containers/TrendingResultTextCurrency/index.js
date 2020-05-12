@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class TrendingTextCurrency extends Component {
+class TrendingResultTextCurrency extends Component {
   state = {
     textFromCurrencyCode: '',
     textFromCurrencyName: '',
@@ -10,6 +10,7 @@ class TrendingTextCurrency extends Component {
     textLastRefreshed: '',
   }
 
+  // Logic that renders the text from the Currency Exchange Rate API Call
   componentDidMount() {
     const fromCurrencyCode = this.props.data['Realtime Currency Exchange Rate']['1. From_Currency Code'];
     const fromCurrencyName = this.props.data['Realtime Currency Exchange Rate']['2. From_Currency Name'];
@@ -39,4 +40,4 @@ class TrendingTextCurrency extends Component {
   }
 }
 
-export default TrendingTextCurrency;
+export default TrendingResultTextCurrency;

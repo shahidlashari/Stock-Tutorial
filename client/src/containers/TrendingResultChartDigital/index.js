@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-export default class TrendingChartStock extends PureComponent {
+export default class TrendingResultChartDigital extends PureComponent {
   static jsfiddleUrl = 'https://jsfiddle.net/alidingling/xqjtetw0/';
 
   state = {
@@ -10,10 +10,13 @@ export default class TrendingChartStock extends PureComponent {
     textMarket: '',
   }
 
+  // Logic that renders the Digital Result Chart (Rechart npm package)
   componentDidMount() {
+    // Market variable that stores a specific data and removes the single quotes of the string
     let market = this.props.data['Meta Data']['4. Market Code'];
     market = market.substring(0, market.length);
 
+    // New object based on Digital Currency Monthly Time Series API call
     const dataObj = {
       'Meta Data': {
         'Digital Currency Code': this.props.data['Meta Data']['2. Digital Currency Code'],
@@ -101,6 +104,7 @@ export default class TrendingChartStock extends PureComponent {
       },
     };
 
+    // for..in loop to make key/value pairs to recreate the specific format from Recharts to display a chart with new data
     function mapData() {
       const dataArr = [];
       const timeSeries = dataObj['Time Series (Digital Currency Monthly)'];

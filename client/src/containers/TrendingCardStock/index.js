@@ -9,6 +9,7 @@ class TrendingCardStock extends Component {
     isErrorInput: false,
   };
 
+  // Timer to make Input Error text disappear aftr 5 seconds
   componentDidUpdate() {
     setTimeout(() => this.setState({ isErrorInput: false }), 5000);
   }
@@ -17,6 +18,7 @@ class TrendingCardStock extends Component {
     this.setState({ stockInput: event.target.value });
   };
 
+  // Stock Time Series: Time Series Monthly Button
   handleSubmit = (event) => {
     event.preventDefault();
     if (this.state.stockInput === '') {

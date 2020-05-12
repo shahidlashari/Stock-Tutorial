@@ -8,6 +8,7 @@ class TrendingCardCrypto extends Component {
     cryptoActiveKey: '#cryptorating',
   };
 
+  // Cyrptorating or Digital Monthly Tab Select
   handleCryptoSelect = (selectedKey) => {
     this.setState({ cryptoActiveKey: selectedKey });
   }
@@ -43,7 +44,8 @@ class TrendingCardCrypto extends Component {
 
         <Card.Body>
           <Card.Text>
-            {this.state.cryptoActiveKey === '#cryptorating' ? <Cryptorating handleCryptoSubmit={this.props.handleCryptoSubmit} isErrorCryptoAPI={this.props.isErrorCryptoAPI} /> : <DigitalMonthly handleDigitalMonthlySubmit={this.props.handleDigitalMonthlySubmit} isErrorDigitalAPI={this.props.isErrorDigitalAPI} />}
+            {this.state.cryptoActiveKey === '#cryptorating' ? <Cryptorating handleCryptoSubmit={this.props.handleCryptoSubmit} isErrorCryptoAPI={this.props.isErrorCryptoAPI} />
+              : <DigitalMonthly handleDigitalMonthlySubmit={this.props.handleDigitalMonthlySubmit} isErrorDigitalAPI={this.props.isErrorDigitalAPI} />}
           </Card.Text>
         </Card.Body>
       </Card>

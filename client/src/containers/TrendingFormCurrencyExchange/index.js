@@ -10,6 +10,7 @@ class CurrencyExchangeRate extends Component {
     isErrorInput: false,
   }
 
+  // Timer to make Input Error text disappear aftr 5 seconds
   componentDidUpdate() {
     setTimeout(() => this.setState({ isErrorInput: false }), 5000);
   }
@@ -22,6 +23,7 @@ class CurrencyExchangeRate extends Component {
     this.setState({ currencyToInput: event.target.value });
   }
 
+  // Foreign Exchange Rates: Currency Exchange Rate Submit Button
   handleSubmit = (event) => {
     event.preventDefault();
     if (this.state.currencyFromInput === '' || this.state.currencyToInput === '') {
@@ -49,8 +51,10 @@ class CurrencyExchangeRate extends Component {
               </Col>
             </Form.Row>
           </Form>
+
           {this.state.isErrorInput ? <TrendingErrorMessage /> : null }
           {this.props.isErrorCurrencyAPI ? <TrendingErrorAPI /> : null}
+
           <Form.Text className="text-muted">Note: Can't do physical (Ex: USD) to digital (Ex: BTC) currency exchange</Form.Text>
           <Form.Text className="text-muted">e.g. USD (US Dollar) to JPY (Japanese Yen)</Form.Text>
         </Form.Group>

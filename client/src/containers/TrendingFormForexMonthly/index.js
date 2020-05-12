@@ -10,6 +10,7 @@ class ForeignMonthly extends Component {
     isErrorInput: false,
   };
 
+  // Timer to make Input Error text disappear aftr 5 seconds
   componentDidUpdate() {
     setTimeout(() => this.setState({ isErrorInput: false }), 5000);
   }
@@ -22,6 +23,7 @@ class ForeignMonthly extends Component {
     this.setState({ forexToInput: event.target.value });
   }
 
+  // Foreign Exchange Rates: Forex Monthly Submit Button
   handleSubmit = (event) => {
     event.preventDefault();
     if (this.state.forexFromInput === '' || this.state.forexFromInput === '') {
@@ -49,8 +51,10 @@ class ForeignMonthly extends Component {
               </Col>
             </Form.Row>
           </Form>
+
           {this.state.isErrorInput ? <TrendingErrorMessage /> : null }
           {this.props.isErrorForexAPI ? <TrendingErrorAPI /> : null}
+
           <Form.Text className="text-muted">Note: Must be physical currency</Form.Text>
           <Form.Text className="text-muted">e.g. EUR (Euro) to USD (US Dollar)</Form.Text>
         </Form.Group>

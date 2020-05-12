@@ -9,6 +9,7 @@ class Cryptorating extends Component {
     isErrorInput: false,
   };
 
+  // Timer to make Input Error text disappear aftr 5 seconds
   componentDidUpdate() {
     setTimeout(() => this.setState({ isErrorInput: false }), 5000);
   }
@@ -17,6 +18,7 @@ class Cryptorating extends Component {
     this.setState({ cryptoInput: event.target.value });
   };
 
+  // Cryptocurrencies: Cryptorating Submit Button
   handleSubmit = (event) => {
     event.preventDefault();
     if (this.state.cryptoInput === '') {

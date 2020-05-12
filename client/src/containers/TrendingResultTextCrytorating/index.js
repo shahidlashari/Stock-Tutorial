@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class TrendingTextCurrency extends Component {
+class TrendingResultTextCryptorating extends Component {
   state = {
     textSymbol: '',
     textName: '',
@@ -13,6 +13,7 @@ class TrendingTextCurrency extends Component {
     textLastRefreshed: '',
   }
 
+  // Logic that renders the text from the Cryptorating API Call
   componentDidMount() {
     const symbol = this.props.data['Crypto Rating (FCAS)']['1. symbol'];
     const name = this.props.data['Crypto Rating (FCAS)']['2. name'];
@@ -23,6 +24,7 @@ class TrendingTextCurrency extends Component {
     const utilityScore = this.props.data['Crypto Rating (FCAS)']['7. utility score'];
     const lastRefreshed = this.props.data['Crypto Rating (FCAS)']['8. last refreshed'];
 
+    // Changes color based on condition
     if (fcasRating === 'Superb') {
       const colorSuperb = '#009919';
       this.setState({ textFcasColor: colorSuperb });
@@ -66,4 +68,4 @@ class TrendingTextCurrency extends Component {
   }
 }
 
-export default TrendingTextCurrency;
+export default TrendingResultTextCryptorating;

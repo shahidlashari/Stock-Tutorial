@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-export default class TrendingChartStock extends PureComponent {
+export default class TrendingResultChartForex extends PureComponent {
   static jsfiddleUrl = 'https://jsfiddle.net/alidingling/xqjtetw0/';
 
   state = {
@@ -10,7 +10,9 @@ export default class TrendingChartStock extends PureComponent {
     textTo: '',
   }
 
+  // Logic that renders the Digital Result Chart (Rechart npm package)
   componentDidMount() {
+    // New object based on Forex Monthly Time Series API call
     const dataObj = {
       'Meta Data': {
         'From Symbol': this.props.data['Meta Data']['2. From Symbol'],
@@ -98,6 +100,7 @@ export default class TrendingChartStock extends PureComponent {
       },
     };
 
+    // for..in loop to make key/value pairs to recreate the specific format from Recharts to display a chart with new data
     function mapData() {
       const dataArr = [];
       const timeSeries = dataObj['Time Series FX (Monthly)'];

@@ -8,6 +8,7 @@ class TrendingCardForex extends Component {
     forexActiveKey: '#currencyExchange',
   };
 
+  // Currency Exchange or Forex Monthly Tab Select
   handleForexSelect = (selectedKey) => {
     this.setState({ forexActiveKey: selectedKey });
   }
@@ -42,7 +43,8 @@ class TrendingCardForex extends Component {
 
         <Card.Body>
           <Card.Text>
-            {this.state.forexActiveKey === '#currencyExchange' ? <CurrencyExchangeRate handleCurrencySubmit={this.props.handleCurrencySubmit} isErrorCurrencyAPI={this.props.isErrorCurrencyAPI} /> : <ForeignMonthly handleForexMonthlySubmit={this.props.handleForexMonthlySubmit} isErrorForexAPI={this.props.isErrorForexAPI} />}
+            {this.state.forexActiveKey === '#currencyExchange' ? <CurrencyExchangeRate handleCurrencySubmit={this.props.handleCurrencySubmit} isErrorCurrencyAPI={this.props.isErrorCurrencyAPI} />
+              : <ForeignMonthly handleForexMonthlySubmit={this.props.handleForexMonthlySubmit} isErrorForexAPI={this.props.isErrorForexAPI} />}
           </Card.Text>
         </Card.Body>
       </Card>

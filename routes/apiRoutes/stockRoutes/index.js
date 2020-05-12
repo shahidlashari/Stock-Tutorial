@@ -1,23 +1,22 @@
 const router = require('express').Router();
-// /api/stocks prepended to every route inside of here
 const stocksController = require('../../../controllers/stocksController');
 
-// /api/stocks
+// /api/stocks prepended to every route inside of here
 
 router.route('/show')
   .get(stocksController.getStock);
 
 router.route('/save')
-  .post(stocksController.postStock)
-  .get(stocksController.getSavedStock);
+  .get(stocksController.getSavedStock)
+  .post(stocksController.postStock);
 
 router.route('/buy')
-  .post(stocksController.buyStocks)
-  .get(stocksController.getOwnedStock);
+  .get(stocksController.getOwnedStock)
+  .post(stocksController.buyStocks);
 
 router.route('/sell')
-  .post(stocksController.sellStocks)
-  .get(stocksController.getSoldStock);
+  .get(stocksController.getSoldStock)
+  .post(stocksController.sellStocks);
 
 router.route('/trading')
   .get(stocksController.getTrading);
