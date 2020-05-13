@@ -63,7 +63,7 @@ class SignUp extends Component {
       const { data } = await axios.post('/api/users/signup', { username: this.state.username, password: this.state.password, email: this.state.email });
       localStorage.setItem('currentStockBroker', JSON.stringify(data.newUser[0]));
 
-      // Sends user to dashboard page sign-up form is complete
+      // redirects user to dashboard page sign-up form is complete
       this.props.history.push({
         pathname: '/dashboard',
         state: { newUser: data.newUser[0] },

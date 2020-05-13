@@ -104,6 +104,14 @@ class Dashboard extends Component {
   }
 
   // Renders DashboardRenderStockList JSX component if there is data in the stocks array
+  // Log Out Button
+  // Clears local storage and then redirects the user to the Home page
+  handleLogOutSubmit() {
+    localStorage.clear('currentStockBroker');
+    this.props.history.push('/');
+  }
+
+  // Renders DashboardStockList JSX component if there is data in the stocks array
   renderStockListItems = () => {
     if (this.state.stocks.length === 0) {
       return <h4>No Stock yet</h4>;
@@ -140,7 +148,7 @@ class Dashboard extends Component {
     }
   }
 
-  // Alert notification and then sends the user to Home page
+  // Alert notification and then redirects the user to Home page
   navigateAway() {
     alert('Please create an account to access Dashboard!');
     this.props.history.push('/');
