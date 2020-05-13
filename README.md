@@ -62,4 +62,6 @@
 
 * Stock Tutorial - Overall Function
 
-![image]()
+https://drive.google.com/file/d/1gSF0x20o8OD28vo_TvjA4e6tCoFlnCY1/view
+
+![image](models/images/stockTutorial.gif)
