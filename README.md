@@ -1,67 +1,78 @@
 # Project 2-Stock Tutorial
 
-# Team: Shahid Hussain, Norberto Mantohac,Narayan Poudel, Ujwal Kashyap
+## Team: [Shahid Hussain](https://github.com/shahidlashari), [Norberto Mantohac](https://github.com/NMantohac), [Narayan Poudel](https://github.com/naryan), [Ujwal Kashyap](https://github.com/usualketchup)
 
 ## URL Links
 
-  1) https://boiling-mesa-48982.herokuapp.com/
+  1) GitHub: https://github.com/shahidlashari/project_2_stockTutorial
 
-  2) https://github.com/shahidlashari/project_2_stockTutorial
+  2) Heroku: https://boiling-mesa-48982.herokuapp.com/
+  
+  3) Overall Function (Heroku): https://drive.google.com/file/d/1zHej-dCa_UZEOLRB9GcCynfTVeOVNj9I/view
 
 ## Description
 
-* The Stock Tutorial application works on showing the user how to search up information about stocks and show the user how to buy and sell stocks using opening and closing market data!  
+* The Stock Tutorial application provides the user a basic interactive and educational experience of the stock market trade through analyzing a variety of real-time stock data and emulating a stock portfolio. The app utilizes Alpha Vantage API to obtain specific data, such as stock time series, currency & foreign exchange rates, cryptoratings, and digital currencies traded on a specific market. The trending page provides these results in a form of either a chart or a simple text. In addition, there is error handling, so there will be no data returned if the user leaves the input form empty or inputs incorrect values. 
 
-* The application requires the user to log in, saves their information in local storage and give the user a paper money budget of $10,000 to buy and sell stocks.
+* For the Dashboard page, an alert will pop up if the user hasn't created an account (fake account) through the sign-up form. In the Sign-Up page, the user is able to create an account after providing a valid username, password, and email. Otherwise, there will be errors for each scenario (invalid username, invalid password and email, invalid username and email, etc.). Once the user is successful in creating an accouont, the app will then direct the user straight into the Dashboard page where the user can now save/buy/sell stocks. The stock search input returns the best-matching symbols and market information based on keywords, and from there the user can view stock prices and save them into the stock watchlist. In the stock watchlist, the user can buy (opening price) and sell (closing price) the saved stock, which would then reflect on the user's balance from the initial $10,000 budget. The user is free to logout from their account after pressing the logout button, but a new account must be created again in order to access the Dashboard page. 
+
+* The Stock Tutorial application is done through React with React-Bootstrap Framework for the front-end, whereas Node.js and Express (server) with a MySQL database is done for the back-end. In addition, the general file structure follows the MVC paradigm to allow others an easy access of the work-flow of the files/folders. In the front-end, the use of functional and class components (containers) were used to render the pages, which also included states and vanilla JavaScript functions. Overall, the index.js Javascript files contain variables (const/let), async & await and callback functions, try/catch blocks, arrays/objects, import/exports, if-else statements, for-in loops, destructuring variables, local storage and queries. The necessary data in the local MySQL database are in the seed.sql file, which are for running initial queries. For npm packages, **axios** was used to make API calls to the Alpha Vantage API, and **Recharts** was used to display the data as a line chart with multiple lines (open, high, low, close) average prices of each month for the past year. In addition, **dotenv** was used to hide all the API keys and **mysql2** was to return all queries as promises. For  dev dependencies, **ESLint** was to enforce a cleaner and better coding style, and **concurrently** was to run the localhost of the front and back-end at the same time. One last note, the entire app is mobile responsive and there are css with media queries, so the website looks good in smaller screens.
 
 ## User Story
 
-* The user wants to learn more details about stocks but does not know where to start. The Stock Tutorial gives the user a demonstration on how to buy and sell stocks based on their opening and closing prices for the day.
+* The user wants to learn more details about stocks, but does not know where to start. The Stock Tutorial app gives the user a demonstration on how to buy and sell stocks based on their opening and closing prices for the day.
 
-* User needs to create an account in order to access dashboard and user's data will be stored in our database and local storage. 
+* User needs to create an account first in order to access Dashboard, which their data will be stored in our database and local storage. 
 
-* User can search for stock of his choice, if he doesn't know the symbol of stock, our search bar has functionality to show the bestmatches stocks even if user enters just one letter.
+* User can search for stock of their choice, but if the user doesn't know the symbol of the stock, the search bar has functionality to show the best matches stocks even if the user enters just one letter.
 
-* User can view the price of desired stock and save it. This perticular stock will apear in stock watchlist and also will be stored in out database in order to make it possible for user to buy it if wants to. 
+* User can view the price of desired stock and save it. This particular stock will apear in the stock watchlist and will also be stored in our database, so the user can buy if they want to. 
 
-* User has been alocated $10,000.00 to start with. This will appear in user budget model.
+* User is allocated $10,000.00 to start with and appears in the user's budget model.
 
-* User can sell stock just clicking on sell and his busget will be updated acoordingly.
+* User can sell stock by just clicking on the sell button and the budget will be updated accordingly.
 
-* User can logout while pressing logout button and he will be redirected to home page. If he signs in back , his saved stock would be shown in watchlist and stocks he did buy.
+* User can logout after pressing logout button and will be redirected to home page. The user must create an account again in the sign-up form in order to access Dashboard again.
 
-* User can view trending page having charts of stock time series (monthly), currency exchange rate, foreign exchange rate (monthly),cryptorating as well as digital currency in the physical market (monthly).
+* User can view trending page, which returns data (chart/text) of stock time series (monthly), currency exchange rate, foreign exchange rate (monthly), cryptorating, and digital currency in the physical market (monthly).
 
 ## Technologies
 
-    * Node
-    * NPM Express
+    * Visual Studio Code
     * React
-    * React-Bootstrap
-    * MySql
-    * API (Alpha Vantage) (API Docs)
+    * React-Bootstrap Framework
+    * Node.js
+    * Express (Server)
+    * MySQL Database (MySQL Workbench)
+    * API - Alpha Vantage
+    * npm - axios, if-env, dotenv, mysql2, and recharts
+    * npm (Dev) - ESLint & concurrently
+    * Travis CI/ESLint
     * GitHub
-    * Heroku
-    * Travis CI/ESlint
-    * Rechart
+    * Heroku & JawsDB add-on
 
 ## Challenges
 
-* Working with React on a larger project created a lot of early confusion with class components , functional components, routes and API calls.
+* This project was definitely a lot tougher than we expected, and we experienced and learned many things, but in the end we were able to accomplish a lot of stuff for this project alone! The team is incredibly proud of how this project turned out because in the beginning it felt like a strange and relatively overwhelming idea, but over time we were able to solve each problem using our knowledge, resources, and help from each other and from the TAs/Instructor. This is an invaluable experience to us as junior web developers, and a solid testament of how much we've learned and are able to apply in code!
 
-* Dealing with our databases and using the correct queries involving our API calls and our database.
+* The main challenge early on was working with React since we didn't spend much time on it, so we had to refer back to the todo boilerplate and react class activities a lot in order to get a good picture of what we wanted to do. Using React definitely created a lot of early confusion with class/functional components and how they connected with states & props. Another challenge was dealing with our local MySQL database and using the correct queries that involved our API calls and the database itself. In the trending page, the early issue was deciding on a react chart (npm package) to display the data, and we had to go through 2 different ones (Canvas.js/chart and react-charts) before we decided on **Recharts**. Once this was decided, the main issue was actually displaying that data because it needed to be in a specific object format, so the information received from the API call had to be essentially converted into the chart format. A last minute issue was about React-Bootstrap and deploying it to Heroku, and it was regarding the replacement of href tags as Links from 'react-router-dom' and passing the to prop as well. 
 
-* Deciding on a react chart (npm package) -> canvas.js/chart, react-charts, recharts
+* The members in the team learned a lot of different things, but it varies to each person in regards to what they worked on, what they learned and how they were able to solve each problem (either through trial & error, online resources, class videos, or help from each other and form the TAs/Instructor).
 
-* Trending -> Displaying the data from the API call as a chart (specific format)
-
-* Using href from React bootstrap was a bit challenge. After deploying to heroku it doesn’t work. We have to replace href with link tags.
-
+* We were all able to solve each problem through continuous effort, good communication, everyday meetings, patience, time management, online resources, and help from the TAs/Instructor!
 
 ## Screenshot(s)
 
-* Stock Tutorial - Overall Function
+* Stock Tutorial - Home Page:
+![Stock Tutorial - Home Page:](https://puu.sh/FJOXn/10b37c3c6d.jpg)
 
-https://drive.google.com/file/d/1gSF0x20o8OD28vo_TvjA4e6tCoFlnCY1/view
+* Stock Tutorial - Trending Page (67% Zoomed Out):
+![Stock Tutorial - Trending Page (67% Zoomed Out):](https://puu.sh/FJOYl/57ab0db046.png)
 
-![image](models/images/stockTutorial.gif)
+* Stock Tutorial - Dashboard Page:
+![Stock Tutorial - Dashboard Page:](https://puu.sh/FJP46/55c9964afe.png)
+
+* Stock Tutorial - Sign-Up Page:
+![Stock Tutorial - Sign-Up Page:](https://puu.sh/FJP2D/e139f0790a.png)
+
+
