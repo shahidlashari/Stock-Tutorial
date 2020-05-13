@@ -11,7 +11,7 @@ const ReactNavbar = () => {
   return (
     <Navbar bg="light" expand="lg">
 
-      <Navbar.Brand href="/home">
+      <Navbar.Brand as={Link} to="/">
         <Image src={LogoImg} width="100" height="50" className="d-inline-block align-top logo" alt="Stock Tutorial Logo" rounded />
         <h3 className="logo-text">Stock Tutorial</h3>
       </Navbar.Brand>
