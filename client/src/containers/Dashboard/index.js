@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import { Button, Container, Row, Col, Form, Card, FormControl } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import Wrapper from '../../components/Wrapper';
-import DashboardStockList from '../DashboardStockList';
-import DashboardWatchList from '../../components/DashboardWatchList';
+import DashboardCardUser from '../../components/DashboardCardUser';
+import DashboardCardSearch from '../../components/DashboardCardSearch';
+import DashboardRenderStockList from '../DashboardRenderStockList';
+import DashboardRenderWatchList from '../../components/DashboardRenderWatchList';
 import './style.css';
 
 class Dashboard extends Component {
@@ -101,20 +103,13 @@ class Dashboard extends Component {
     }
   }
 
-  // Log Out Button
-  // Clears local storage and then sends the user to the Home page
-  handleLogOutSubmit() {
-    localStorage.clear('currentStockBroker');
-    this.props.history.push('/');
-  }
-
-  // Renders DashboardStockList JSX component if there is data in the stocks array
+  // Renders DashboardRenderStockList JSX component if there is data in the stocks array
   renderStockListItems = () => {
     if (this.state.stocks.length === 0) {
       return <h4>No Stock yet</h4>;
     } else {
       return this.state.stocks.map((stock) => {
-        return <DashboardStockList
+        return <DashboardRenderStockList
           key={stock['1. symbol']}
           symbol={stock['1. symbol']}
           name={stock['2. name']}
@@ -126,13 +121,13 @@ class Dashboard extends Component {
     }
   }
 
-  // Renders DashboardWatchList JSX component if there is data in the savedStock array
+  // Renders DashboardRenderWatchList JSX component if there is data in the savedStock array
   renderWatchListItems = () => {
     if (this.state.savedStock.length === 0) {
       return <h4>No Stock(s) in Watchlist yet</h4>;
     } else {
       return this.state.savedStock.map((stock) => {
-        return <DashboardWatchList
+        return <DashboardRenderWatchList
           key={stock['symbol']}
           symbol={stock['symbol']}
           price={stock['price']}
@@ -165,59 +160,23 @@ class Dashboard extends Component {
           <Container>
             <Row>
               <Col md={4}>
-                <Card bg="light" border="dark" className="dashboard-user-card">
-                  <Card.Body>
-                    <Card.Title>User Information </Card.Title>
-                    <Card.Text>
-                      ID: {this.state.currentUser.id}
-                      <br />
-                      Username: {this.state.currentUser.username}
-                      <br />
-                      Email: {this.state.currentUser.email}
-                      <br />
-                      <Button variant="outline-info" onClick={(e) => this.handleLogOutSubmit(e)} className="dashboard-logout-button">Log Out</Button>
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-
-                <Card bg="light" border="dark" className="dashboard-budget-card">
-                  <Card.Body>
-                    <Card.Title>User's Initial Budget:</Card.Title>
-                    <Card.Title className="dashboard-budget-value">${this.state.currentUser.initial_budget}</Card.Title>
-                    <Card.Title>User's Balance: </Card.Title>
-                    <Card.Title className="dashboard-balance-value">${this.state.balance}</Card.Title>
-                  </Card.Body>
-                </Card>
-
-                <Card bg="light" border="dark" className="dashboard-watchlist-card">
-                  <Card.Body>
-                    <Card.Title>Stock Watchlist</Card.Title>
-                    <Card.Text key="savedStocks">
-                      {this.renderWatchListItems()}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
+                <DashboardCardUser
+                  id={this.state.currentUser.id}
+                  username={this.state.currentUser.username}
+                  email={this.state.currentUser.email}
+                  initial_budget={this.state.currentUser.initial_budget}
+                  balance={this.state.balance}
+                  renderWatchListItems={this.renderWatchListItems}
+                />
               </Col>
-              <br />
+
               <Col md={8}>
-                <Card border="dark">
-                  <Card.Body>
-                    <Card.Title>Stock Search</Card.Title>
-                    <Form inline>
-                      <FormControl
-                        type="text"
-                        placeholder="Search"
-                        className="mr-sm-2"
-                        value={this.state.stockInput}
-                        onChange={this.handleStockInputChange}
-                      />
-                      <Button variant="outline-info" onClick={(e) => this.handleStockSearchSubmit(e)}>Search</Button>
-                    </Form>
-                    <br />
-                    <h3>Stock List</h3>
-                    {this.renderStockListItems()}
-                  </Card.Body>
-                </Card>
+                <DashboardCardSearch
+                  stockInput={this.state.stockInput}
+                  handleStockInputChange={this.handleStockInputChange}
+                  handleStockSearchSubmit={this.handleStockSearchSubmit}
+                  renderStockListItems={this.renderStockListItems}
+                />
               </Col>
             </Row>
           </Container>

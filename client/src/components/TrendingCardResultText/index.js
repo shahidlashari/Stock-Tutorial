@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import TrendingResultTextCurrency from '../../containers/TrendingResultTextCurrency';
-import TrendingResultTextCryptorating from '../../containers/TrendingResultTextCrytorating';
+import TrendingResultTextCryptorating from '../../containers/TrendingResultTextCryptorating';
 
 const TrendingCardResultText = (props) => {
   return (

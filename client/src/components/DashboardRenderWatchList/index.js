@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import './style.css';
 
-const DashboardWatchList = (props) => {
+const DashboardRenderWatchList = (props) => {
   return (
     <div className="dashboard-stock-display">
       <div className="dashboard-stock-content">
@@ -38,4 +38,4 @@ const DashboardWatchList = (props) => {
   );
 };
 
-export default DashboardWatchList;
+export default DashboardRenderWatchList;

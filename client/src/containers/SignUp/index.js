@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import { Container, Form, Button, Card } from 'react-bootstrap';
-import SignUpErrorU from '../../components/SignUpErrorU';
-import SignUpErrorUandP from '../../components/SignUpErrorUandP';
-import SignUpErrorUandE from '../../components/SignUpErrorUandE';
-import SignUpErrorE from '../../components/SignUpErrorE';
-import SignUpErrorEandP from '../../components/SignUpErrorEandP';
-import SignUpErrorP from '../../components/SignUpErrorP';
-import SignUpErrorUandEandP from '../../components/SignUpErrorUandEandP';
+import { Container, Card } from 'react-bootstrap';
+import SignUpForm from '../../components/SignUpForm';
 import './style.css';
 
 class SignUp extends Component {
@@ -99,62 +93,21 @@ class SignUp extends Component {
           <Card.Body>
             <Card.Title className="signup-card-title">Create an account to access the dashboard page!</Card.Title>
 
-            <Form>
-              <Form.Group controlId="formBasicUsername">
-                {this.state.isErrorU ? <SignUpErrorU /> : null }
-                {this.state.isErrorUandP ? <SignUpErrorUandP /> : null }
-                {this.state.isErrorUandE ? <SignUpErrorUandE /> : null }
-                {this.state.isErrorE ? <SignUpErrorE /> : null }
-                {this.state.isErrorEandP ? <SignUpErrorEandP /> : null }
-                {this.state.isErrorP ? <SignUpErrorP /> : null }
-                {this.state.isErrorUandEandP ? <SignUpErrorUandEandP /> : null }
-                <Form.Label className="signup-username-label">Username</Form.Label>
-                <Form.Control
-                  name="username"
-                  type="text"
-                  autoComplete="off"
-                  placeholder="Enter username"
-                  value={this.state.username}
-                  onChange={this.handleInputChange}
-                />
-              </Form.Group>
+            <SignUpForm
+              username={this.state.username}
+              password={this.state.password}
+              email={this.state.email}
+              handleInputChange={this.handleInputChange}
+              handleFormSubmit={this.handleFormSubmit}
+              isErrorU={this.state.isErrorU}
+              isErrorUandP={this.state.isErrorUandP}
+              isErrorUandE={this.state.isErrorUandE}
+              isErrorE={this.state.isErrorE}
+              isErrorEandP={this.state.isErrorEandP}
+              isErrorP={this.state.isErrorP}
+              isErrorUandEandP={this.state.isErrorUandEandP}
+            />
 
-              <Form.Group controlId="formBasicPassword">
-                <Form.Label className="signup-password-label">Password</Form.Label>
-                <Form.Control
-                  name="password"
-                  type="password"
-                  placeholder="Enter password"
-                  value={this.state.password}
-                  onChange={this.handleInputChange}
-                />
-                <Form.Text className="text-muted">Password must be 6-16 characters, and must contain at least one number and one special character!</Form.Text>
-              </Form.Group>
-
-              <Form.Group controlId="formBasicEmail">
-                <Form.Label className="signup-email-label">Email address</Form.Label>
-                <Form.Control
-                  name="email"
-                  type="email"
-                  placeholder="Enter email"
-                  value={this.state.email}
-                  onChange={this.handleInputChange}
-                />
-                <Form.Text className="text-muted">We'll never share your email with anyone else.</Form.Text>
-              </Form.Group>
-            </Form>
-
-            <div className="text-center">
-              <Button
-                variant="primary"
-                type="submit"
-                size="lg"
-                onClick={(event) => this.handleFormSubmit(event)}
-                className="signup-submit-button"
-              >
-                Submit
-              </Button>
-            </div>
           </Card.Body>
         </Card>
       </Container>
