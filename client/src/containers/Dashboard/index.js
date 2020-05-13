@@ -103,14 +103,6 @@ class Dashboard extends Component {
     }
   }
 
-  // Renders DashboardRenderStockList JSX component if there is data in the stocks array
-  // Log Out Button
-  // Clears local storage and then redirects the user to the Home page
-  handleLogOutSubmit() {
-    localStorage.clear('currentStockBroker');
-    this.props.history.push('/');
-  }
-
   // Renders DashboardStockList JSX component if there is data in the stocks array
   renderStockListItems = () => {
     if (this.state.stocks.length === 0) {
