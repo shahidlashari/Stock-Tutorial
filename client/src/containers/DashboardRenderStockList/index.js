@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import './style.css';
 
-class DashboardStockList extends Component {
+class DashboardRenderStockList extends Component {
   state = {
     priceStock: [],
     isStock: false,
@@ -78,4 +78,4 @@ class DashboardStockList extends Component {
   }
 }
 
-export default DashboardStockList;
+export default DashboardRenderStockList;
