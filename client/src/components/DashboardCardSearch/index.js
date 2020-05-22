@@ -16,6 +16,7 @@ const DashboardCardSearch = (props) => {
           />
           <Button
             variant="outline-info"
+            type="submit"
             onClick={(e) => props.handleStockSearchSubmit(e)}
           >
             Search
